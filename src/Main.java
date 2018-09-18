@@ -1,6 +1,6 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
     public static int fil = 0;
@@ -35,23 +35,16 @@ public class Main {
     public static void main(String Args[]) throws IOException {
 
         matriz m = new matriz("dat");
-
-        String cadena;
-        FileReader f = new FileReader("Entrada");
-        BufferedReader b = new BufferedReader(f);
-
-        int caract = f.read();
-
-        while(caract != -1) {
-
-            estadoFinal=convert((char)caract);
-            System.out.println("Fila : "+estadoIncial+"Columna : "+estadoFinal);
-            m.getAccionSemantica(estadoIncial,estadoFinal).ejecutar();
-            //System.out.print(convert((char)caract));
-            estadoIncial=m.getAccionSemantica(estadoIncial,estadoFinal).getCodigo();
-            caract = f.read();
-
+        Scanner input = new Scanner(new File("Entrada"));
+        while((input.hasNextLine())) {
+            String line = input.nextLine();
+            for (int n = 0; n < line.length(); n++) {
+                char c = line.charAt(n);
+                estadoFinal = convert(c);
+                m.getAccionSemantica(estadoIncial, estadoFinal).ejecutar();
+                estadoIncial = m.getAccionSemantica(estadoIncial, estadoFinal).getCodigo();
+            }
         }
-        b.close();
+        input.close();
     }
 }

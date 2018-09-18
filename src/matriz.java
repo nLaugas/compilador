@@ -33,7 +33,7 @@ public class matriz {
                         in = new AcNext(4);
                         break;
                     case "f" :
-                        in = new AcFinal(100); //Estado final constante = 100
+                        in = new AcFinal(0); //Estado final constante = 100
                         break;
                     default:
                         in = new AcNoSignificativo(777);
@@ -47,6 +47,7 @@ public class matriz {
             col=0;
         }
         b.close();
+        this.imprimir();
     }
 
     public AcSemantica getAccionSemantica(int fil, int col){
