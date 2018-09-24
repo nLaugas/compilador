@@ -5,23 +5,11 @@ public class SymbolTable {
     private int value;
 
 
-    public SymbolTable(String type){
-        this.type = type;
-        code = 1;
+    public SymbolTable(){
+
     }
 
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getCode(){
-        return this.code;
-    }
 
 
 

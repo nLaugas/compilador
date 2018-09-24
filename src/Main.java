@@ -1,3 +1,4 @@
+import AnalizadorLexico.LexicalAnalyzer;
 import SymbolTable.SymbolTable;
 
 import java.io.BufferedReader;
@@ -10,8 +11,14 @@ public class Main {
     public static void main(String Args[]) throws IOException {
         FileReader file = new FileReader("src/srcCode");
         BufferedReader src= new BufferedReader(file);
-        String archivo = "";
-        String line;
+        String archivo = src.readLine()+"\n";
+        archivo += src.readLine();
+        SymbolTable st = new SymbolTable();
+        LexicalAnalyzer la = new LexicalAnalyzer(archivo,st);
+        la.getNextToken();
+        la.getNextToken();
+        la.getNextToken();
+        //System.out.print(a);
 
 
     }
