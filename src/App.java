@@ -35,20 +35,19 @@ public class App extends JFrame{
     private JEditorPane editorPane1;
     private JFileChooser file = new JFileChooser();
     private JPanel a;
-    String archivo;
+    String archivo="";
+    
     public App()  throws IOException {
         FileReader file = new FileReader("src/srcCode");
         BufferedReader src= new BufferedReader(file);
-        archivo = src.readLine()+"\n";
-        archivo += src.readLine();
+        String cadena;
+        while ((cadena = src.readLine()) != null)
+          archivo += cadena+"\n";
+
         SymbolTable st = new SymbolTable();
         LexicalAnalyzer lexical = new LexicalAnalyzer(archivo,st);
-
-
         add(panel1);
-
         setSize(400,500);
-
 
         compilarButton.addActionListener(new ActionListener() {
             @Override
