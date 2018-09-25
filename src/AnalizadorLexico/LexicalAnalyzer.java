@@ -19,7 +19,7 @@ public class LexicalAnalyzer {
     public String buffer;
     public int state;
     public int index;
-
+    public String token;
     private void create(){
         StateMachine.addTransition(0, '_',3,new  Next(this));
         StateMachine.addTransition(0, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
@@ -70,7 +70,7 @@ public class LexicalAnalyzer {
 
     }
 
-    public Token getNextToken(){
+    public String  getNextToken(){
         state = StateMachine.INITIAL_STATE;
         Character symbol;
         while (state != StateMachine.FINAL_STATE){
@@ -86,7 +86,7 @@ public class LexicalAnalyzer {
         }
 
 
-        return null;
+        return token;
     }
 
 
