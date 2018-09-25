@@ -40,9 +40,6 @@ public final class StateMachine {
     }
 
     public static SemanticAction getSemanticAction(Integer state, Character symbol){
-        if ((transitionMatrix.get(state)).get(symbol).getSemanticActions() == null)
-                System.out.print("null");
-        System.out.println("Est:  "+state+"Simb  : "+symbol);
         return  (transitionMatrix.get(state)).get(symbol).getSemanticActions();
     }
 

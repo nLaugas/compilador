@@ -70,14 +70,27 @@ public class LexicalAnalyzer {
 
     }
 
+    private Character convert(Character c){
+
+        int asciiChar = (int )c;
+
+        if ((asciiChar>=65 && asciiChar<=90)||(asciiChar>=97 && asciiChar<=104)||(asciiChar>=106 && asciiChar<=122)){
+            //{universo de letras minusculas y mayusculas} - {i}
+            return 'a';
+        }
+        if (asciiChar>= 48 && asciiChar<=57){
+            //numero de 0-9
+            return '1';
+        }
+
+        return c;
+    }
+
     public String  getNextToken(){
         state = StateMachine.INITIAL_STATE;
         Character symbol;
         while (state != StateMachine.FINAL_STATE){
-            symbol = srcCode.charAt(index);
-            System.out.print("simbolo: "+symbol);
-            System.out.print("indice: "+index);
-            System.out.print("stado: "+state);
+            symbol = convert(srcCode.charAt(index));
             StateMachine.getSemanticAction(state,symbol).Action();
             state = StateMachine.getNextState(state,symbol);
 

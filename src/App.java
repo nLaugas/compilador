@@ -20,9 +20,6 @@ import java.io.FileReader;
 import java.io.IOException;
 
 
-
-
-
 public class App extends JFrame{
     private JTabbedPane tabbedPane1;
     private JButton compilarButton;
