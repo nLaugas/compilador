@@ -36,7 +36,7 @@ public class App extends JFrame{
     private JFileChooser file = new JFileChooser();
     private JPanel a;
     String archivo="";
-    
+
     public App()  throws IOException {
         FileReader file = new FileReader("src/srcCode");
         BufferedReader src= new BufferedReader(file);
@@ -56,6 +56,7 @@ public class App extends JFrame{
             }
         });
 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         tokenButton.addActionListener(new ActionListener() {
             @Override
