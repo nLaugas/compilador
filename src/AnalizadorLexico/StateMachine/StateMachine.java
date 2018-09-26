@@ -10,6 +10,23 @@ public final class StateMachine {
     public static final int INITIAL_STATE = 0;
     private static Hashtable<Integer, Hashtable<Character, Pair>> transitionMatrix= new Hashtable<>();
 
+    private static Character convert(Character c){
+        //este metodo mapea cualquier letra a una 'a'
+        //y cualquier numero a '1'
+        //para tener la matriz de transicion con menos columnas
+        int asciiChar = (int )c;
+
+        if ((asciiChar>=65 && asciiChar<=90)||(asciiChar>=97 && asciiChar<=101)||(asciiChar>=103 && asciiChar<=104)||(asciiChar>=106 && asciiChar<=122)){
+            //{universo de letras minusculas y mayusculas} - {i}
+            return 'a';
+        }
+        if (asciiChar>= 48 && asciiChar<=57){
+            //numero de 0-9
+            return '1';
+        }
+
+        return c;
+    }
 
     public static void addTransition(Integer state, Character symbol, Integer nextState, SemanticAction semanticAction){
         Pair pair = new Pair(nextState, semanticAction);
@@ -20,18 +37,6 @@ public final class StateMachine {
             transitionMatrix.put(state,new Hashtable<>());
             transitionMatrix.get(state).put(symbol,pair);
         }
- /*
-        if (transitionMatrix.get(state) == null) {
-            Hashtable<Character, Pair> aux = new Hashtable<>();
-            Pair pair = new Pair(nextState, semanticAction);
-            aux.put(symbol, pair);
-            transitionMatrix.put(state, aux);
-        }else{
-            Pair pair = new Pair(nextState, semanticAction);
-            transitionMatrix.get(state).put(symbol,pair);
-        }
-
-*/
 
     }
 
@@ -40,11 +45,11 @@ public final class StateMachine {
     }
 
     public static SemanticAction getSemanticAction(Integer state, Character symbol){
-        return  (transitionMatrix.get(state)).get(symbol).getSemanticActions();
+        return  (transitionMatrix.get(state)).get(convert(symbol)).getSemanticActions();
     }
 
     public static Integer getNextState(Integer state, Character symbol){
-        return  (transitionMatrix.get(state)).get(symbol).getState();
+        return  (transitionMatrix.get(state)).get(convert(symbol)).getState();
     }
 
 }
