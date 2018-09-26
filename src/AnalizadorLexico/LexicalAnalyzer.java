@@ -231,6 +231,9 @@ public class LexicalAnalyzer {
         state = StateMachine.INITIAL_STATE;
         Character symbol;
         while (state != StateMachine.FINAL_STATE){
+            if (index >=srcCode.length()){
+                return null;
+            }
             symbol = srcCode.charAt(index);
             StateMachine.getSemanticAction(state,symbol).Action();
             state = StateMachine.getNextState(state,symbol);
