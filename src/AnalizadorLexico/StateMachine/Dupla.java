@@ -2,11 +2,11 @@ package AnalizadorLexico.StateMachine;
 
 import AnalizadorLexico.SemanticAction.SemanticAction;
 
-public class Pair {
+public class Dupla {
     private Integer state;
     private SemanticAction semanticActions;
 
-    public Pair(Integer state, SemanticAction semanticActions) {
+    public Dupla(Integer state, SemanticAction semanticActions) {
         this.state = state;
         this.semanticActions = semanticActions;
     }
