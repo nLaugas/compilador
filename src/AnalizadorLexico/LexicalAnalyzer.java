@@ -8,18 +8,24 @@ import java.util.Scanner;
 
 import AnalizadorLexico.SemanticAction.*;
 import AnalizadorLexico.StateMachine.StateMachine;
+import Errors.*;
 import SymbolTable.*;
 
 public class LexicalAnalyzer {
 
+
+    public final int MAX_WORD_SIZE = 25;
+
+
     public String srcCode;
-    public int row;
+    public int row; //controla cada \n del string
     public int column;
     public SymbolTable symbolTable;
     public String buffer;
     public int state;
-    public int index;
+    public int index; //cursor para seguir el string que viene de forma lineal _a = 6; \n if..
     public String token;
+    public Errors errors;
 
     private void create(){
 
@@ -206,7 +212,7 @@ public class LexicalAnalyzer {
         StateMachine.addTransition(14, '+',14,new Next(this));
 
     }
-    public LexicalAnalyzer(String srcCode, SymbolTable symbolTable) throws FileNotFoundException, IOException {
+    public LexicalAnalyzer(String srcCode, SymbolTable symbolTable, Errors errors) throws FileNotFoundException, IOException {
         this.symbolTable = symbolTable;
         row = 1;
         column = 1;
@@ -214,6 +220,7 @@ public class LexicalAnalyzer {
         index = 0;
         buffer = "";
         this.srcCode = srcCode;
+        this.errors = errors;
         create();
 
     }
@@ -235,6 +242,5 @@ public class LexicalAnalyzer {
 
         return token;
     }
-
 
 }
