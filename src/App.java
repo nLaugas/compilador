@@ -4,6 +4,7 @@ import javax.swing.event.UndoableEditListener;
 import javax.swing.text.*;
 
 import AnalizadorLexico.LexicalAnalyzer;
+import Errors.Errors;
 import SymbolTable.SymbolTable;
 import SymbolTable.SymbolTable;
 
@@ -33,6 +34,7 @@ public class App extends JFrame{
     private JFileChooser file = new JFileChooser();
     private JPanel a;
     String archivo="";
+    private Errors errors;
 
     public App()  throws IOException {
         FileReader file = new FileReader("src/srcCode");
@@ -41,8 +43,9 @@ public class App extends JFrame{
         while ((cadena = src.readLine()) != null)
           archivo += cadena+"\n";
 
+        errors = new Errors();
         SymbolTable st = new SymbolTable();
-        LexicalAnalyzer lexical = new LexicalAnalyzer(archivo,st);
+        LexicalAnalyzer lexical = new LexicalAnalyzer(archivo,st,errors);
         add(panel1);
         setSize(400,500);
 
