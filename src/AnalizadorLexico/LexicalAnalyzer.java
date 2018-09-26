@@ -219,7 +219,7 @@ public class LexicalAnalyzer {
 
         int asciiChar = (int )c;
 
-        if ((asciiChar>=65 && asciiChar<=90)||(asciiChar>=97 && asciiChar<=104)||(asciiChar>=106 && asciiChar<=122)){
+        if ((asciiChar>=65 && asciiChar<=90)||(asciiChar>=97 && asciiChar<=101)||(asciiChar>=103 && asciiChar<=104)||(asciiChar>=106 && asciiChar<=122)){
             //{universo de letras minusculas y mayusculas} - {i}
             return 'a';
         }
