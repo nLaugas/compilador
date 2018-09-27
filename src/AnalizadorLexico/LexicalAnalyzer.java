@@ -165,7 +165,7 @@ public class LexicalAnalyzer {
 
         StateMachine.addTransition(11, '_',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
         StateMachine.addTransition(11, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(11, '1',1,new Next(this));
+        StateMachine.addTransition(11, '1',16,new Next(this));
         StateMachine.addTransition(11, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
         StateMachine.addTransition(11, ' ',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
         StateMachine.addTransition(11, '\n',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
@@ -222,6 +222,18 @@ public class LexicalAnalyzer {
         StateMachine.addTransition(15, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
         StateMachine.addTransition(15, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
         StateMachine.addTransition(15, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+
+        StateMachine.addTransition(16, '_',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(16, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(16, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(16, '1',16,new Next(this));
+        StateMachine.addTransition(16, ' ',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(16, '\n',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(16, '.',16,new Next(this));
+        StateMachine.addTransition(16, 'f',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(16, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(16, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(16, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
     }
     public LexicalAnalyzer(String srcCode, SymbolTable symbolTable, Errors errors) throws FileNotFoundException, IOException {
         this.symbolTable = symbolTable;
