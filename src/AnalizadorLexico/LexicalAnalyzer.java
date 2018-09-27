@@ -31,13 +31,13 @@ public class LexicalAnalyzer {
 
         //
         StateMachine.addTransition(0, '_',3,new  Next(this));
-        StateMachine.addTransition(0, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(0, 'a',15,new  Next(this));
         StateMachine.addTransition(0, '1',1,new  Next(this));
-        StateMachine.addTransition(0, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(0, 'i',15,new  Next(this));
         StateMachine.addTransition(0, ' ',0,new NextSpaceCase(this));
         StateMachine.addTransition(0, '\n',0,new NextLineCase(this));
         StateMachine.addTransition(0,'.' ,10,new  Next(this));
-        StateMachine.addTransition(0, 'f',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(0, 'f',15,new  Next(this));
         StateMachine.addTransition(0,'*',14,new  Next(this));
         StateMachine.addTransition(0,'-',11,new  Next(this));
         StateMachine.addTransition(0, '+',11,new  Next(this));
@@ -211,6 +211,17 @@ public class LexicalAnalyzer {
         StateMachine.addTransition(14, '-',14,new Next(this));
         StateMachine.addTransition(14, '+',14,new Next(this));
 
+        StateMachine.addTransition(15, '_',15,new Next(this));
+        StateMachine.addTransition(15, 'a',15,new Next(this));
+        StateMachine.addTransition(15, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(15, '1',15,new Next(this));
+        StateMachine.addTransition(15, ' ',StateMachine.FINAL_STATE,new TokenEnd(this));
+        StateMachine.addTransition(15, '\n',StateMachine.FINAL_STATE,new TokenEnd(this));
+        StateMachine.addTransition(15, '.',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(15, 'f',15,new Next(this));
+        StateMachine.addTransition(15, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(15, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(15, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
     }
     public LexicalAnalyzer(String srcCode, SymbolTable symbolTable, Errors errors) throws FileNotFoundException, IOException {
         this.symbolTable = symbolTable;
