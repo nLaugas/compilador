@@ -1,16 +1,16 @@
 package AnalizadorLexico.SemanticAction;
 
 import AnalizadorLexico.LexicalAnalyzer;
-import SymbolTable.SymbolTable;
+import AnalizadorSintactico.*;
 
 public abstract class SemanticAction {
-    protected LexicalAnalyzer lexicalAnalyzer;
-
+    protected LexicalAnalyzer lexical;
+    protected static String buffer;
     public SemanticAction(LexicalAnalyzer lexicalAnalyzer) {
-            this.lexicalAnalyzer = lexicalAnalyzer;
+            this.lexical = lexicalAnalyzer;
     }
 
-    public abstract void Action();
+    public abstract void Action(Character symbol);
 
 
 }

@@ -18,8 +18,8 @@ public class Errors {
 
     private Queue<Terna> errors;
     private Terna terna;
-    public final String ERROR_MAX_WORD_SIZE = "supera el maximo permitido";
-
+    public final static String ERROR_MAX_WORD_SIZE = "supera el maximo permitido";
+    public final static String ERROR_FAIL_CHARACTER= "lexema no valido";
     public Errors(){
         errors = new LinkedList<>();
     }

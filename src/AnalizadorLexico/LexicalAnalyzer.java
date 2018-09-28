@@ -1,10 +1,7 @@
 package AnalizadorLexico;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Scanner;
 
 import AnalizadorLexico.SemanticAction.*;
 import AnalizadorLexico.StateMachine.StateMachine;
@@ -24,216 +21,376 @@ public class LexicalAnalyzer {
     public String buffer;
     public int state;
     public int index; //cursor para seguir el string que viene de forma lineal _a = 6; \n if..
-    public String token;
+    public int tokenId;
     public Errors errors;
 
     private void create(){
 
         //
-        StateMachine.addTransition(0, '_',3,new  Next(this));
-        StateMachine.addTransition(0, 'a',15,new  Next(this));
-        StateMachine.addTransition(0, '1',1,new  Next(this));
-        StateMachine.addTransition(0, 'i',15,new  Next(this));
-        StateMachine.addTransition(0, ' ',0,new NextSpaceCase(this));
-        StateMachine.addTransition(0, '\n',0,new NextLineCase(this));
-        StateMachine.addTransition(0,'.' ,10,new  Next(this));
-        StateMachine.addTransition(0, 'f',15,new  Next(this));
-        StateMachine.addTransition(0,'*',14,new  Next(this));
-        StateMachine.addTransition(0,'-',11,new  Next(this));
-        StateMachine.addTransition(0, '+',11,new  Next(this));
-
-        StateMachine.addTransition(1, '_',2,new  Next(this));
-        StateMachine.addTransition(1, '1',1,new  Next(this));
-        StateMachine.addTransition(1, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(1, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(1, ' ',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(1, '\n',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(1,'.' ,5,new  Next(this));
-        StateMachine.addTransition(1, 'f',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(1, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(1, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(1, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-
-        StateMachine.addTransition(2, '_',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(2, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(2, '1',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(2, 'i',StateMachine.FINAL_STATE,new TokenEnd(this));
-        StateMachine.addTransition(2, ' ',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(2, '\n',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(2,'.' ,StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(2, 'f',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(2, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(2, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(2, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        SemanticAction tokenAscii = new AS_TokenAscii(this);
+        SemanticAction asignacion_Comparacion = new AS_Asignacion_Comparacion(this);
+        SemanticAction comp_error = new AS_Comparador_Error(this);
+        SemanticAction next = new AS_Next(this);//avanza y guarda en el buffer
+        SemanticAction saltoLinea = new AS_NextLine(this);//solo avanza fila
+        SemanticAction espacio = new AS_NextSpace(this);//solo avanza columna
+        SemanticAction comentario = new AS_Vaciar_Buffer(this);
 
 
-        StateMachine.addTransition(3, '_',12,new Next(this));
-        StateMachine.addTransition(3, 'a',4,new Next(this));
-        StateMachine.addTransition(3, '1',4,new Next(this));
-        StateMachine.addTransition(3, 'i',4,new Next(this));
-        StateMachine.addTransition(3, ' ',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(3, '\n',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(3,'.' ,StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(3, 'f',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(3, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(3, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(3, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(0, '_',1,new AS_Next(this));
+        StateMachine.addTransition(0, 'a',9,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(0, '1',2,new AS_Next(this));
+        StateMachine.addTransition(0, 'i',9,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(0, ' ',0,espacio);
+        StateMachine.addTransition(0, '\n',0,saltoLinea);
+        StateMachine.addTransition(0, '.',4,new AS_Next(this));
+        StateMachine.addTransition(0, 'F',9,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(0, '*',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(0, '-',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(0, '+',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(0, '&',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(0, '=',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(0, ')',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(0, '/',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(0, '{',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(0, '}',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(0, ',',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(0, ';',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(0, '(',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(0, ':',10,tokenAscii);
+        StateMachine.addTransition(0, '<',10,tokenAscii);
+        StateMachine.addTransition(0, '>',10,tokenAscii);
+        StateMachine.addTransition(0, '!',10,tokenAscii);
+        StateMachine.addTransition(0, '\'',12,tokenAscii);
 
-        StateMachine.addTransition(4, '_',4,new Next(this));
-        StateMachine.addTransition(4, 'a',4,new Next(this));
-        StateMachine.addTransition(4, '1',4,new Next(this));
-        StateMachine.addTransition(4, 'i',4,new Next(this));
-        StateMachine.addTransition(4, ' ',StateMachine.FINAL_STATE,new TokenEnd(this));
-        StateMachine.addTransition(4, '\n',StateMachine.FINAL_STATE,new TokenEnd(this));
-        StateMachine.addTransition(4,'.' ,StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(4, 'f',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(4, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(4, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(4, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
 
-        StateMachine.addTransition(5, '_',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(5, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(5, '1',6,new Next(this));
-        StateMachine.addTransition(5, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(5, ' ',StateMachine.FINAL_STATE,new TokenEnd(this));
-        StateMachine.addTransition(5, '\n',StateMachine.FINAL_STATE,new TokenEnd(this));
-        StateMachine.addTransition(5,'.' ,StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(5, 'f',7,new Next(this));
-        StateMachine.addTransition(5, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(5, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(5, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        //13 es el estado para no conocer _ solo, este obliga a tener un d/l
 
-        StateMachine.addTransition(6, '_',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(6, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(6, '1',6,new Next(this));
-        StateMachine.addTransition(6, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(6, ' ',StateMachine.FINAL_STATE,new TokenEnd(this));
-        StateMachine.addTransition(6, '\n',StateMachine.FINAL_STATE,new TokenEnd(this));
-        StateMachine.addTransition(6,'.' ,StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(6, 'f',7,new Next(this));
-        StateMachine.addTransition(6, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(6, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(6, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(1, '_',11,comentario);
+        StateMachine.addTransition(1, 'a',13,next);
+        StateMachine.addTransition(1, '1',13,new AS_Next(this));
+        StateMachine.addTransition(1, 'i',13,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(1, ' ',StateMachine.ERROR_STATE,espacio);
+        StateMachine.addTransition(1, '\n',StateMachine.ERROR_STATE,new AS_NextLine(this));
+        StateMachine.addTransition(1, '.',StateMachine.ERROR_STATE,new AS_Next(this));
+        StateMachine.addTransition(1, 'F',13,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(1, '*',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, '-',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, '+',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, '&',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, '=',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, ')',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, '/',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, '{',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, '}',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, ',',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, ';',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, '(',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, ':',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, '<',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, '>',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, '!',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(1, '\'',StateMachine.ERROR_STATE,tokenAscii);
 
-        StateMachine.addTransition(7, '_',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(7, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(7, '1',9,new Next(this));
-        StateMachine.addTransition(7, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(7, ' ',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(7, '\n',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(7,'.' ,StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(7, 'f',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(7, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(7, '-',8,new Next(this));
-        StateMachine.addTransition(7, '+',8,new Next(this));
 
-        StateMachine.addTransition(8, '_',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(8, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(8, '1',9,new Next(this));
-        StateMachine.addTransition(8, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(8, ' ',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(8, '\n',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(8,'.' ,StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(8, 'f',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(8, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(8, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(8, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(2, '_',3,new AS_Next(this));
+        StateMachine.addTransition(2, 'a',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(2, '1',2,new AS_Next(this));
+        StateMachine.addTransition(2, 'i',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(2, ' ',StateMachine.ERROR_STATE,espacio);
+        StateMachine.addTransition(2, '\n',StateMachine.ERROR_STATE,new AS_NextLine(this));
+        StateMachine.addTransition(2, '.',5,new AS_Next(this));
+        StateMachine.addTransition(2, 'F',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(2, '*',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, '-',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, '+',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, '&',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, '=',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, ')',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, '/',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, '{',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, '}',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, ',',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, ';',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, '(',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, ':',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, '<',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, '>',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, '!',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(2, '\'',StateMachine.ERROR_STATE,tokenAscii);
 
-        StateMachine.addTransition(9, '_',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(9, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(9, '1',9,new Next(this));
-        StateMachine.addTransition(9, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(9, ' ',StateMachine.FINAL_STATE,new TokenEnd(this));
-        StateMachine.addTransition(9, '\n',StateMachine.FINAL_STATE,new TokenEnd(this));
-        StateMachine.addTransition(9,'.' ,StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(9, 'f',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(9, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(9, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(9, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(3, '_',StateMachine.ERROR_STATE,new AS_Next(this));
+        StateMachine.addTransition(3, 'a',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(3, '1',StateMachine.ERROR_STATE,new AS_Next(this));
+        StateMachine.addTransition(3, 'i',StateMachine.FINAL_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(3, ' ',StateMachine.ERROR_STATE,espacio);
+        StateMachine.addTransition(3, '\n',StateMachine.ERROR_STATE,new AS_NextLine(this));
+        StateMachine.addTransition(3, '.',StateMachine.ERROR_STATE,new AS_Next(this));
+        StateMachine.addTransition(3, 'F',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(3, '*',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, '-',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, '+',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, '&',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, '=',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, ')',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, '/',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, '{',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, '}',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, ',',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, ';',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, '(',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, ':',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, '<',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, '>',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, '!',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(3, '\'',StateMachine.ERROR_STATE,tokenAscii);
 
-        StateMachine.addTransition(10, '_',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(10, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(10, '1',6,new Next(this));
-        StateMachine.addTransition(10, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(10, ' ',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(10, '\n',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(10,'.' ,StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(10, 'f',7,new Next(this));
-        StateMachine.addTransition(10, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(10, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(10, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
 
-        StateMachine.addTransition(11, '_',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(11, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(11, '1',16,new Next(this));
-        StateMachine.addTransition(11, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(11, ' ',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(11, '\n',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(11,'.' ,10,new Next(this));
-        StateMachine.addTransition(11, 'f',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(11, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(11, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(11, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(4, '_',StateMachine.ERROR_STATE,new AS_Next(this));
+        StateMachine.addTransition(4, 'a',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(4, '1',5,new AS_Next(this));
+        StateMachine.addTransition(4, 'i',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(4, ' ',StateMachine.ERROR_STATE,espacio);
+        StateMachine.addTransition(4, '\n',StateMachine.ERROR_STATE,new AS_NextLine(this));
+        StateMachine.addTransition(4, '.',StateMachine.ERROR_STATE,new AS_Next(this));
+        StateMachine.addTransition(4, 'F',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(4, '*',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, '-',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, '+',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, '&',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, '=',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, ')',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, '/',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, '{',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, '}',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, ',',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, ';',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, '(',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, ':',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, '<',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, '>',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, '!',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(4, '\'',StateMachine.ERROR_STATE,tokenAscii);
 
-        StateMachine.addTransition(12, '_',13,new Next(this));
-        StateMachine.addTransition(12, 'a',13,new Next(this));
-        StateMachine.addTransition(12, '1',13,new Next(this));
-        StateMachine.addTransition(12, 'i',13,new Next(this));
-        StateMachine.addTransition(12, ' ',13,new Next(this));
-        StateMachine.addTransition(12, '\n',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(12,'.' ,13,new Next(this));
-        StateMachine.addTransition(12, 'f',13,new Next(this));
-        StateMachine.addTransition(12, '*',13,new Next(this));
-        StateMachine.addTransition(12, '-',13,new Next(this));
-        StateMachine.addTransition(12, '+',13,new Next(this));
 
-        StateMachine.addTransition(13, '_',13,new Next(this));
-        StateMachine.addTransition(13, 'a',13,new Next(this));
-        StateMachine.addTransition(13, '1',13,new Next(this));
-        StateMachine.addTransition(13, 'i',13,new Next(this));
-        StateMachine.addTransition(13, ' ',13,new Next(this));
-        StateMachine.addTransition(13, '\n',StateMachine.FINAL_STATE,new TokenEnd(this));
-        StateMachine.addTransition(13,'.' ,13,new Next(this));
-        StateMachine.addTransition(13, 'f',13,new Next(this));
-        StateMachine.addTransition(13, '*',13,new Next(this));
-        StateMachine.addTransition(13, '-',13,new Next(this));
-        StateMachine.addTransition(13, '+',13,new Next(this));
+        StateMachine.addTransition(5, '_',StateMachine.FINAL_STATE,new AS_Next(this));
+        StateMachine.addTransition(5, 'a',StateMachine.FINAL_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(5, '1',5,new AS_Next(this));
+        StateMachine.addTransition(5, 'i',StateMachine.FINAL_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(5, ' ',StateMachine.FINAL_STATE,espacio);
+        StateMachine.addTransition(5, '\n',StateMachine.FINAL_STATE,new AS_NextLine(this));
+        StateMachine.addTransition(5, '.',StateMachine.FINAL_STATE,new AS_Next(this));
+        StateMachine.addTransition(5, 'F',6,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(5, '*',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, '-',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, '+',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, '&',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, '=',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, ')',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, '/',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, '{',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, '}',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, ',',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, ';',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, '(',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, ':',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, '<',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, '>',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, '!',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(5, '\'',StateMachine.FINAL_STATE,tokenAscii);
 
-        StateMachine.addTransition(14, '_',14,new Next(this));
-        StateMachine.addTransition(14, 'a',14,new Next(this));
-        StateMachine.addTransition(14, '1',14,new Next(this));
-        StateMachine.addTransition(14, 'i',14,new Next(this));
-        StateMachine.addTransition(14, ' ',14,new Next(this));
-        StateMachine.addTransition(14, '\n',14,new Next(this));
-        StateMachine.addTransition(14,'.' ,14,new Next(this));
-        StateMachine.addTransition(14, 'f',14,new Next(this));
-        StateMachine.addTransition(14, '*',StateMachine.FINAL_STATE,new TokenEnd(this));
-        StateMachine.addTransition(14, '-',14,new Next(this));
-        StateMachine.addTransition(14, '+',14,new Next(this));
+        StateMachine.addTransition(6, '_',StateMachine.ERROR_STATE,new AS_Next(this));
+        StateMachine.addTransition(6, 'a',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(6, '1',8,new AS_Next(this));
+        StateMachine.addTransition(6, 'i',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(6, ' ',StateMachine.ERROR_STATE,espacio);
+        StateMachine.addTransition(6, '\n',StateMachine.ERROR_STATE,new AS_NextLine(this));
+        StateMachine.addTransition(6, '.',StateMachine.ERROR_STATE,new AS_Next(this));
+        StateMachine.addTransition(6, 'F',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(6, '*',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, '-',7,tokenAscii);
+        StateMachine.addTransition(6, '+',7,tokenAscii);
+        StateMachine.addTransition(6, '&',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, '=',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, ')',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, '/',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, '{',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, '}',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, ',',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, ';',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, '(',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, ':',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, '<',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, '>',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, '!',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(6, '\'',StateMachine.ERROR_STATE,tokenAscii);
 
-        StateMachine.addTransition(15, '_',15,new Next(this));
-        StateMachine.addTransition(15, 'a',15,new Next(this));
-        StateMachine.addTransition(15, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(15, '1',15,new Next(this));
-        StateMachine.addTransition(15, ' ',StateMachine.FINAL_STATE,new TokenEnd(this));
-        StateMachine.addTransition(15, '\n',StateMachine.FINAL_STATE,new TokenEnd(this));
-        StateMachine.addTransition(15, '.',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(15, 'f',15,new Next(this));
-        StateMachine.addTransition(15, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(15, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(15, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
 
-        StateMachine.addTransition(16, '_',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(16, 'a',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(16, 'i',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(16, '1',16,new Next(this));
-        StateMachine.addTransition(16, ' ',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(16, '\n',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(16, '.',16,new Next(this));
-        StateMachine.addTransition(16, 'f',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(16, '*',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(16, '-',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
-        StateMachine.addTransition(16, '+',StateMachine.FINAL_STATE,new ErrorNotCaracter(this));
+        StateMachine.addTransition(7, '_',StateMachine.ERROR_STATE,new AS_Next(this));
+        StateMachine.addTransition(7, 'a',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(7, '1',8,new AS_Next(this));
+        StateMachine.addTransition(7, 'i',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(7, ' ',StateMachine.ERROR_STATE,espacio);
+        StateMachine.addTransition(7, '\n',StateMachine.ERROR_STATE,new AS_NextLine(this));
+        StateMachine.addTransition(7, '.',StateMachine.ERROR_STATE,new AS_Next(this));
+        StateMachine.addTransition(7, 'F',StateMachine.ERROR_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(7, '*',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, '-',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, '+',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, '&',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, '=',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, ')',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, '/',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, '{',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, '}',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, ',',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, ';',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, '(',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, ':',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, '<',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, '>',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, '!',StateMachine.ERROR_STATE,tokenAscii);
+        StateMachine.addTransition(7, '\'',StateMachine.ERROR_STATE,tokenAscii);
+
+
+        StateMachine.addTransition(8, '_',StateMachine.FINAL_STATE,new AS_Next(this));
+        StateMachine.addTransition(8, 'a',StateMachine.FINAL_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(8, '1',8,new AS_Next(this));
+        StateMachine.addTransition(8, 'i',StateMachine.FINAL_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(8, ' ',StateMachine.FINAL_STATE,espacio);
+        StateMachine.addTransition(8, '\n',StateMachine.FINAL_STATE,new AS_NextLine(this));
+        StateMachine.addTransition(8, '.',StateMachine.FINAL_STATE,new AS_Next(this));
+        StateMachine.addTransition(8, 'F',StateMachine.FINAL_STATE,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(8, '*',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, '-',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, '+',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, '&',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, '=',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, ')',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, '/',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, '{',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, '}',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, ',',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, ';',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, '(',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, ':',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, '<',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, '>',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, '!',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(8, '\'',StateMachine.FINAL_STATE,tokenAscii);
+
+
+        StateMachine.addTransition(9, '_',9,new AS_Next(this));
+        StateMachine.addTransition(9, 'a',9,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(9, '1',StateMachine.FINAL_STATE,new AS_Next(this));
+        StateMachine.addTransition(9, 'i',9,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(9, ' ',StateMachine.FINAL_STATE,espacio);
+        StateMachine.addTransition(9, '\n',StateMachine.FINAL_STATE,new AS_NextLine(this));
+        StateMachine.addTransition(9, '.',StateMachine.FINAL_STATE,new AS_Next(this));
+        StateMachine.addTransition(9, 'F',9,new AS_ErrorNotLexema(this));
+        StateMachine.addTransition(9, '*',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, '-',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, '+',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, '&',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, '=',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, ')',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, '/',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, '{',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, '}',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, ',',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, ';',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, '(',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, ':',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, '<',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, '>',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, '!',StateMachine.FINAL_STATE,tokenAscii);
+        StateMachine.addTransition(9, '\'',StateMachine.FINAL_STATE,tokenAscii);
+
+
+//en la accion semantica de cualquier simbolo que no sea = contemplamos la historia (<>) o (!:)
+//si tiene que saltar un error o devolver un token, porque vaya al final o al error
+//la accion semantica  es la que decide
+        StateMachine.addTransition(10, '_',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, 'a',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '1',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, 'i',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, ' ',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '\n',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '.',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, 'F',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '*',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '-',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '+',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '&',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '=',StateMachine.FINAL_STATE,asignacion_Comparacion);
+        StateMachine.addTransition(10, ')',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '/',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '{',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '}',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, ',',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, ';',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '(',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, ':',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '<',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '>',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '!',StateMachine.FINAL_STATE,comp_error);
+        StateMachine.addTransition(10, '\'',StateMachine.FINAL_STATE,comp_error);
+
+
+
+        StateMachine.addTransition(11, '_',11,espacio);
+        StateMachine.addTransition(11, 'a',11,espacio);
+        StateMachine.addTransition(11, '1',11,espacio);
+        StateMachine.addTransition(11, 'i',11,espacio);
+        StateMachine.addTransition(11, ' ',11,espacio);
+        StateMachine.addTransition(11, '\n',StateMachine.INITIAL_STATE,saltoLinea);
+        StateMachine.addTransition(11, '.',11,espacio);
+        StateMachine.addTransition(11, 'F',11,espacio);
+        StateMachine.addTransition(11, '*',11,espacio);
+        StateMachine.addTransition(11, '-',11,espacio);
+        StateMachine.addTransition(11, '+',11,espacio);
+        StateMachine.addTransition(11, '&',11,espacio);
+        StateMachine.addTransition(11, '=',11,espacio);
+        StateMachine.addTransition(11, ')',11,espacio);
+        StateMachine.addTransition(11, '/',11,espacio);
+        StateMachine.addTransition(11, '{',11,espacio);
+        StateMachine.addTransition(11, '}',11,espacio);
+        StateMachine.addTransition(11, ',',11,espacio);
+        StateMachine.addTransition(11, ';',11,espacio);
+        StateMachine.addTransition(11, '(',11,espacio);
+        StateMachine.addTransition(11, ':',11,espacio);
+        StateMachine.addTransition(11, '<',11,espacio);
+        StateMachine.addTransition(11, '>',11,espacio);
+        StateMachine.addTransition(11, '!',11,espacio);
+        StateMachine.addTransition(11, '\'',11,espacio);
+
+
+
+        StateMachine.addTransition(12, '_',12,next);
+        StateMachine.addTransition(12, 'a',12,next);
+        StateMachine.addTransition(12, '1',12,next);
+        StateMachine.addTransition(12, 'i',12,next);
+        StateMachine.addTransition(12, ' ',12,next);
+        StateMachine.addTransition(12, '\n',12,new AS_NextLineCadena(this));
+        StateMachine.addTransition(12, '.',12,next);
+        StateMachine.addTransition(12, 'F',12,next);
+        StateMachine.addTransition(12, '*',12,next);
+        StateMachine.addTransition(12, '-',12,next);
+        StateMachine.addTransition(12, '+',12,next);
+        StateMachine.addTransition(12, '&',12,next);
+        StateMachine.addTransition(12, '=',12,next);
+        StateMachine.addTransition(12, ')',12,next);
+        StateMachine.addTransition(12, '/',12,next);
+        StateMachine.addTransition(12, '{',12,next);
+        StateMachine.addTransition(12, '}',12,next);
+        StateMachine.addTransition(12, ',',12,next);
+        StateMachine.addTransition(12, ';',12,next);
+        StateMachine.addTransition(12, '(',12,next);
+        StateMachine.addTransition(12, ':',12,next);
+        StateMachine.addTransition(12, '<',12,next);
+        StateMachine.addTransition(12, '>',12,next);
+        StateMachine.addTransition(12, '!',12,next);
+        StateMachine.addTransition(12, '\'',StateMachine.FINAL_STATE,new AS_Id_Start(this));
+
     }
     public LexicalAnalyzer(String srcCode, SymbolTable symbolTable, Errors errors) throws FileNotFoundException, IOException {
         this.symbolTable = symbolTable;
@@ -249,24 +406,30 @@ public class LexicalAnalyzer {
     }
 
 
-
-    public String  getNextToken(){
+    public boolean isReservedWord(String lexema){
+        //completar
+        if (lexema == "loop")
+            return true;
+        return false;
+    }
+    public int  getNextToken(){
         state = StateMachine.INITIAL_STATE;
         Character symbol;
         while (state != StateMachine.FINAL_STATE){
             if (index >=srcCode.length()){
-                return null;
+                return -1;
             }
             symbol = srcCode.charAt(index);
-            StateMachine.getSemanticAction(state,symbol).Action();
+            int old=state;
             state = StateMachine.getNextState(state,symbol);
+            StateMachine.getSemanticAction(old,symbol).Action(symbol);
 
 
 
         }
 
 
-        return token;
+        return tokenId;
     }
 
 }

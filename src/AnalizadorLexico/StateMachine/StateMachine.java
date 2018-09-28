@@ -8,6 +8,7 @@ import static java.lang.Integer.MAX_VALUE;
 public final class StateMachine {
     public static final int FINAL_STATE = MAX_VALUE;
     public static final int INITIAL_STATE = 0;
+    public static final int ERROR_STATE = 0;
     private static Hashtable<Integer, Hashtable<Character, Dupla>> transitionMatrix= new Hashtable<>();
 
     private static Character convert(Character c){
@@ -16,8 +17,8 @@ public final class StateMachine {
         para tener la matriz de transicion con menos columnas*/
         int asciiChar = (int )c;
 
-        if ((asciiChar>=65 && asciiChar<=90)||(asciiChar>=97 && asciiChar<=101)||(asciiChar>=103 && asciiChar<=104)||(asciiChar>=106 && asciiChar<=122)){
-            //{universo de letras minusculas y mayusculas} - {i}
+        if ((asciiChar>=65 && asciiChar<=69)||(asciiChar>=70 && asciiChar<=90)||(asciiChar>=97 && asciiChar<=104)||(asciiChar>=106 && asciiChar<=122)){
+            //{universo de letras minusculas y mayusculas} - {i} -{F}
             return 'a';
         }
         if (asciiChar>= 48 && asciiChar<=57){
