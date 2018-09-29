@@ -30,6 +30,7 @@ public class App extends JFrame{
     private JTextArea textArea1;
     private JButton archivoButton;
     private JTextArea textArea2;
+    private JTextArea textArea3;
     private JEditorPane editorPane1;
     private JFileChooser file = new JFileChooser();
     private JPanel a;
@@ -61,8 +62,16 @@ public class App extends JFrame{
         tokenButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                String token=lexical.getNextToken();
-                textArea1.append(token);
+                int token=lexical.getNextToken();
+                if (token != -1) {
+                    if (token == 0)
+                        textArea1.append("fin de archivo\n");
+                    textArea1.append(String.valueOf(token)+"\n");
+                }
+                if (!errors.isEmpty()) {
+                    textArea3.append(errors.getError() + " fila " + errors.getRow() + " columna " + errors.getColumn() + "\n");
+                }
+
 
             }
         });

@@ -1,6 +1,7 @@
 package AnalizadorLexico.SemanticAction;
 
 import AnalizadorLexico.LexicalAnalyzer;
+import Errors.Errors;
 
 public class AS_ErrorNotLexema extends SemanticAction{
 
@@ -10,10 +11,10 @@ public class AS_ErrorNotLexema extends SemanticAction{
 
     @Override
     public void Action(Character symbol) {
-        System.out.print("error en linea "+ lexical.row+" y columna "+ lexical.index);
-        lexical.index++;
-        System.out.println("index++");
+        String e= Errors.ERROR_FAIL_CHARACTER +" "+buffer;
+        lexical.errors.setError(lexical.row,lexical.column,e);
         lexical.buffer = "";
-        System.out.println("vacia buffer");
+        //lexical.index++;
+        //lexical.column++;
     }
 }

@@ -20,6 +20,7 @@ public class Errors {
     private Terna terna;
     public final static String ERROR_MAX_WORD_SIZE = "supera el maximo permitido";
     public final static String ERROR_FAIL_CHARACTER= "lexema no valido";
+    public final static String ERROR_RANGE= "fuera de rango";
     public Errors(){
         errors = new LinkedList<>();
     }

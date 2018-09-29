@@ -22,8 +22,6 @@ public class AS_Comparador_Error extends SemanticAction {
             default:
                 String e= Errors.ERROR_FAIL_CHARACTER+" "+buffer;
                 lexical.errors.setError(lexical.row,lexical.column,e);
-                lexical.state= StateMachine.ERROR_STATE;
-//se piso estado final por estado de error, para no jacer mas estados
 //en este caso suponemos que hasta no retornar un tocken valido se sigue
         }
     }

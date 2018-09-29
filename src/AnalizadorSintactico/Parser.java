@@ -24,4 +24,5 @@ public class Parser {
     public final static short FUERA_RANGO=276;
     public final static short INFERIOR_A_SINO=277;
     public final static short YYERRCODE=256;
+
 }

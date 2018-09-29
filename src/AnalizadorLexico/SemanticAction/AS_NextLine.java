@@ -12,6 +12,6 @@ public class AS_NextLine extends SemanticAction {
     public void Action(Character symbol) {
         lexical.index++;
         lexical.row++;
-        lexical.column = 0;
+        lexical.column = 1;
     }
 }

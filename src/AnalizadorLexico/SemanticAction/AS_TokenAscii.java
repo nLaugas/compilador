@@ -11,6 +11,7 @@ public class AS_TokenAscii extends SemanticAction {
     public void Action(Character symbol) {
         lexical.tokenId = (int)symbol;
         lexical.index++;
-        lexical.row++;
+        lexical.column++;
+        lexical.buffer = "";
     }
 }

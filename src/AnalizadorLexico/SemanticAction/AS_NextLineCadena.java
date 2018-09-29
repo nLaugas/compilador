@@ -2,9 +2,10 @@ package AnalizadorLexico.SemanticAction;
 
 import AnalizadorLexico.LexicalAnalyzer;
 import AnalizadorLexico.StateMachine.StateMachine;
+import AnalizadorSintactico.Parser;
 import Errors.Errors;
 
-public class AS_NextLineCadena extends AS_NextLine {
+public class AS_NextLineCadena extends SemanticAction {
 
 
     public AS_NextLineCadena(LexicalAnalyzer lexicalAnalyzer) {
@@ -13,15 +14,18 @@ public class AS_NextLineCadena extends AS_NextLine {
 
     @Override
     public void Action(Character symbol) {
-        this.Action(symbol);
-        int ultimoCaracter=lexical.buffer.length()-1;
-        char guion = lexical.buffer.charAt(ultimoCaracter);
+        lexical.index++;
+        lexical.row++;
+        lexical.column = 1;
+        int posUltimoCaracter=lexical.buffer.length()-1;
+        char guion = lexical.buffer.charAt(posUltimoCaracter);
         if (guion=='-')
-            lexical.buffer=lexical.buffer.substring(0,ultimoCaracter);
+            lexical.buffer=lexical.buffer.substring(0,posUltimoCaracter);
         else{
             String e= Errors.ERROR_FAIL_CHARACTER+" falto un guion para la cadena de caracteres";
             lexical.errors.setError(lexical.row,lexical.column,e);
             lexical.state= StateMachine.ERROR_STATE;
+            lexical.tokenId = -1;
 //piso estado de cadenas por estado de error???? o sigo como si  nada con warning
         }
 
