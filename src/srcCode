@@ -2,9 +2,9 @@
 __comentario una linea lo ignora y lee el siguiente
 'cadena-
 varias lineas'
-1.
+1.F-8
 12_i+13_i
-integer + while
+integer + loop
 'varias lineas
 
 

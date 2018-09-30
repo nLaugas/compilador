@@ -18,7 +18,9 @@ public class AS_Flotante_End extends SemanticAction{
         }
 
         float num = Float.valueOf(lexical.buffer);
+        System.out.println(lexical.MIN_FLOAT_SIZE);
 
+        System.out.println(num);
         if (num != 0.0) {
             if (num < lexical.MIN_FLOAT_SIZE) {
                 lexical.errors.setError(lexical.row, lexical.column, Errors.ERROR_RANGE);

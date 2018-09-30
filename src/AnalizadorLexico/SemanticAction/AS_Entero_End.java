@@ -14,7 +14,6 @@ public class AS_Entero_End extends SemanticAction{
     public void Action(Character symbol) {
         //saca el _ para quedarse con solo el numero
         int num = Integer.valueOf(lexical.buffer.substring(0,lexical.buffer.length()-1));
-        System.out.print(num);
         if (num < lexical.MIN_INT_SIZE) {
             lexical.errors.setError(lexical.row,lexical.column,Errors.ERROR_RANGE);
             num = lexical.MIN_INT_SIZE;
