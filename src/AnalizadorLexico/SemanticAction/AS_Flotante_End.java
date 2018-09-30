@@ -31,6 +31,7 @@ public class AS_Flotante_End extends SemanticAction{
             }
         }
         lexical.symbolTable.setSymbol(String.valueOf(num), Parser.FLOTANTE);
+        lexical.symbolTable.setAtributo(lexical.buffer,"=>","CTE FLOTANTE");
         //tecnica de reemplazo por el valor mas grande permitido
         System.out.println(num);
         lexical.buffer = "";

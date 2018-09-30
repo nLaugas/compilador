@@ -57,8 +57,13 @@ public class App extends JFrame{
         compilarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                textArea3.append("ERRORES \n \n");
                 while (!errors.isEmpty()) {
                     textArea3.append(errors.getError() + " fila " + errors.getRow() + " columna " + errors.getColumn() + "\n");
+                }
+                textArea1.append("TABLA DE SIMBOLOS \n\n");
+                while (!st.isEmpty()) {
+                    textArea1.append(st.getAtributosNextLexema() + "\n");
                 }
 
             }

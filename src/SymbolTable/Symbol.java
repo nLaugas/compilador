@@ -39,4 +39,12 @@ public class Symbol {
     public void cambiarSigno (){
 
     }
+
+    public String getAtributos(){
+        String attr = lexema+"   tipo :   "+tipo;
+        for (String key : atributos.keySet()) {
+            attr+=" "+key+" "+atributos.get(key);
+        }
+        return attr;
+    }
 }
