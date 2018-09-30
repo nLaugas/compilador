@@ -1,13 +1,4 @@
-__12l
-__hola_esta_es_una_palabra_que_supera_los_25_caracteres
-__32323232_i+13_i
-__comentario una linea lo ignora y lee el siguiente
-__'cadena-
-__varias lineas'
-__1.F-8
-__12_i+13_i
-__integer + loop
-__'varias lineas
+integer _a;_b,if(_a<_b)_a:=5_i,end_if
 
 
 

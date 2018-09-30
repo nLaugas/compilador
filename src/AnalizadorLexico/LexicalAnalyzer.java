@@ -7,12 +7,14 @@ import java.util.Hashtable;
 import AnalizadorLexico.SemanticAction.*;
 import AnalizadorLexico.StateMachine.StateMachine;
 import AnalizadorSintactico.Parser;
+import AnalizadorSintactico.ParserVal;
 import Errors.*;
 import SymbolTable.*;
 
 public class LexicalAnalyzer {
 
 
+    public ParserVal parserVal = new ParserVal();
     public final int MAX_WORD_SIZE = 25;
     public final int MIN_INT_SIZE = 0; // -10 .. 9 pero no puedo reconocer -10 -9
     //por lo que verifico del 0..10 y el sintactico se va a ocupar del 10, ya que la unica
