@@ -42,21 +42,23 @@ public class App extends JFrame{
         FileReader file = new FileReader("src/srcCode");
         BufferedReader src= new BufferedReader(file);
         String cadena;
+
         while ((cadena = src.readLine()) != null)
           archivo += cadena+"\n";
-
+        archivo = archivo.substring(0,archivo.length()-1);
         errors = new Errors();
         SymbolTable st = new SymbolTable();
-
+        System.out.println(cadena);
         LexicalAnalyzer lexical = new LexicalAnalyzer(archivo,st,errors);
         Parser par = new Parser(lexical,st,errors);
-        par.run();
+
         add(panel1);
         setSize(400,500);
 
         compilarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                par.run();
                 textArea3.append("ERRORES \n \n");
                 while (!errors.isEmpty()) {
                     textArea3.append(errors.getError() + " fila " + errors.getRow() + " columna " + errors.getColumn() + "\n");
