@@ -15,19 +15,15 @@ public class AS_Asignacion_Comparacion extends SemanticAction {
         switch (lexical.buffer) {
             case "!":
                 lexical.tokenId = Parser.DIST;
-                System.out.println("!");
                 break;
             case "<":
                 lexical.tokenId = Parser.MENIG;
-                System.out.println("<");
                 break;
             case ">":
                 lexical.tokenId = Parser.MAYIG;
-                System.out.println(">");
                 break;
             case ":":
                 lexical.tokenId = Parser.ASIG;
-                System.out.println(":");
                 break;
         }
         lexical.index++; // avanzo el cursor porque use el caracter
