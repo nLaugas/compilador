@@ -18,7 +18,8 @@ public class AS_Entero_End extends SemanticAction{
             lexical.errors.setError(lexical.row,lexical.column,Errors.ERROR_RANGE);
             num = lexical.MAX_INT_SIZE;
         }
-        lexical.symbolTable.setSymbol(String.valueOf(num), Parser.ENTERO);
+        lexical.symbolTable.setSymbol(lexical.buffer+symbol, Parser.ENTERO);
+        lexical.symbolTable.setAtributo(lexical.buffer + symbol,"=>","CTE ENTERO");
         //tecnica de reemplazo por el valor mas grande permitido
         System.out.println(num);
         lexical.buffer = "";
