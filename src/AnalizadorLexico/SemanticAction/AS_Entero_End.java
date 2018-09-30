@@ -14,10 +14,7 @@ public class AS_Entero_End extends SemanticAction{
     public void Action(Character symbol) {
         //saca el _ para quedarse con solo el numero
         int num = Integer.valueOf(lexical.buffer.substring(0,lexical.buffer.length()-1));
-        if (num < lexical.MIN_INT_SIZE) {
-            lexical.errors.setError(lexical.row,lexical.column,Errors.ERROR_RANGE);
-            num = lexical.MIN_INT_SIZE;
-        }else if ( num > lexical.MAX_INT_SIZE){
+        if ( num > lexical.MAX_INT_SIZE){
             lexical.errors.setError(lexical.row,lexical.column,Errors.ERROR_RANGE);
             num = lexical.MAX_INT_SIZE;
         }

@@ -1,8 +1,8 @@
 package AnalizadorLexico.SemanticAction;
 
 import AnalizadorLexico.LexicalAnalyzer;
+import AnalizadorSintactico.Parser;
 
-import javax.swing.text.html.parser.Parser;
 
 public class AS_Id_Start extends SemanticAction
 {

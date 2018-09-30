@@ -14,8 +14,11 @@ public class LexicalAnalyzer {
 
 
     public final int MAX_WORD_SIZE = 25;
+    public final int MIN_INT_SIZE = 0; // -10 .. 9 pero no puedo reconocer -10 -9
+    //por lo que verifico del 0..10 y el sintactico se va a ocupar del 10, ya que la unica
+    //forma que venga 10 es siendo negativo. Por que si viene un -9 negativo lo va a aceptar asi que es
+    //como verificar el 9 positivo
     public final int MAX_INT_SIZE = (int)Math.pow(2,15);
-    public final int MIN_INT_SIZE = (int)-Math.pow(2,15)-1;
     public final float MIN_FLOAT_SIZE = (float) Math.pow(1.17549435,-308);
     public final float MAX_FLOAT_SIZE = (float) Math.pow(3.40282347,308);
 
@@ -451,6 +454,14 @@ public class LexicalAnalyzer {
         reservedWords.put("mut", (int) Parser.PR_MUT);
     }
 
+    public int getRow(){
+        return row;
+    }
+
+    public int getColumn(){
+        return column;
+    }
+
     public LexicalAnalyzer(String srcCode, SymbolTable symbolTable, Errors errors) throws FileNotFoundException, IOException {
         this.symbolTable = symbolTable;
         row = 1;
@@ -485,7 +496,6 @@ public class LexicalAnalyzer {
             int old=state;
             state = StateMachine.getNextState(state,symbol);
             StateMachine.getSemanticAction(old,symbol).Action(symbol);
-
 
 
         }
