@@ -1,4 +1,5 @@
 integer _a;_b,if(_a<_b)_a:=5_i,end_if
+loop _a:=5_i, until (_a<_b)
 
 
 
