@@ -442,16 +442,16 @@ public class LexicalAnalyzer {
         StateMachine.addTransition(13, '\'',StateMachine.FINAL_STATE,id_end);//OK
     }
     private void addReservedWord(){
-        reservedWords.put("if", (int) Parser.PR_IF);
-        reservedWords.put("else", (int) Parser.PR_ELSE);
-        reservedWords.put("end_if", (int) Parser.PR_END_IF);
-        reservedWords.put("print", (int) Parser.PR_PRINT);
-        reservedWords.put("integer", (int) Parser.PR_INTEGER);
-        reservedWords.put("single", (int) Parser.PR_SINGLE);
-        reservedWords.put("loop", (int) Parser.PR_LOOP);
-        reservedWords.put("until", (int) Parser.PR_UNTIL);
-        reservedWords.put("let", (int) Parser.PR_LET);
-        reservedWords.put("mut", (int) Parser.PR_MUT);
+        reservedWords.put("if", (int) Parser.IF);
+        reservedWords.put("else", (int) Parser.ELSE);
+        reservedWords.put("end_if", (int) Parser.END_IF);
+        reservedWords.put("print", (int) Parser.PRINT);
+        reservedWords.put("integer", (int) Parser.INTEGER);
+        reservedWords.put("single", (int) Parser.SINGLE);
+        reservedWords.put("loop", (int) Parser.LOOP);
+        reservedWords.put("until", (int) Parser.UNTIL);
+        reservedWords.put("let", (int) Parser.LET);
+        reservedWords.put("mut", (int) Parser.MUT);
     }
 
     public int getRow(){

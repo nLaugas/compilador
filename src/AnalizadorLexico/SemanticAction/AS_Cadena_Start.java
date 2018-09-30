@@ -12,7 +12,7 @@ public class AS_Cadena_Start extends SemanticAction{
 
     @Override
     public void Action(Character symbol) {
-        lexical.tokenId = Parser.CADENA_MULTILINEA;
+        lexical.tokenId = Parser.CADENA;
         lexical.buffer+= symbol;
         lexical.index++;
         lexical.column++;

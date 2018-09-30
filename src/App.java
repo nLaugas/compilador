@@ -4,6 +4,7 @@ import javax.swing.event.UndoableEditListener;
 import javax.swing.text.*;
 
 import AnalizadorLexico.LexicalAnalyzer;
+import AnalizadorSintactico.Parser;
 import Errors.Errors;
 import SymbolTable.SymbolTable;
 import SymbolTable.SymbolTable;
@@ -46,13 +47,19 @@ public class App extends JFrame{
 
         errors = new Errors();
         SymbolTable st = new SymbolTable();
+
         LexicalAnalyzer lexical = new LexicalAnalyzer(archivo,st,errors);
+        Parser par = new Parser(lexical,st,errors);
+        par.run();
         add(panel1);
         setSize(400,500);
 
         compilarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
+                while (!errors.isEmpty()) {
+                    textArea3.append(errors.getError() + " fila " + errors.getRow() + " columna " + errors.getColumn() + "\n");
+                }
 
             }
         });

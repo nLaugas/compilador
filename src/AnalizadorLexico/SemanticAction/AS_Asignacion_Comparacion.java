@@ -14,19 +14,19 @@ public class AS_Asignacion_Comparacion extends SemanticAction {
     public void Action(Character symbol) {
         switch (lexical.buffer) {
             case "!":
-                lexical.tokenId = Parser.COMP_DISTINTO;
+                lexical.tokenId = Parser.DIST;
                 System.out.println("!");
                 break;
             case "<":
-                lexical.tokenId = Parser.COMP_MENOR_IGUAL;
+                lexical.tokenId = Parser.MENIG;
                 System.out.println("<");
                 break;
             case ">":
-                lexical.tokenId = Parser.COMP_MAYOR_IGUAL;
+                lexical.tokenId = Parser.MAYIG;
                 System.out.println(">");
                 break;
             case ":":
-                lexical.tokenId = Parser.ASIGNACION;
+                lexical.tokenId = Parser.ASIG;
                 System.out.println(":");
                 break;
         }

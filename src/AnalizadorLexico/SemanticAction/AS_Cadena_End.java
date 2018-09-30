@@ -12,7 +12,7 @@ public class AS_Cadena_End extends SemanticAction{
 
     @Override
     public void Action(Character symbol) {
-        lexical.symbolTable.setSymbol(lexical.buffer, Parser.CADENA_MULTILINEA);
+        lexical.symbolTable.setSymbol(lexical.buffer, Parser.CADENA);
         System.out.println(lexical.buffer);
         lexical.buffer = "";
         lexical.index++;
