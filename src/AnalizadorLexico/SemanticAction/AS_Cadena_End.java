@@ -15,6 +15,7 @@ public class AS_Cadena_End extends SemanticAction{
         lexical.symbolTable.setSymbol(lexical.buffer, Parser.CADENA);
         lexical.symbolTable.setAtributo(lexical.buffer,"=>","CADENA");
         System.out.println(lexical.buffer);
+        lexical.lastSymbol=lexical.buffer; // guardo el simbolo viejo
         lexical.buffer = "";
         lexical.index++;
         lexical.column++;

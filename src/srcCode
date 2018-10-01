@@ -1,6 +1,7 @@
-integer _a;_b,if(_a<_b)_a:=5_i,end_if
+integer _a;_b,if(_a<_b)_a:=3.5F3,end_if
 loop _a:=5_i, until (_a<_b)
-single _c;_d,
+single _d,
+_d:=4.4F-5,
 if(_c>=_d){loop _a:=5_i, until (_a<_b)
 _a:=5_i,
 }end_if

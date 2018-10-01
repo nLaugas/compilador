@@ -22,6 +22,7 @@ public class AS_Id_End extends SemanticAction{
         lexical.symbolTable.setAtributo(lexical.buffer,"=>","IDENTIFICADOR");
         //agrega en la tabla de simbolo ya que es de tipo ID
         System.out.println(lexical.buffer);
+        lexical.lastSymbol=lexical.buffer; // guardo el simbolo viejo
         lexical.buffer = "";
     }
 }

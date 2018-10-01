@@ -20,7 +20,7 @@
 
 import AnalizadorLexico.LexicalAnalyzer;
 import Errors.Errors;
-import SymbolTable.SymbolTable;
+import SymbolTable.*;
 
 public class Parser
 {
@@ -718,26 +718,19 @@ case 30:
 break;
 case 31:
 //#line 65 "Gramática.y"
-{ /*double a = Double.parseDouble(yylval.sval);
-		   a = -1*a;
-		   FilaTS nueva = new FilaTS();
- 		   nueva.setValor((long)a);
- 		   nueva.setTipoDef('N');
- 	  	   String key = '-' + yylval.sval;
- 		   if(Compilador.tablaSimbolos.containsKey(yylval.sval)){
-    			if(Compilador.tablaSimbolos.get(yylval.sval).getTipoDef() == 'I'){
-        			if ((a <= 0) && (a > -2147483647.0)){
-    	   				Compilador.tablaSimbolos.remove(yylval.sval);
-           				Compilador.tablaSimbolos.put(key, nueva);
-        			}
-        			else yyerror("Linea  constante fuera de rango");
-    			}else if(Compilador.tablaSimbolos.get(yylval.sval).getTipoDef() == 'P'){
-                			if ((a <= 0) && (a > -2147483647.0))
-                    				Compilador.tablaSimbolos.put(key,nueva);
-          				}else yyerror("Linea  constante fuera de rango");
-    		   }*/
- 		   System.out.println("Constante negativa");}
+{
+  Symbol aux = st.getSymbol(lex.lastSymbol);
+   st.addcambiarSigno(aux);
+   System.out.println("Constante negativa");}
 break;
+
+  case 32:
+//#line 84 "Gramática.y"
+  {
+    Symbol aux = st.getSymbol(lex.lastSymbol);
+    st.addcambiarSigno(aux);
+    System.out.println("Constante negativa");}
+  break;
 case 33:
 //#line 87 "Gramática.y"
 {System.out.println("Asignacion");}

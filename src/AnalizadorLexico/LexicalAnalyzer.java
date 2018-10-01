@@ -13,7 +13,7 @@ import SymbolTable.*;
 
 public class LexicalAnalyzer {
 
-
+    public String lastSymbol;
     public ParserVal parserVal = new ParserVal();
     public final int MAX_WORD_SIZE = 25;
     public final int MIN_INT_SIZE = 0; // -10 .. 9 pero no puedo reconocer -10 -9

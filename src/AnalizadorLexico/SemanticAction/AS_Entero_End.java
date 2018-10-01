@@ -22,6 +22,7 @@ public class AS_Entero_End extends SemanticAction{
         lexical.symbolTable.setAtributo(lexical.buffer + symbol,"=>","CTE ENTERO");
         //tecnica de reemplazo por el valor mas grande permitido
         System.out.println(num);
+        lexical.lastSymbol=lexical.buffer+ symbol; // guardo el simbolo viejo
         lexical.buffer = "";
         lexical.column++;
         lexical.index++;
