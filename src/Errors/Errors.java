@@ -15,7 +15,7 @@ public class Errors {
             this.error = error;
         }
     }
-
+ // table
     private Queue<Terna> errors;
     private Terna terna;
     public final static String ERROR_MAX_WORD_SIZE = "supera el maximo permitido";
