@@ -26,6 +26,8 @@ public final class StateMachine {
             return '1';
         }
 
+
+
         return c;
     }
 
@@ -50,6 +52,7 @@ public final class StateMachine {
     }
 
     public static Integer getNextState(Integer state, Character symbol){
+
         return  (transitionMatrix.get(state)).get(convert(symbol)).getState();
     }
 

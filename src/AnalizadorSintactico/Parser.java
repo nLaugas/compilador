@@ -714,10 +714,10 @@ break;
 case 33:
 //#line 69 "GramaticaGrupo8.y"
 {
-                     Symbol aux = st.getSymbol(lex.lastSymbol);
-                     st.addcambiarSigno(aux);
-                     System.out.println("Constante negativa");
-                    }
+  Symbol aux = st.getSymbol(lex.lastSymbol);
+  st.addcambiarSigno(aux);
+  System.out.println("Constante negativa");
+}
 break;
 case 34:
 //#line 76 "GramaticaGrupo8.y"
