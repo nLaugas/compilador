@@ -126,7 +126,6 @@ public class App extends JFrame{
         archivo = archivo.substring(0,archivo.length()-1);
         errors = new Errors();
         final SymbolTable st = new SymbolTable();
-        System.out.println(cadena);
         final LexicalAnalyzer lexical = new LexicalAnalyzer(archivo,st,errors);
         final Parser par = new Parser(lexical,st,errors);
 
