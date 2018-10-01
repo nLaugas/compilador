@@ -30,13 +30,13 @@ public class AS_Flotante_End extends SemanticAction{
                 num = lexical.MAX_FLOAT_SIZE;
             }
         }
-        lexical.symbolTable.setSymbol(lexical.buffer, Parser.FLOTANTE);
-        lexical.symbolTable.setAtributo(lexical.buffer,"=>","CTE FLOTANTE");
+        lexical.symbolTable.setSymbol(String.valueOf(num), Parser.FLOTANTE);
+        lexical.symbolTable.setAtributo(String.valueOf(num),"=>","CTE FLOTANTE");
         //lexical.symbolTable.setAtributo(lexical.buffer,"valor",String.valueOf(num));
 
         //tecnica de reemplazo por el valor mas grande permitido
         System.out.println(num);
-        lexical.lastSymbol=lexical.buffer; // guardo el simbolo viejo
+        lexical.lastSymbol=String.valueOf(num); // guardo el simbolo viejo
         lexical.buffer = "";
     }
 }

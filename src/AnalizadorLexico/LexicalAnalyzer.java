@@ -23,9 +23,7 @@ public class LexicalAnalyzer {
     public final int MAX_INT_SIZE = (int)Math.pow(2,15);
     public final float MIN_FLOAT_SIZE = (float) Math.pow(1.17549435,-38);
     public final float MAX_FLOAT_SIZE = (float) Math.pow(3.40282347,38);
-
-
-
+    
     public String srcCode;
     public int row; //controla cada \n del string
     public int column;
