@@ -35,7 +35,7 @@ public final class StateMachine {
         if (transitionMatrix.containsKey(state)) {
             transitionMatrix.get(state).put(symbol,pair);
         }else{
-            transitionMatrix.put(state,new Hashtable<>());
+            transitionMatrix.put(state,new Hashtable<Character, Dupla>());
             transitionMatrix.get(state).put(symbol,pair);
         }
 

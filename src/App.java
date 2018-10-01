@@ -125,10 +125,10 @@ public class App extends JFrame{
           archivo += cadena+"\n";
         archivo = archivo.substring(0,archivo.length()-1);
         errors = new Errors();
-        SymbolTable st = new SymbolTable();
+        final SymbolTable st = new SymbolTable();
         System.out.println(cadena);
-        LexicalAnalyzer lexical = new LexicalAnalyzer(archivo,st,errors);
-        Parser par = new Parser(lexical,st,errors);
+        final LexicalAnalyzer lexical = new LexicalAnalyzer(archivo,st,errors);
+        final Parser par = new Parser(lexical,st,errors);
 
         add(panel1);
         setSize(700,500);

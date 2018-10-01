@@ -21,8 +21,8 @@ public class LexicalAnalyzer {
     //forma que venga 10 es siendo negativo. Por que si viene un -9 negativo lo va a aceptar asi que es
     //como verificar el 9 positivo
     public final int MAX_INT_SIZE = (int)Math.pow(2,15);
-    public final float MIN_FLOAT_SIZE = (float) Math.pow(1.17549435,-308);
-    public final float MAX_FLOAT_SIZE = (float) Math.pow(3.40282347,308);
+    public final float MIN_FLOAT_SIZE = (float) Math.pow(1.17549435,-38);
+    public final float MAX_FLOAT_SIZE = (float) Math.pow(3.40282347,38);
 
 
 
