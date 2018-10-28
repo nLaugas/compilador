@@ -2,6 +2,7 @@ package AnalizadorLexico.SemanticAction;
 
 import AnalizadorLexico.LexicalAnalyzer;
 import AnalizadorSintactico.Parser;
+import AnalizadorSintactico.ParserVal;
 import Errors.*;
 
 public class AS_Id_End extends SemanticAction{
@@ -22,6 +23,12 @@ public class AS_Id_End extends SemanticAction{
         lexical.symbolTable.setAtributo(lexical.buffer,"=>","IDENTIFICADOR");
         //agrega en la tabla de simbolo ya que es de tipo ID
         System.out.println(lexical.buffer);
+
+        // ######## ASEGURARNOS DE QUE ESTAMOS CONSTRUYENDO EL PARSER VAL CON UN PUNTERO A LA TABLA DE SYMBOLOS
+        lexical.yylval = new ParserVal(lexical.symbolTable.getSymbol(lexical.buffer));
+        lexical.yylval.setColumna(lexical.column);
+        lexical.yylval.setFila(lexical.row);
+
         lexical.lastSymbol=lexical.buffer; // guardo el simbolo viejo
         lexical.buffer = "";
     }

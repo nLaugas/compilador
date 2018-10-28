@@ -9,69 +9,264 @@ package AnalizadorSintactico;
  * This class provides some of the functionality
  * of the yacc/C 'union' directive
  */
-public class ParserVal
-{
-/**
- * integer value of this 'union'
- */
-public int ival;
+public class ParserVal {
+  /**
+   * integer value of this 'union'
+   */
+  public int ival;
 
-/**
- * double value of this 'union'
- */
-public double dval;
+  /**
+   * double value of this 'union'
+   */
+  public double dval;
 
-/**
- * string value of this 'union'
- */
-public String sval;
+  /**
+   * string value of this 'union'
+   */
+  public String sval;
 
-/**
- * object value of this 'union'
- */
-public Object obj;
+  /**
+   * object value of this 'union'
+   */
+  public Object obj;
 
 //#############################################
 //## C O N S T R U C T O R S
 //#############################################
-/**
- * Initialize me without a value
- */
-public ParserVal()
-{
-}
-/**
- * Initialize me as an int
- */
-public ParserVal(int val)
-{
-  ival=val;
-}
 
-/**
- * Initialize me as a double
- */
-public ParserVal(double val)
-{
-  dval=val;
-}
+  /**
+   * Initialize me without a value
+   */
+  public ParserVal() {
+  }
 
-/**
- * Initialize me as a string
- */
-public ParserVal(String val)
-{
-  sval=val;
-}
+  /**
+   * Initialize me as an int
+   */
+  public ParserVal(int val) {
+    ival = val;
+  }
 
-/**
- * Initialize me as an Object
- */
-public ParserVal(Object val)
-{
-  obj=val;
-}
-}//end class
+  /**
+   * Initialize me as a double
+   */
+  public ParserVal(double val) {
+    dval = val;
+  }
+
+  /**
+   * Initialize me as a string
+   */
+  public ParserVal(String val) {
+    sval = val;
+  }
+
+  /**
+   * Initialize me as an Object
+   */
+  public ParserVal(Object val) {
+    obj = val;
+  }
+//}//end class                        DEJAMOS DE CERRAR LA CLASE EN ESTA LINEA
+
+
+//##################################################################
+//## ACA MANDAMOS FRUTA Y LE AGREGAMOS COMPORTAMIENTO DE TOKEN ?! ##
+//##################################################################
+
+
+  public final static short IF=257;
+  public final static short ELSE=258;
+  public final static short PRINT=259;
+  public final static short INTEGER=260;
+  public final static short ID=261;
+  public final static short CTE=262;
+  public final static short CADENA=263;
+  public final static short ASIG=264;
+  public final static short MAYIG=265;
+  public final static short MENIG=266;
+  public final static short IGUAL=267;
+  public final static short DIST=268;
+  public final static short FIN=269;
+  public final static short SINGLE=270;
+  public final static short END_IF=271;
+  public final static short LOOP=272;
+  public final static short UNTIL=273;
+  public final static short LET=274;
+  public final static short MUT=275;
+  public final static short ENTERO=276;
+  public final static short FLOTANTE=277;
+  public final static short YYERRCODE=256;
+
+
+  public enum TipoToken {
+
+    //Palabras Reservadas
+    IF(ParserVal.IF),
+    ELSE(ParserVal.ELSE),
+    END_IF(ParserVal.END_IF),
+    PRINT(ParserVal.PRINT),
+    INTEGER(ParserVal.INTEGER),
+    SINGLE(ParserVal.SINGLE),
+    LOOP(ParserVal.LOOP),
+    UNTIL(ParserVal.UNTIL),
+    LET(ParserVal.LET),
+    MUT(ParserVal.MUT),
+
+    //No Terminales
+    CTE(ParserVal.CTE),
+    ID(ParserVal.ID),
+    ENTERO(ParserVal.ENTERO),
+    FLOTANTE(ParserVal.FLOTANTE),
+    CADENA(ParserVal.CADENA),
+
+    //Literales
+    OP_MAS((char) '+'),
+    OP_MENOS((char) '-'),
+    OP_POR((char) '*'),
+    OP_DIVIDIDO((char) '/'),
+    COMP_MAYOR((char) '>'),
+    COMP_MENOR((char) '<'),
+    PARENTESIS_ABIERTO((char) '('),
+    PARENTESIS_CERRADO((char) ')'),
+    CORCHETE_ABIERTO((char) '['),
+    CORCHETE_CERRADO((char) ']'),
+    LLAVE_ABIERTA((char) '{'),
+    LLAVE_CERRADA((char) '}'),
+    COMA((char) ','),
+    PUNTO_Y_COMA((char) ';'),
+
+
+    //No Literales importantes
+    MAYIG(ParserVal.MAYIG),
+    MENIG(ParserVal.MENIG),
+    DIST(ParserVal.DIST),
+    ASIG(ParserVal.ASIG),
+    IGUAL(ParserVal.IGUAL),
+    FIN(0),
+    YYERRCODE(ParserVal.YYERRCODE);
+
+
+    private int valor;
+    private TipoToken(int id){
+      this.setValor(id);
+    }
+
+    public String toString(){
+      if (this.equals(OP_MAS))
+        return "+";
+      else if (this.equals(OP_MENOS))
+        return "-";
+      else if (this.equals(OP_POR))
+        return "*";
+      else if (this.equals(OP_DIVIDIDO))
+        return "/";
+      else if (this.equals(COMP_MAYOR))
+        return ">";
+      else if (this.equals(MAYIG))
+        return ">=";
+      else if (this.equals(COMP_MENOR))
+        return "<";
+      else if (this.equals(MENIG))
+        return "<=";
+      else if (this.equals(DIST))
+        return "!=";
+      else if (this.equals(IGUAL))
+        return "==";
+      else if (this.equals(PARENTESIS_ABIERTO))
+        return "(";
+      else if (this.equals(PARENTESIS_CERRADO))
+        return ")";
+      else if (this.equals(CORCHETE_ABIERTO))
+        return "[";
+      else if (this.equals(CORCHETE_CERRADO))
+        return "]";
+      else if (this.equals(LLAVE_ABIERTA))
+        return "{";
+      else if (this.equals(LLAVE_CERRADA))
+        return "}";
+      else if (this.equals(COMA))
+        return ",";
+      else if (this.equals(PUNTO_Y_COMA))
+        return ";";
+      else if (this.equals(ASIG))
+        return ":=";
+      else if (this.equals(FIN))
+        return "EOF";
+      else
+        return super.toString();
+    }
+
+    public int getValor() {
+      return valor;
+    }
+
+    public void setValor(int valor) {
+      this.valor = valor;
+    }
+  }
+
+  private String lexema;
+  private TipoToken tipo;
+  private int columna;
+
+  public int getColumna() {
+    return columna;
+  }
+
+  public void setColumna(int columna) {
+    this.columna = columna;
+  }
+
+  public int getFila() {
+    return fila;
+  }
+
+  public void setFila(int fila) {
+    this.fila = fila;
+  }
+
+  private int fila;
+  private boolean reservado;
+  private int contador = 1;
+
+
+  public String getLexema() {
+    return this.lexema;
+  }
+
+  public void setLexema(String lexema) {
+    this.lexema = lexema;
+  }
+
+
+  public String toString() {
+    if ( this.lexema.equals("") )
+      return tipo.toString();
+    return this.lexema;
+  }
+
+  public boolean isReservado() {
+    return reservado;
+  }
+
+  public void setReservado(boolean r) {
+    this.reservado = r;
+  }
+
+  public void aumentarContador(){
+    contador++;
+  }
+
+  public void disminuirContador(){
+    contador--;
+  }
+
+  public int getContador(){
+    return contador;
+  }
+
+}     //AHORA LA CLASE TERMINA ACA
 
 //#############################################
 //## E N D    O F    F I L E

@@ -13,8 +13,11 @@ import SymbolTable.*;
 
 public class LexicalAnalyzer {
 
+
+    public static ParserVal yylval = null;
+    //############  puntero a la tabla de simbolos? #######
+
     public String lastSymbol;
-    public ParserVal parserVal = new ParserVal();
     public final int MAX_WORD_SIZE = 25;
     public final int MIN_INT_SIZE = 0; // -10 .. 9 pero no puedo reconocer -10 -9
     //por lo que verifico del 0..10 y el sintactico se va a ocupar del 10, ya que la unica
@@ -23,7 +26,7 @@ public class LexicalAnalyzer {
     public final int MAX_INT_SIZE = (int)Math.pow(2,15);
     public final float MIN_FLOAT_SIZE = (float) Math.pow(1.17549435,-38);
     public final float MAX_FLOAT_SIZE = (float) Math.pow(3.40282347,38);
-    
+
     public String srcCode;
     public int row; //controla cada \n del string
     public int column;
