@@ -2,6 +2,7 @@ package AnalizadorLexico.SemanticAction;
 
 import AnalizadorLexico.LexicalAnalyzer;
 import AnalizadorSintactico.Parser;
+import AnalizadorSintactico.ParserVal;
 import Errors.Errors;
 
 public class AS_Flotante_End extends SemanticAction{
@@ -33,6 +34,10 @@ public class AS_Flotante_End extends SemanticAction{
         lexical.symbolTable.setSymbol(String.valueOf(num), Parser.FLOTANTE);
         lexical.symbolTable.setAtributo(String.valueOf(num),"=>","CTE FLOTANTE");
         //lexical.symbolTable.setAtributo(lexical.buffer,"valor",String.valueOf(num));
+        // ######## ASEGURARNOS DE QUE ESTAMOS CONSTRUYENDO EL PARSER VAL CON UN PUNTERO A LA TABLA DE SYMBOLOS
+        lexical.yylval = new ParserVal(lexical.symbolTable.getSymbol(String.valueOf(num)));
+        lexical.yylval.setColumna(lexical.column);
+        lexical.yylval.setFila(lexical.row);
 
         //tecnica de reemplazo por el valor mas grande permitido
         System.out.println(num);

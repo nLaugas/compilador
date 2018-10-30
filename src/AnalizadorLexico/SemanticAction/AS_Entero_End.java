@@ -2,6 +2,7 @@ package AnalizadorLexico.SemanticAction;
 
 import AnalizadorLexico.LexicalAnalyzer;
 import AnalizadorSintactico.Parser;
+import AnalizadorSintactico.ParserVal;
 import Errors.*;
 
 public class AS_Entero_End extends SemanticAction{
@@ -21,8 +22,13 @@ public class AS_Entero_End extends SemanticAction{
         lexical.symbolTable.setSymbol(String.valueOf(num)+"_i"/*lexical.buffer+symbol*/, Parser.ENTERO);
         lexical.symbolTable.setAtributo(String.valueOf(num)+"_i"/*lexical.buffer+symbol*/,"=>","CTE ENTERO");
         //tecnica de reemplazo por el valor mas grande permitido
-        System.out.println(num);
+        //System.out.println(num);
         //lexical.lastSymbol=lexical.buffer+ symbol; // guardo el simbolo viejo
+//###############  ASEGURARNOS QUE CREANDO UN PARSER VAL CON UN SYMBOLO ESTAMOS HACIENDO LAS COSAS BIEN
+        lexical.yylval = new ParserVal(lexical.symbolTable.getSymbol(lexical.buffer));
+        lexical.yylval.setColumna(lexical.column);
+        lexical.yylval.setFila(lexical.row);
+
         lexical.lastSymbol=String.valueOf(num)+"_i";
         lexical.buffer = "";
         lexical.column++;

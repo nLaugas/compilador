@@ -9,15 +9,11 @@ import Errors.Errors;
 import SymbolTable.SymbolTable;
 import SymbolTable.SymbolTable;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -32,6 +28,7 @@ public class App extends JFrame{
     private JButton archivoButton;
     private JTextArea textArea2;
     private JTextArea textArea3;
+    private JButton genArchButton;
     private JEditorPane editorPane1;
     private JFileChooser file = new JFileChooser();
     private JPanel a;
@@ -178,6 +175,23 @@ public class App extends JFrame{
             }
         });
 
+        genArchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String ruta = "token.txt";
+                File archivo = new File(ruta);
+                BufferedWriter bw;
+                try {
+                    bw = new BufferedWriter(new FileWriter(archivo));
+                    bw.write(errors.getAll());
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+
+
+
+            }
+        });
 
         archivoButton.addActionListener(new ActionListener() {
             @Override

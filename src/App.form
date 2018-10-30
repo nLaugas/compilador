@@ -37,6 +37,12 @@
               <text value="Archivo"/>
             </properties>
           </component>
+          <component id="983d5" class="javax.swing.JButton" binding="genArchButton">
+            <constraints/>
+            <properties>
+              <text value="Generar Archivo"/>
+            </properties>
+          </component>
         </children>
       </toolbar>
       <tabbedpane id="27eb6" binding="tabbedPane1" default-binding="true">

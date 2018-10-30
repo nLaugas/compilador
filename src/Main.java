@@ -15,6 +15,5 @@ public class Main {
         a.setVisible(true);
         System.out.print(Parser.ID);
 
-
     }
 }

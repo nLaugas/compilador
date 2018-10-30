@@ -435,8 +435,12 @@ String s=null;
     int a = lex.getNextToken();
     System.out.print("Token encontrado: ");
     System.out.println(a);
-    //
-
+    if (lex.yylval != null){
+      yylval = lex.yylval;
+      lex.yylval = null;
+    }else{
+      yylval = new ParserVal();
+    }
     return a;
   }
 

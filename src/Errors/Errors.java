@@ -34,6 +34,15 @@ public class Errors {
         return terna.error;
     }
 
+    public String getAll(){
+        String out = new String();
+
+        for (Terna elem : errors){
+            out += elem.error + " fila " + elem.row + " columna " + elem.column + "\n";
+        }
+        return out;
+    }
+
     public int getRow(){
         return terna.row;
     }
