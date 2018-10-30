@@ -2,6 +2,7 @@ package AnalizadorLexico;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 import AnalizadorLexico.SemanticAction.*;
@@ -479,7 +480,6 @@ public class LexicalAnalyzer {
         addReservedWord();
 
     }
-
 
     public boolean isReservedWord(String lexema){
         //completar

@@ -1,12 +1,15 @@
 package AnalizadorLexico.SemanticAction;
 
 import AnalizadorLexico.LexicalAnalyzer;
+import AnalizadorSintactico.ParserVal;
 import Errors.Errors;
 
 import javax.swing.text.html.parser.Parser;
+import java.util.ArrayList;
 
 public class AS_Palabra_Reservada extends SemanticAction
 {
+
     public AS_Palabra_Reservada(LexicalAnalyzer lexicalAnalyzer) {
         super(lexicalAnalyzer);
     }

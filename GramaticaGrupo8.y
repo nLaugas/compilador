@@ -20,8 +20,8 @@ lista_sentencia : sentencia{}
 	 | sentencia lista_sentencia{} 
 	 ;
 
-sentencia: ejecutable {System.out.println("Programa");}
-	| declaracion {System.out.println("Programa");}
+sentencia: ejecutable {}
+	| declaracion {}
         ;
 
 declaracion: LET MUT tipo lista_id ',' {}
@@ -48,45 +48,45 @@ ejecutable: asignacion ','{}
           | exp_print ','{}
 	  ;
 
-expresion: termino '+' expresion {System.out.println("Suma");}
-	| termino '-' expresion {System.out.println("Resta");}
+expresion: termino '+' expresion {}
+	| termino '-' expresion {}
 	| termino {}
         ;
 
-termino: factor '/' termino {System.out.println("Division");}
-	| factor '*' termino{System.out.println("Producto");}
-        | factor {System.out.println("Factor");}
+termino: factor '/' termino {}
+	| factor '*' termino{}
+        | factor {}
 	;
 	
-factor: ENTERO {System.out.println("Constante");}
+factor: ENTERO {}
 	| FLOTANTE {}
 	| ID {}
 	| '-' ENTERO {
                       Symbol aux = st.getSymbol(lex.lastSymbol);
                       st.addcambiarSigno(aux);
-                      System.out.println("Constante negativa");
+                     
  		              }
 	|'-' FLOTANTE{
                      Symbol aux = st.getSymbol(lex.lastSymbol);
                      st.addcambiarSigno(aux);
-                     System.out.println("Constante negativa");
+                    
                     }
 	;
 
-asignacion: ID ASIG expresion  {System.out.println("Asignacion");}
-        | LET tipo '*'ID ASIG '&' ID  {System.out.println("Asignacion de puntero");}
-        | LET tipo ID ASIG expresion  {System.out.println("Asignacion");}
+asignacion: ID ASIG expresion  {estructuras.add(new ParcerVal("Asignacion "+" fila "+lex.row+" columna "+lex.column));}
+        | LET tipo '*'ID ASIG '&' ID  {estructuras.add(new ParcerVal("Asignacion de puntero "+" fila "+lex.row+" columna "+lex.column));}
+        | LET tipo ID ASIG expresion  {estructuras.add(new ParcerVal("Asignacion "+" fila "+lex.row+" columna "+lex.column));}
 	| ASIG expresion  {yyerror("Falta elemento de asignacion y palabra reservada 'let'");}
 	| ID ASIG  {yyerror("Falta elemento de asignacion ");}
 	| ID error  {yyerror("no se encontro ':=' ");}
 	;
 
-exp_print: PRINT '(' CADENA ')' {System.out.println("Expresion print");}
+exp_print: PRINT '(' CADENA ')' {estructuras.add(new ParcerVal("Expresion print "+" fila "+lex.row+" columna "+lex.column));}
 	| PRINT error {yyerror("Linea  Error en la construccion del print");}
 	;
 
-bloque: sent_if {System.out.println("Sentencia IF");}
-	| sent_loop {System.out.println("Sentencia loop");}
+bloque: sent_if {estructuras.add(new ParcerVal("Sentencia IF " +" fila "+lex.row+" columna "+lex.column));}
+	| sent_loop {estructuras.add(new ParcerVal("Sentencia Loop " +" fila "+lex.row+" columna "+lex.column));}
 	;
 
 
@@ -106,14 +106,14 @@ cuerpo: ejecutable {}
 	| error lista_ejecutable '}' {yyerror("LInea  Omision de la palabra reservada '{' ");}
 	;
 
-condicion: expresion '>' expresion {System.out.println("Expresion mayor");}
-	| expresion '<' expresion {System.out.println("Expresion menor");}
-	| expresion IGUAL expresion {System.out.println("Expresion igual");}
-	| expresion DIST expresion {System.out.println("Expresion distinto");}
-	| expresion MAYIG expresion {System.out.println("Expresion mayor o igual");}
-	| expresion MENIG expresion {System.out.println("Expresion menor o igual");}
-	| '>' expresion {yyerror("LInea  se esperaba una expresion y se encontro '>'");}
-	| '<' expresion {yyerror("LInea  se esperaba una expresion y se encontro '<'");}
-	| MAYIG expresion {yyerror("LInea  se esperaba una expresion y se encontro '>='");}
-	| MENIG expresion {yyerror("LInea  se esperaba una expresion y se encontro '<='");}
+condicion: expresion '>' expresion {}
+	| expresion '<' expresion {}
+	| expresion IGUAL expresion {}
+	| expresion DIST expresion {}
+	| expresion MAYIG expresion {}
+	| expresion MENIG expresion {}
+	| '>' expresion {yyerror("Linea  se esperaba una expresion y se encontro '>'");}
+	| '<' expresion {yyerror("Linea  se esperaba una expresion y se encontro '<'");}
+	| MAYIG expresion {yyerror("Linea  se esperaba una expresion y se encontro '>='");}
+	| MENIG expresion {yyerror("Linea  se esperaba una expresion y se encontro '<='");}
 	;

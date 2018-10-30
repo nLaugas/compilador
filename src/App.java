@@ -34,6 +34,7 @@ public class App extends JFrame{
     private JPanel a;
     String archivo="";
     private Errors errors;
+    private OutFile outFile = new OutFile();
     //este metodo es solo para mostrar el contenido de manera prolija
     //al momento de apretar el boton "token"
     public String mostrarToken(int valor){
@@ -113,12 +114,31 @@ public class App extends JFrame{
         return "";
     }
 
+    public String ejecut(LexicalAnalyzer lexical){
+        String out = new String();
+        int token=lexical.getNextToken();
+        while (token != -1) {
+            if (token == 0){
+                out+= "fin de archivo\n";
+                return out;
+            }
+            out+= mostrarToken(token)+"\n";
+            token=lexical.getNextToken();
+        }
+        if (!errors.isEmpty()) {
+            textArea3.append(errors.getError() + " fila " + errors.getRow() + " columna " + errors.getColumn() + "\n");
+        }
+
+        compilarButton.setEnabled(false);
+        return out;
+    }
+
     public App(/*String srcCode*/)  throws IOException {
 
        String srcCode ="srcCode"; /**Eliminar para compilar**/
-                FileReader file = new FileReader(srcCode);
-        BufferedReader src= new BufferedReader(file);
-        String cadena;
+       FileReader file = new FileReader(srcCode);
+       BufferedReader src= new BufferedReader(file);
+       String cadena;
 
         while ((cadena = src.readLine()) != null)
           archivo += cadena+"\n";
@@ -130,6 +150,9 @@ public class App extends JFrame{
 
         add(panel1);
         setSize(700,500);
+        textArea2.append(archivo);// muestra archivo
+        tokenButton.setEnabled(true);
+        compilarButton.setEnabled(true);
 
 
         //al presionar compila y consume todos los token
@@ -156,6 +179,7 @@ public class App extends JFrame{
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+
         //al presionar va retornando token y mostrandolos para probar solo
         //el analizador lexico
         tokenButton.addActionListener(new ActionListener() {
@@ -178,17 +202,11 @@ public class App extends JFrame{
         genArchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String ruta = "token.txt";
-                File archivo = new File(ruta);
-                BufferedWriter bw;
-                try {
-                    bw = new BufferedWriter(new FileWriter(archivo));
-                    bw.write(errors.getAll());
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-
-
+                par.run();
+                outFile.tlFile(st,"tablaSimbolos.txt");
+                outFile.tokenFile(par, "token.txt");
+                outFile.structFile(par,"estructurasReconocidas.txt");
+                outFile.errorFiles(errors,"errores.txt");
 
             }
         });
