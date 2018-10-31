@@ -3,6 +3,7 @@ package AnalizadorLexico.SemanticAction;
 import AnalizadorLexico.LexicalAnalyzer;
 import AnalizadorLexico.StateMachine.StateMachine;
 import AnalizadorSintactico.Parser;
+import AnalizadorSintactico.ParserVal;
 import Errors.Errors;
 
 public class AS_Asignacion_Comparacion extends SemanticAction {
@@ -12,6 +13,10 @@ public class AS_Asignacion_Comparacion extends SemanticAction {
     }
 
     public void Action(Character symbol) {
+        lexical.yylval = new ParserVal();
+        lexical.yylval.setColumna(lexical.column);
+        lexical.yylval.setFila(lexical.row);
+        lexical.yylval.sval=lexical.buffer+"=";
         switch (lexical.buffer) {
             case "!":
                 lexical.tokenId = Parser.DIST;
@@ -26,8 +31,10 @@ public class AS_Asignacion_Comparacion extends SemanticAction {
                 lexical.tokenId = Parser.ASIG;
                 break;
         }
+
         lexical.index++; // avanzo el cursor porque use el caracter
         lexical.column++;
+
         lexical.buffer = "";
 }
 }

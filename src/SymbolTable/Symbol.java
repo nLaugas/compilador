@@ -13,6 +13,11 @@ public class Symbol {
         atributos=new Hashtable<>();
     }
 
+    @Override
+    public String toString() {
+        return getLexema();
+    }
+
     public String getLexema () {
         return this.lexema;
     }

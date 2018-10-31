@@ -4,6 +4,8 @@
 //#############################################
 package AnalizadorSintactico;
 
+import SymbolTable.Symbol;
+
 /**
  * BYACC/J Semantic Value for parser: Parser
  * This class provides some of the functionality
@@ -37,7 +39,88 @@ public class ParserVal {
   /**
    * Initialize me without a value
    */
+  public String mostrarToken(int valor){
+
+    if (valor == 0){
+      return "EOF";
+    }
+    else if (valor == Parser.ID){
+      return "IDENTIFICADOR";
+    }
+    else if (valor == Parser.ENTERO){
+      return "ENTERO";
+    }
+    else if (valor == Parser.FLOTANTE){
+      return "FLOTANTE";
+    }
+    else if (valor == Parser.CADENA){
+      return "CADENA DE CARACTER";
+    }
+    else if (valor == Parser.ASIG){
+      return "ASIGNACION";
+    }
+    else if (valor == Parser.ID) {
+      return "IDENTIFICADOR";
+    }
+
+
+
+    else if (valor == Parser.ELSE) {
+      return "PALABRA RESERVADA ELSE";
+    }
+
+    else if (valor == Parser.END_IF) {
+      return "PALABRA RESERVADA END_IF";
+    }
+    else if (valor == Parser.IF) {
+      return "PALABRA RESERVADA IF";
+    }
+    else if (valor == Parser.INTEGER) {
+      return "PALABRA RESERVADA INTEGER";
+    }
+    else if (valor == Parser.LET) {
+      return "PALABRA RESERVADA LET";
+    }
+
+    else if (valor == Parser.MUT) {
+      return "PALABRA RESERVADA MUT";
+    }
+
+    else if (valor == Parser.LOOP) {
+      return "PALABRA RESERVADA LOOP";
+    }
+    else if (valor == Parser.UNTIL) {
+      return "PALABRA RESERVADA UNTIL";
+    }
+
+    else if (valor == Parser.PRINT) {
+      return "PALABRA RESERVADA PRINT";
+    }
+
+    else if (valor == Parser.SINGLE) {
+      return "PALABRA RESERVADA SINGLE";
+    }
+    else if (valor == Parser.MAYIG) {
+      return "OPERADOR MAYOR IGUAL";
+    }
+    else if (valor == Parser.MENIG) {
+      return "OPERADOR MENOR IGUAL";
+    }
+    else if (valor == Parser.DIST) {
+      return "DISTINTO";
+    }
+
+    else if (valor < 255) {
+      return "SIMBOLO "+(char)valor;
+    }
+    return "";
+  }
+
+
+
   public ParserVal() {
+    this.obj = null;
+    this.sval = null;
   }
 
   /**
@@ -148,10 +231,13 @@ public class ParserVal {
 
 
     private int valor;
+
     private TipoToken(int id){
       this.setValor(id);
     }
 
+
+    /**
     public String toString(){
       if (this.equals(OP_MAS))
         return "+";
@@ -196,6 +282,7 @@ public class ParserVal {
       else
         return super.toString();
     }
+**/
 
     public int getValor() {
       return valor;
@@ -241,9 +328,15 @@ public class ParserVal {
 
 
   public String toString() {
-    if ( this.lexema.equals("") )
-      return tipo.toString();
-    return this.lexema;
+    if (this.obj!=null){
+      return obj.toString();
+    }
+    else{
+      if (this.sval!=null)
+        return this.sval;
+
+      return mostrarToken(this.ival);
+    }
   }
 
   public boolean isReservado() {

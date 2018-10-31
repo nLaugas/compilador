@@ -9,6 +9,3 @@ ___d:=4.4F-5,
 __if(_c>=_d){loop _a:=5_i, until (_a<_b)
 ___a:=5_i,
 __}end_if
-
-
-

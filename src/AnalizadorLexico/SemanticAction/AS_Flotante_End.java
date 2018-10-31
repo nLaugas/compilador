@@ -35,12 +35,10 @@ public class AS_Flotante_End extends SemanticAction{
         lexical.symbolTable.setAtributo(String.valueOf(num),"=>","CTE FLOTANTE");
         //lexical.symbolTable.setAtributo(lexical.buffer,"valor",String.valueOf(num));
         // ######## ASEGURARNOS DE QUE ESTAMOS CONSTRUYENDO EL PARSER VAL CON UN PUNTERO A LA TABLA DE SYMBOLOS
-        lexical.yylval = new ParserVal(lexical.symbolTable.getSymbol(String.valueOf(num)));
-        lexical.yylval.setColumna(lexical.column);
-        lexical.yylval.setFila(lexical.row);
+
+        lexical.yylval.obj=lexical.symbolTable.getSymbol(lexical.buffer);
 
         //tecnica de reemplazo por el valor mas grande permitido
-        System.out.println(num);
         lexical.lastSymbol=String.valueOf(num); // guardo el simbolo viejo
         lexical.buffer = "";
     }
