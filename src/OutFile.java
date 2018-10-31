@@ -50,8 +50,8 @@ public class OutFile {
 
     public void structFile(Parser par, String ruta){
         String out = new String();
-        for(ParserVal pv : par.estructuras){
-            out+=pv.sval+"\n";
+        for(String pv : par.estructuras){
+            out+=pv+"\n";
         }
         this.crear(out,ruta);
     }

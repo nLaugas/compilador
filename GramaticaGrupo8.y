@@ -9,8 +9,45 @@
 
 /* Reglas */
 
-%%
+%{
 
+  LexicalAnalyzer lex;
+  SymbolTable st;
+  Errors errors;
+  public ArrayList<String> estructuras=new ArrayList<>();
+  public ArrayList<String> tokens = new ArrayList<>();
+
+    int yylex(){
+    // yylval = lex.getVal();
+/**Lo dejamos para despues!!!!**/
+    //Para mostrar los tokens encontrados
+    int a = lex.getNextToken();
+//    tokens.add(lex.yylval.toString()+" fila: "+lex.yylval.getFila()+" columna: "+lex.yylval.getColumna());
+
+    if (lex.yylval != null){
+      yylval = lex.yylval;
+      lex.yylval = null;
+    }else{
+      yylval = new ParserVal();
+    }
+    tokens.add(yylval.toString()+" fila: "+yylval.getFila()+" columna: "+yylval.getColumna());
+    return a;
+  }
+
+  public Parser(LexicalAnalyzer lex,SymbolTable st, Errors er)
+{
+  this.lex = lex;
+  this.st = st;
+  this.errors=er;
+  //nothing to do
+}
+
+void yyerror(String s){
+    errors.setError(lex.row, lex.column,s);
+  }
+
+  %}
+%%
 programa : lista_sentencia{} 
 	 | FIN {yyerror("No hay sentencia");}   		
          | error {yyerror("No hay sentencia");} FIN{}
@@ -73,20 +110,20 @@ factor: ENTERO {}
                     }
 	;
 
-asignacion: ID ASIG expresion  {estructuras.add(new ParcerVal("Asignacion "+" fila "+lex.row+" columna "+lex.column));}
-        | LET tipo '*'ID ASIG '&' ID  {estructuras.add(new ParcerVal("Asignacion de puntero "+" fila "+lex.row+" columna "+lex.column));}
-        | LET tipo ID ASIG expresion  {estructuras.add(new ParcerVal("Asignacion "+" fila "+lex.row+" columna "+lex.column));}
+asignacion: ID ASIG expresion  {estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
+        | LET tipo '*'ID ASIG '&' ID  {estructuras.add("Asignacion de puntero "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
+        | LET tipo ID ASIG expresion  {estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
 	| ASIG expresion  {yyerror("Falta elemento de asignacion y palabra reservada 'let'");}
 	| ID ASIG  {yyerror("Falta elemento de asignacion ");}
 	| ID error  {yyerror("no se encontro ':=' ");}
 	;
 
-exp_print: PRINT '(' CADENA ')' {estructuras.add(new ParcerVal("Expresion print "+" fila "+lex.row+" columna "+lex.column));}
+exp_print: PRINT '(' CADENA ')' {estructuras.add("Expresion print "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
 	| PRINT error {yyerror("Linea  Error en la construccion del print");}
 	;
 
-bloque: sent_if {estructuras.add(new ParcerVal("Sentencia IF " +" fila "+lex.row+" columna "+lex.column));}
-	| sent_loop {estructuras.add(new ParcerVal("Sentencia Loop " +" fila "+lex.row+" columna "+lex.column));}
+bloque: sent_if {estructuras.add("Sentencia IF " +" fila "+$1.getFila()+" columna "+$1.getColumna());}
+	| sent_loop {estructuras.add("Sentencia Loop " +" fila "+$1.getFila()+" columna "+$1.getColumna());}
 	;
 
 
