@@ -30,10 +30,10 @@ public class Parser
   Errors errors;
   public ArrayList<ParserVal> estructuras=new ArrayList<>();
   public ArrayList<String> tokens = new ArrayList<>();
-boolean yydebug;        //do I want debug output?
-int yynerrs;            //number of errors so far
-int yyerrflag;          //was there an error?
-int yychar;             //the current working character
+  boolean yydebug;        //do I want debug output?
+  int yynerrs;            //number of errors so far
+  int yyerrflag;          //was there an error?
+  int yychar;             //the current working character
 
 
 //########## MESSAGES ##########
@@ -512,13 +512,13 @@ String s=null;
 /**Lo dejamos para despues!!!!**/
     //Para mostrar los tokens encontrados
     int a = lex.getNextToken();
-    tokens.add(mostrarToken(a)+" fila: "+lex.row+" columna: "+lex.column);
     if (lex.yylval != null){
       yylval = lex.yylval;
       lex.yylval = null;
     }else{
       yylval = new ParserVal();
     }
+    tokens.add(yylval.toString()+" fila: "+yylval.getFila()+" columna: "+yylval.getColumna());
     return a;
   }
 

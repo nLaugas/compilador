@@ -24,7 +24,8 @@ sentencia: ejecutable {System.out.println("Programa");}
 	| declaracion {System.out.println("Programa");}
         ;
 
-declaracion: LET MUT tipo lista_id ',' {System.out.println("Declaracion"); /*aca detectamos una declarancion, tenemos que agregar al vector de estructuras sintacticas reconocidas un nuevo string que diga que reconocimos una declaracion en la linea $3.getlinea;*/
+declaracion: LET MUT tipo lista_id ',' {System.out.println("Declaracion"); /*aca detectamos una declarancion, tenemos que agregar al vector de estructuras sintacticas
+                                                           reconocidas un nuevo string que diga que reconocimos una declaracion en la linea $3.getlinea;*/
 /* tambien hay que agregar que declaracion puede ser LET tipo lista_id*/}
         | error {yyerror("Declaracion mal definida ");}
         ;
