@@ -13,7 +13,7 @@ public class Main {
 
         App a = new App(/*Args[0]*/);
         a.setVisible(true);
-        System.out.print(Parser.ID);
+
 
     }
 }

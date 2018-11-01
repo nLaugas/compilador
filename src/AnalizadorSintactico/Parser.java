@@ -48,11 +48,8 @@ int yychar;             //the current working character
   public ArrayList<String> tokens = new ArrayList<>();
 
   int yylex(){
-    /* yylval = lex.getVal();*/
-/**Lo dejamos para despues!!!!**/
-    /*Para mostrar los tokens encontrados*/
+
     int a = lex.getNextToken();
-    /*    tokens.add(lex.yylval.toString()+" fila: "+lex.yylval.getFila()+" columna: "+lex.yylval.getColumna());*/
 
     if (lex.yylval != null){
       yylval = lex.yylval;
