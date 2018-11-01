@@ -1,4 +1,4 @@
-let mut integer _a;*_b,
+let mut integer         _a;*_b,
 let integer _a:=5_i,
 let integer *_a:=&_b,
 print('cadena'),
