@@ -27,7 +27,7 @@ public class AS_Entero_End extends SemanticAction{
 //###############  ASEGURARNOS QUE CREANDO UN PARSER VAL CON UN SYMBOLO ESTAMOS HACIENDO LAS COSAS BIEN
         lexical.lastSymbol=String.valueOf(num)+"_i"; // no se usa mas
 
-        lexical.yylval.obj=lexical.symbolTable.getSymbol(lexical.buffer);
+        lexical.yylval.obj=lexical.symbolTable.getSymbol(String.valueOf(num)+"_i");
 
         lexical.buffer = "";
         lexical.column++;
