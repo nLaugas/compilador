@@ -1,3 +1,7 @@
 .idea 
 compilador.iml
 /out
+errores.txt
+token.txt
+tablaSimbolos.txt
+estructurasReconocidas.txt
