@@ -119,19 +119,19 @@ exp_print: PRINT '(' CADENA ')' {estructuras.add("Expresion print "+" fila "+$1.
 	| PRINT error {yyerror("Linea  Error en la construccion del print");}
 	;
 
-bloque: sent_if {estructuras.add("Sentencia IF " +" fila "+$1.getFila()+" columna "+$1.getColumna());}
-	| sent_loop {estructuras.add("Sentencia Loop " +" fila "+$1.getFila()+" columna "+$1.getColumna());}
+bloque: sent_if {}
+	| sent_loop {}
 	;
 
 
-sent_if: IF '(' condicion ')' cuerpo ELSE cuerpo END_IF{}
-        |IF '(' condicion ')' cuerpo END_IF{}
+sent_if: IF '(' condicion ')' cuerpo ELSE cuerpo END_IF{estructuras.add("Sentencia IF Else" +" fila "+$1.getFila()+" columna "+$1.getColumna());}
+        |IF '(' condicion ')' cuerpo END_IF{estructuras.add("Sentencia IF " +" fila "+$1.getFila()+" columna "+$1.getColumna());}
 	|  '(' condicion ')' cuerpo ELSE cuerpo {yyerror(" falta la palabra reservada IF");}
 	| IF error ELSE {yyerror(" Error en la construccion de la sentencia IF ");}
 	| IF '(' condicion ')' cuerpo cuerpo {yyerror(" Falta la palabra reservada ELSE ");}
 	;
 
-sent_loop: LOOP cuerpo UNTIL '(' condicion ')'{}   
+sent_loop: LOOP cuerpo UNTIL '(' condicion ')'{estructuras.add("Sentencia Loop " +" fila "+$1.getFila()+" columna "+$1.getColumna());}
 	| LOOP cuerpo '(' condicion ')'{yyerror("Linea  Falta palabra reservada UNTIL");}   
 	;
 

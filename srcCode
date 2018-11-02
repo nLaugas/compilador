@@ -1,11 +1,7 @@
-let mut integer         _a;*_b,
-let integer _a:=5_i,
-let integer *_a:=&_b,
-print('cadena'),
-__if(_a<_b)_a:=3.5F3,end_if
-__loop _a:=5_i, until (_a<_b)
-__single _d,
-___d:=4.4F-5,
-__if(_c>=_d){loop _a:=5_i, until (_a<_b)
-___a:=5_i,
-__}end_if
+__Sentencia If Else
+__Se espera que pulsando el boton generar archivos en la aplicacion No informe errores y genere los archivos deseados
+if(_a<_b)_a:=3.5F3, else _b:=3.5F3,end_if
+
+__Sentencia If
+__Se espera que pulsando el boton generar archivos en la aplicacion No informe errores
+if(_a<_b)_a:=3.5F3,end_if
