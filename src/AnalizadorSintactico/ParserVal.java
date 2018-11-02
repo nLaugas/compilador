@@ -237,53 +237,6 @@ public class ParserVal {
     }
 
 
-    /**
-    public String toString(){
-      if (this.equals(OP_MAS))
-        return "+";
-      else if (this.equals(OP_MENOS))
-        return "-";
-      else if (this.equals(OP_POR))
-        return "*";
-      else if (this.equals(OP_DIVIDIDO))
-        return "/";
-      else if (this.equals(COMP_MAYOR))
-        return ">";
-      else if (this.equals(MAYIG))
-        return ">=";
-      else if (this.equals(COMP_MENOR))
-        return "<";
-      else if (this.equals(MENIG))
-        return "<=";
-      else if (this.equals(DIST))
-        return "!=";
-      else if (this.equals(IGUAL))
-        return "==";
-      else if (this.equals(PARENTESIS_ABIERTO))
-        return "(";
-      else if (this.equals(PARENTESIS_CERRADO))
-        return ")";
-      else if (this.equals(CORCHETE_ABIERTO))
-        return "[";
-      else if (this.equals(CORCHETE_CERRADO))
-        return "]";
-      else if (this.equals(LLAVE_ABIERTA))
-        return "{";
-      else if (this.equals(LLAVE_CERRADA))
-        return "}";
-      else if (this.equals(COMA))
-        return ",";
-      else if (this.equals(PUNTO_Y_COMA))
-        return ";";
-      else if (this.equals(ASIG))
-        return ":=";
-      else if (this.equals(FIN))
-        return "EOF";
-      else
-        return super.toString();
-    }
-**/
-
     public int getValor() {
       return valor;
     }

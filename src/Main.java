@@ -11,7 +11,7 @@ public class Main {
 
     public static void main(String Args[]) throws IOException {
 
-        App a = new App(/*Args[0]*/);
+        App a = new App(Args[0]);
         a.setVisible(true);
 
 

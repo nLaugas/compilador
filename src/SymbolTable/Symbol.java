@@ -15,6 +15,8 @@ public class Symbol {
 
     @Override
     public String toString() {
+        if (atributos.containsKey("=>"))
+            return (String) atributos.get("=>");
         return getLexema();
     }
 

@@ -31,12 +31,7 @@ public class AS_Flotante_End extends SemanticAction{
         }
         lexical.symbolTable.setSymbol(String.valueOf(num), Parser.FLOTANTE);
         lexical.symbolTable.setAtributo(String.valueOf(num),"=>","CTE FLOTANTE");
-        //lexical.symbolTable.setAtributo(lexical.buffer,"valor",String.valueOf(num));
-        // ######## ASEGURARNOS DE QUE ESTAMOS CONSTRUYENDO EL PARSER VAL CON UN PUNTERO A LA TABLA DE SYMBOLOS
-
         lexical.yylval.obj=lexical.symbolTable.getSymbol(String.valueOf(num));
-
-
         lexical.buffer = "";
     }
 }

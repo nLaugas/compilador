@@ -19,19 +19,11 @@ import java.io.IOException;
 
 
 public class App extends JFrame{
-    private JTabbedPane tabbedPane1;
-    private JButton compilarButton;
-    private JButton tokenButton;
+
     private JPanel panel1;
-    private JTextPane textPane1;
-    private JTextArea textArea1;
-    private JButton archivoButton;
     private JTextArea textArea2;
-    private JTextArea textArea3;
     private JButton genArchButton;
-    private JEditorPane editorPane1;
     private JFileChooser file = new JFileChooser();
-    private JPanel a;
     String archivo="";
     private Errors errors;
     private OutFile outFile = new OutFile();
@@ -114,28 +106,10 @@ public class App extends JFrame{
         return "";
     }
 
-    public String ejecut(LexicalAnalyzer lexical){
-        String out = new String();
-        int token=lexical.getNextToken();
-        while (token != -1) {
-            if (token == 0){
-                out+= "fin de archivo\n";
-                return out;
-            }
-            out+= mostrarToken(token)+"\n";
-            token=lexical.getNextToken();
-        }
-        if (!errors.isEmpty()) {
-            textArea3.append(errors.getError() + " fila " + errors.getRow() + " columna " + errors.getColumn() + "\n");
-        }
 
-        compilarButton.setEnabled(false);
-        return out;
-    }
+    public App(String srcCode)  throws IOException {
 
-    public App(/*String srcCode*/)  throws IOException {
-
-       String srcCode ="srcCode"; /**Eliminar para compilar**/
+       //String srcCode ="srcCode"; /**Eliminar para compilar**/
        FileReader file = new FileReader(srcCode);
        BufferedReader src= new BufferedReader(file);
        String cadena;
@@ -151,53 +125,11 @@ public class App extends JFrame{
         add(panel1);
         setSize(700,500);
         textArea2.append(archivo);// muestra archivo
-        tokenButton.setEnabled(true);
-        compilarButton.setEnabled(true);
 
-
-        //al presionar compila y consume todos los token
-        compilarButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                par.run();
-                textArea1.removeAll();
-                textArea3.removeAll();
-                textArea3.append("ERRORES \n \n");
-                while (!errors.isEmpty()) {
-                    textArea3.append(errors.getError() + " fila " + errors.getRow() + " columna " + errors.getColumn() + "\n");
-                }
-                textArea1.append("TABLA DE SIMBOLOS \n\n");
-                while (!st.isEmpty()) {
-                    textArea1.append(st.getAtributosNextLexema() + "\n");
-                }
-                compilarButton.setEnabled(false);
-                tokenButton.setEnabled(false);
-
-            }
-
-        });
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        //al presionar va retornando token y mostrandolos para probar solo
-        //el analizador lexico
-        tokenButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                int token=lexical.getNextToken();
-                if (token != -1) {
-                    if (token == 0)
-                        textArea1.append("fin de archivo\n");
-                    textArea1.append(mostrarToken(token)+"\n");
-                }
-                if (!errors.isEmpty()) {
-                    textArea3.append(errors.getError() + " fila " + errors.getRow() + " columna " + errors.getColumn() + "\n");
-                }
-
-                compilarButton.setEnabled(false);
-            }
-        });
 
         genArchButton.addActionListener(new ActionListener() {
             @Override
@@ -211,13 +143,5 @@ public class App extends JFrame{
             }
         });
 
-        archivoButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                textArea2.append(archivo);
-                tokenButton.setEnabled(true);
-                compilarButton.setEnabled(true);
-            }
-        });
     }
 }

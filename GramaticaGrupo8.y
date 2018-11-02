@@ -42,6 +42,9 @@
 void yyerror(String s){
     errors.setError(lex.row, lex.column,s);
   }
+  void yyerror(String s,int row,int column){
+      errors.setError(row,column,s);
+    }
 
   %}
 %%
@@ -65,12 +68,12 @@ declaracion: LET MUT tipo lista_id ',' {}
 lista_id: ID {}
 	| '*' ID {}
 	| ID ';' lista_id {}
-        | ID lista_id{yyerror("Se esperaba ';' ");}
+        | ID lista_id{yyerror("Se esperaba ';' ",$1.getFila(),$1.getColumna());}
         ;
 
 tipo: INTEGER {}
 	| SINGLE {}
-	| error ','{yyerror("Tipo indefinido");}
+	| error ','{yyerror("Tipo indefinido",$1.getFila(),$1.getColumna());}
 	;
 
 lista_ejecutable: ejecutable {}
@@ -107,16 +110,17 @@ factor: ENTERO {}
                     }
 	;
 
-asignacion: ID ASIG expresion  {estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
+asignacion: ID ASIG
+  {estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
         | LET tipo '*'ID ASIG '&' ID  {estructuras.add("Asignacion de puntero "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
         | LET tipo ID ASIG expresion  {estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
-	| ASIG expresion  {yyerror("Falta elemento de asignacion y palabra reservada 'let'");}
-	| ID ASIG  {yyerror("Falta elemento de asignacion ");}
-	| ID error  {yyerror("no se encontro ':=' ");}
+	| ASIG expresion  {yyerror("Falta elemento de asignacion y palabra reservada 'let'",$1.getFila(),$1.getColumna());}
+	| ID ASIG  {yyerror("Falta elemento de asignacion ",$1.getFila(),$1.getColumna());}
+	| ID error  {yyerror("no se encontro ':=' ",$1.getFila(),$1.getColumna());}
 	;
 
 exp_print: PRINT '(' CADENA ')' {estructuras.add("Expresion print "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
-	| PRINT error {yyerror("Linea  Error en la construccion del print");}
+	| PRINT error {yyerror("Linea  Error en la construccion del print",$1.getFila(),$1.getColumna());}
 	;
 
 bloque: sent_if {}
@@ -126,18 +130,18 @@ bloque: sent_if {}
 
 sent_if: IF '(' condicion ')' cuerpo ELSE cuerpo END_IF{estructuras.add("Sentencia IF Else" +" fila "+$1.getFila()+" columna "+$1.getColumna());}
         |IF '(' condicion ')' cuerpo END_IF{estructuras.add("Sentencia IF " +" fila "+$1.getFila()+" columna "+$1.getColumna());}
-	|  '(' condicion ')' cuerpo ELSE cuerpo {yyerror(" falta la palabra reservada IF");}
-	| IF error ELSE {yyerror(" Error en la construccion de la sentencia IF ");}
-	| IF '(' condicion ')' cuerpo cuerpo {yyerror(" Falta la palabra reservada ELSE ");}
+	|  '(' condicion ')' cuerpo ELSE cuerpo {yyerror(" falta la palabra reservada IF",$1.getFila(),$1.getColumna());}
+	| IF error ELSE {yyerror(" Error en la construccion de la sentencia IF ",$1.getFila(),$1.getColumna());}
+	| IF '(' condicion ')' cuerpo cuerpo {yyerror(" Falta la palabra reservada ELSE ",$1.getFila(),$1.getColumna());}
 	;
 
 sent_loop: LOOP cuerpo UNTIL '(' condicion ')'{estructuras.add("Sentencia Loop " +" fila "+$1.getFila()+" columna "+$1.getColumna());}
-	| LOOP cuerpo '(' condicion ')'{yyerror("Linea  Falta palabra reservada UNTIL");}   
+	| LOOP cuerpo '(' condicion ')'{yyerror("Linea  Falta palabra reservada UNTIL",$1.getFila(),$1.getColumna());}
 	;
 
 cuerpo: ejecutable {}
 	| '{' lista_ejecutable '}'{}
-	| error lista_ejecutable '}' {yyerror("LInea  Omision de la palabra reservada '{' ");}
+	| error lista_ejecutable '}' {yyerror("LInea  Omision de la palabra reservada '{' ",$1.getFila(),$1.getColumna());}
 	;
 
 condicion: expresion '>' expresion {}
@@ -146,8 +150,8 @@ condicion: expresion '>' expresion {}
 	| expresion DIST expresion {}
 	| expresion MAYIG expresion {}
 	| expresion MENIG expresion {}
-	| '>' expresion {yyerror("Linea  se esperaba una expresion y se encontro '>'");}
-	| '<' expresion {yyerror("Linea  se esperaba una expresion y se encontro '<'");}
-	| MAYIG expresion {yyerror("Linea  se esperaba una expresion y se encontro '>='");}
-	| MENIG expresion {yyerror("Linea  se esperaba una expresion y se encontro '<='");}
+	| '>' expresion {yyerror("Linea  se esperaba una expresion y se encontro '>'",$1.getFila(),$1.getColumna());}
+	| '<' expresion {yyerror("Linea  se esperaba una expresion y se encontro '<'",$1.getFila(),$1.getColumna());}
+	| MAYIG expresion {yyerror("Linea  se esperaba una expresion y se encontro '>='",$1.getFila(),$1.getColumna());}
+	| MENIG expresion {yyerror("Linea  se esperaba una expresion y se encontro '<='",$1.getFila(),$1.getColumna());}
 	;
