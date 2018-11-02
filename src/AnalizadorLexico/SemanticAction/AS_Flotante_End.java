@@ -34,10 +34,9 @@ public class AS_Flotante_End extends SemanticAction{
         //lexical.symbolTable.setAtributo(lexical.buffer,"valor",String.valueOf(num));
         // ######## ASEGURARNOS DE QUE ESTAMOS CONSTRUYENDO EL PARSER VAL CON UN PUNTERO A LA TABLA DE SYMBOLOS
 
-        lexical.yylval.obj=lexical.symbolTable.getSymbol(lexical.buffer);
+        lexical.yylval.obj=lexical.symbolTable.getSymbol(String.valueOf(num));
 
-        //tecnica de reemplazo por el valor mas grande permitido
-        lexical.lastSymbol=String.valueOf(num); // guardo el simbolo viejo
+
         lexical.buffer = "";
     }
 }
