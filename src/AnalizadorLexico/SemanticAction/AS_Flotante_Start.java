@@ -17,9 +17,6 @@ public class AS_Flotante_Start extends SemanticAction {
         lexical.tokenId = Parser.FLOTANTE;
         lexical.buffer+= symbol;
 
-        lexical.yylval = new ParserVal();
-        lexical.yylval.setColumna(lexical.column);
-        lexical.yylval.setFila(lexical.row);
 
         lexical.index++;
         lexical.column++;

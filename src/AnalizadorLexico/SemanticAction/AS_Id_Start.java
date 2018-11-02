@@ -17,10 +17,6 @@ public class AS_Id_Start extends SemanticAction
         lexical.tokenId = Parser.ID;
         lexical.buffer+= symbol;
 
-        lexical.yylval = new ParserVal();
-        lexical.yylval.setColumna(lexical.column);
-        lexical.yylval.setFila(lexical.row);
-
         lexical.index++;
         lexical.column++;
     }

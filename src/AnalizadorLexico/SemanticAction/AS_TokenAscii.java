@@ -14,10 +14,6 @@ public class AS_TokenAscii extends SemanticAction {
         lexical.index++;
         lexical.column++;
 
-        lexical.yylval = new ParserVal();
-        lexical.yylval.setColumna(lexical.column);
-        lexical.yylval.setFila(lexical.row);
-
         lexical.yylval.ival=lexical.tokenId;
 
         lexical.buffer = "";

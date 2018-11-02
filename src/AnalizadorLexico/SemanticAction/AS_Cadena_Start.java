@@ -16,10 +16,6 @@ public class AS_Cadena_Start extends SemanticAction{
         lexical.tokenId = Parser.CADENA;
         //lexical.buffer+= symbol;
 
-        lexical.yylval = new ParserVal();
-        lexical.yylval.setColumna(lexical.column);
-        lexical.yylval.setFila(lexical.row);
-
         lexical.index++;
         lexical.column++;
     }

@@ -13,9 +13,6 @@ public class AS_Asignacion_Comparacion extends SemanticAction {
     }
 
     public void Action(Character symbol) {
-        lexical.yylval = new ParserVal();
-        lexical.yylval.setColumna(lexical.column);
-        lexical.yylval.setFila(lexical.row);
         lexical.yylval.sval=lexical.buffer+"=";
         switch (lexical.buffer) {
             case "!":

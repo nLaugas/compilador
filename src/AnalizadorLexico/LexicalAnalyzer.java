@@ -491,6 +491,11 @@ public class LexicalAnalyzer {
         tokenId = -1;
         state = StateMachine.INITIAL_STATE;
         Character symbol;
+
+        yylval = new ParserVal();
+        yylval.setColumna(column);
+        yylval.setFila(row);
+
         while (state != StateMachine.FINAL_STATE){
             if (index >=srcCode.length()){
                 return 0;
@@ -500,6 +505,10 @@ public class LexicalAnalyzer {
             state = StateMachine.getNextState(state,symbol);
             StateMachine.getSemanticAction(old,symbol).Action(symbol);
 
+            if (state == StateMachine.INITIAL_STATE){
+                yylval.setColumna(column);
+                yylval.setFila(row);
+            }
 
         }
 

@@ -16,10 +16,9 @@ public class AS_Entero_Start extends SemanticAction{
         lexical.tokenId = Parser.ENTERO;
         lexical.buffer+= symbol;// no agrega el '
 
-        lexical.yylval = new ParserVal();
+      /*  lexical.yylval = new ParserVal();
         lexical.yylval.setColumna(lexical.column);
-        lexical.yylval.setFila(lexical.row);
-
+        lexical.yylval.setFila(lexical.row);*/
         lexical.index++;
         lexical.column++;
     }
