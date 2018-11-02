@@ -110,8 +110,7 @@ factor: ENTERO {}
                     }
 	;
 
-asignacion: ID ASIG
-  {estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
+asignacion: ID ASIG  expresion {estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
         | LET tipo '*'ID ASIG '&' ID  {estructuras.add("Asignacion de puntero "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
         | LET tipo ID ASIG expresion  {estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
 	| ASIG expresion  {yyerror("Falta elemento de asignacion y palabra reservada 'let'",$1.getFila(),$1.getColumna());}
