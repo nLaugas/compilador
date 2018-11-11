@@ -4,6 +4,7 @@ import java.util.Hashtable;
 
 public class Symbol {
     private String lexema;
+    private String tipoVar; // tipo de dato para identificadores(set en AS) y constantes(set en gramatica)
     private short tipo;
     private Hashtable <String,Object> atributos;
 
@@ -53,5 +54,13 @@ public class Symbol {
             attr+=" "+key+" "+atributos.get(key);
         }
         return attr;
+    }
+
+    public void setTipoVar(String tipoVar) {
+        this.tipoVar = tipoVar;
+    }
+
+    public String getTipoVar() {
+        return tipoVar;
     }
 }
