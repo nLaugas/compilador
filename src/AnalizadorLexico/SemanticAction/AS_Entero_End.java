@@ -21,10 +21,6 @@ public class AS_Entero_End extends SemanticAction{
         }
         lexical.symbolTable.setSymbol(String.valueOf(num)+"_i"/*lexical.buffer+symbol*/, Parser.ENTERO);
         lexical.symbolTable.setAtributo(String.valueOf(num)+"_i"/*lexical.buffer+symbol*/,"=>","CTE ENTERO");
-        //tecnica de reemplazo por el valor mas grande permitido
-        //System.out.println(num);
-        //lexical.lastSymbol=lexical.buffer+ symbol; // guardo el simbolo viejo
-//###############  ASEGURARNOS QUE CREANDO UN PARSER VAL CON UN SYMBOLO ESTAMOS HACIENDO LAS COSAS BIEN
         lexical.lastSymbol=String.valueOf(num)+"_i"; // no se usa mas
 
         lexical.yylval.obj=lexical.symbolTable.getSymbol(String.valueOf(num)+"_i");

@@ -11,40 +11,6 @@
 
 %{
 
-  LexicalAnalyzer lex;
-  SymbolTable st;
-  Errors errors;
-  public ArrayList<String> estructuras=new ArrayList<>();
-  public ArrayList<String> tokens = new ArrayList<>();
-
-    int yylex(){
-
-    int a = lex.getNextToken();
-
-    if (lex.yylval != null){
-      yylval = lex.yylval;
-      lex.yylval = null;
-    }else{
-      yylval = new ParserVal();
-    }
-    tokens.add(yylval.toString()+" fila: "+yylval.getFila()+" columna: "+yylval.getColumna());
-    return a;
-  }
-
-  public Parser(LexicalAnalyzer lex,SymbolTable st, Errors er)
-{
-  this.lex = lex;
-  this.st = st;
-  this.errors=er;
-  //nothing to do
-}
-
-void yyerror(String s){
-    errors.setError(lex.row, lex.column,s);
-  }
-  void yyerror(String s,int row,int column){
-      errors.setError(row,column,s);
-    }
 
   %}
 %%
@@ -154,3 +120,40 @@ condicion: expresion '>' expresion {}
 	| MAYIG expresion {yyerror("Linea  se esperaba una expresion y se encontro '>='",$1.getFila(),$1.getColumna());}
 	| MENIG expresion {yyerror("Linea  se esperaba una expresion y se encontro '<='",$1.getFila(),$1.getColumna());}
 	;
+
+%%
+
+  LexicalAnalyzer lex;
+  SymbolTable st;
+  Errors errors;
+  public ArrayList<String> estructuras=new ArrayList<>();
+  public ArrayList<String> tokens = new ArrayList<>();
+
+    int yylex(){
+
+    int a = lex.getNextToken();
+
+    if (lex.yylval != null){
+      yylval = lex.yylval;
+      lex.yylval = null;
+    }else{
+      yylval = new ParserVal();
+    }
+    tokens.add(yylval.toString()+" fila: "+yylval.getFila()+" columna: "+yylval.getColumna());
+    return a;
+  }
+
+  public Parser(LexicalAnalyzer lex,SymbolTable st, Errors er)
+{
+  this.lex = lex;
+  this.st = st;
+  this.errors=er;
+  //nothing to do
+}
+
+void yyerror(String s){
+    errors.setError(lex.row, lex.column,s);
+  }
+  void yyerror(String s,int row,int column){
+      errors.setError(row,column,s);
+    }
