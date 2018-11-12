@@ -1,6 +1,11 @@
 /* Declaraciones */
 
-%{ package AnalizadorSintactico;
+%{ 
+import AnalizadorLexico.LexicalAnalyzer;
+import Errors.Errors;
+import SymbolTable.*;
+
+import java.util.ArrayList;
 %}
 
 /* Lista de tokens */
@@ -27,13 +32,19 @@ sentencia: ejecutable {}
 	| declaracion {}
         ;
 
-declaracion: LET MUT tipo lista_id ',' {}
+declaracion: LET MUT tipo lista_id ',' {//for(Symbol s : id){
+										//	s.setEsMutable(true);
+										//	s.setTipoVar((Symbol)$3.obj.getAtributo("=>"));}
+										//id.clear();/*vacio lista*/
+										/*si algun id ya estaba definido debo retornar error*/	}
         | error {yyerror("Declaracion mal definida ");}
         ;
 
-lista_id: ID {}
-	| '*' ID {}
-	| ID ';' lista_id {}
+lista_id: ID {id.add((Symbol)$1.obj); }
+	| '*' ID {	//(Symbol)$1.obj.setEspuntero(true); //reconoce puntero
+				//id.add((Symbol)$1.obj);} //agrega a lista de identificadores reconocidos
+	}
+	| ID ';' lista_id {id.add((Symbol)$1.obj);}
         | ID lista_id{yyerror("Se esperaba ';' ",$1.getFila(),$1.getColumna());}
         ;
 
@@ -76,9 +87,22 @@ factor: ENTERO {}
                     }
 	;
 
-asignacion: ID ASIG  expresion {estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
-        | LET tipo '*'ID ASIG '&' ID  {estructuras.add("Asignacion de puntero "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
-        | LET tipo ID ASIG expresion  {estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
+asignacion: ID ASIG  expresion { /*if (!(Symbol)$1.obj.usar())/*((!(Symbol)$1.obj.usar())&&(!(Symbol)$1.obj.getTipo()==$3.ival))*///{
+									//yyerror("error en la asignacion, la variable no existe ",$1.getFila(),$1.getColumna());		
+									//}
+	estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
+    | LET tipo '*'ID ASIG '&' ID  { //if ((Symbol)$1.obj.usar()){
+											// esta para usar, entonces ya existe
+									//		yyerror("error en la asignacion, la variable ya esta definida",$1.getFila(),$1.getColumna());	
+									//		}
+											//deberia asignarle el tipo a la variable
+
+										estructuras.add("Asignacion de puntero "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
+    | LET tipo ID ASIG expresion  {//if ((Symbol)$1.obj.usar()){
+											// esta para usar, entonces ya existe
+										//	yyerror("error en la asignacion, la variable ya esta definida",$1.getFila(),$1.getColumna());	
+										//	}
+										estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
 	| ASIG expresion  {yyerror("Falta elemento de asignacion y palabra reservada 'let'",$1.getFila(),$1.getColumna());}
 	| ID ASIG  {yyerror("Falta elemento de asignacion ",$1.getFila(),$1.getColumna());}
 	| ID error  {yyerror("no se encontro ':=' ",$1.getFila(),$1.getColumna());}
@@ -128,6 +152,7 @@ condicion: expresion '>' expresion {}
   Errors errors;
   public ArrayList<String> estructuras=new ArrayList<>();
   public ArrayList<String> tokens = new ArrayList<>();
+  public ArrayList<Symbol> id = new ArrayList<>();
 
     int yylex(){
 
@@ -148,7 +173,6 @@ condicion: expresion '>' expresion {}
   this.lex = lex;
   this.st = st;
   this.errors=er;
-  //nothing to do
 }
 
 void yyerror(String s){

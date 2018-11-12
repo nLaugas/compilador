@@ -4,7 +4,7 @@ import java.util.Hashtable;
 
 public class Symbol {
     private String lexema;
-    private String tipoVar; // tipo de dato para identificadores(set en AS) y constantes(set en gramatica)
+    private String tipoVar = null; // tipo de dato para identificadores(set en AS) y constantes(set en gramatica)
     private short tipo;
     private boolean esPuntero;
     private boolean esMutable;
@@ -27,6 +27,17 @@ public class Symbol {
         atributos=new Hashtable<>();
     }
 
+    public boolean usar(){
+        return true;
+    }
+    public void setEspuntero(boolean esPuntero){
+        this.esPuntero=esPuntero;
+    }
+
+    public void setEsMutable(boolean esMutable){
+        this.esMutable=esMutable;
+    }
+
     public void setAtributo(boolean esMutable,boolean esPuntero, boolean mutivalidadApuntado){
         this.esMutable=esMutable;
         this.esPuntero=esPuntero;
@@ -40,6 +51,10 @@ public class Symbol {
         this.esPuntero=esPuntero;
         this.mutivalidadApuntado=mutivalidadApuntado;
         atributos=new Hashtable<>();
+    }
+
+    public void setEsPuntero(boolean esPuntero){
+
     }
 
     @Override
