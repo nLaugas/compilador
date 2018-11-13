@@ -43,9 +43,7 @@ declaracion: LET MUT tipo lista_id ',' {for(String lexem : id){    //estoy aca!
 												yyerror("Variable ya definida ",$1.getFila(),$1.getColumna());		
 											}					
                                             }id.clear();
-											
-										//id.clear();/*vacio lista*/
-										/*si algun id ya estaba definido debo retornar error*/	}
+										}
         | error {yyerror("Declaracion mal definida ");}
         ;
 
@@ -54,11 +52,12 @@ lista_id: ID {id.add( ((Symbol)($1.obj)).getLexema() ); }
 				id.add(((Symbol)($2.obj)).getLexema());} //agrega a lista de identificadores reconocidos
 	
 	| ID ';' lista_id {id.add(((Symbol)($1.obj)).getLexema());}
+	| '*' ID ';' lista_id {id.add(((Symbol)($2.obj)).getLexema());}
         | ID lista_id{yyerror("Se esperaba ';' ",$1.getFila(),$1.getColumna());}
         ;
 
 tipo: INTEGER {$$.sval="integer";}
-	| FLOTANTE {$$.sval="float";}
+	| SINGLE {$$.sval="float";}
 	| error ','{yyerror("Tipo indefinido",$1.getFila(),$1.getColumna());}
 	;
 
@@ -80,38 +79,65 @@ termino: factor '/' termino {}
 	| factor '*' termino{}
         | factor {}
 	;
-	
+// integer y single son tipos de las varibles
+// estero y flotante son las constantes	
 factor: ENTERO {}
 	| FLOTANTE {}
-	| ID {}
-	| '-' ENTERO {
-                      Symbol aux = st.getSymbol(lex.lastSymbol);
-                      st.addcambiarSigno(aux);
+	| ID {if(!((Symbol)($1.obj)).isUsada()){
+			//error
+			yyerror("variable no declarada",$1.getFila(),$1.getColumna());
+	}}
+	| '-' ENTERO {    
+                      //Symbol aux = st.getSymbol(lex.lastSymbol);
+                      st.addcambiarSigno(((Symbol))($2.obj)));  //((Symbol))($2.obj))
                      
  		              }
 	|'-' FLOTANTE{
-                     Symbol aux = st.getSymbol(lex.lastSymbol);
-                     st.addcambiarSigno(aux);
-                    
+		             
+                    // Symbol aux = st.getSymbol(lex.lastSymbol);
+                     st.addcambiarSigno(((Symbol))($2.obj)));  //((Symbol))($2.obj))
                     }
 	;
 
-asignacion: ID ASIG  expresion { /*if (!(Symbol)$1.obj.usar())/*((!(Symbol)$1.obj.usar())&&(!(Symbol)$1.obj.getTipo()==$3.ival))*///{
-									//yyerror("error en la asignacion, la variable no existe ",$1.getFila(),$1.getColumna());		
-									//}
+asignacion: ID ASIG  expresion{		if (!((Symbol)($1.obj)).getEsMutable()){
+										yyerror("La variable no es mutable ",$1.getFila(),$1.getColumna());
+									}
+									if (!((Symbol)($1.obj)).isUsada()){
+										yyerror("La variable no esta definida ",$1.getFila(),$1.getColumna());
+									}
+									// crear tercetoe de asignacion
 	estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
-    | LET tipo '*'ID ASIG '&' ID  { //if ((Symbol)$1.obj.usar()){
-											// esta para usar, entonces ya existe
-									//		yyerror("error en la asignacion, la variable ya esta definida",$1.getFila(),$1.getColumna());	
-									//		}
-											//deberia asignarle el tipo a la variable
-
-										estructuras.add("Asignacion de puntero "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
-    | LET tipo ID ASIG expresion  {//if ((Symbol)$1.obj.usar()){
-											// esta para usar, entonces ya existe
-										//	yyerror("error en la asignacion, la variable ya esta definida",$1.getFila(),$1.getColumna());	
-										//	}
-										estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
+    | LET tipo '*'ID ASIG '&' ID  { // Estoy definiendo una variable
+									if (((Symbol)($4.obj)).isUsada()){
+										yyerror("La variable ya esta definida ",$1.getFila(),$1.getColumna());
+									}else{
+										Symbol s = ((Symbol)($4.obj));
+										s.setUsada(true);
+										s.setEsMutable(false);
+										s.setEspuntero(true);
+										s.setTipoVar($2.sval);
+										// faltaria mutabilidad de lo apuntado
+									}
+									if (!((Symbol)($7.obj)).isUsada()){
+										yyerror("La variable no esta definida, &ID ",$1.getFila(),$1.getColumna());	
+									}else{
+										Symbol s = ((Symbol)($7.obj));
+										if (s.isEsPuntero())
+											yyerror("No se permiten punteros multiples ",$1.getFila(),$1.getColumna());
+									}
+									estructuras.add("Asignacion de puntero "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
+    | LET tipo ID ASIG expresion  {//Estoy definiendo una variable
+									if (((Symbol)($3.obj)).isUsada()){
+										yyerror("La variable ya esta definida ",$1.getFila(),$1.getColumna());
+									}else{
+										Symbol s = ((Symbol)($4.obj));
+										s.setUsada(true);
+										s.setEsMutable(false);
+										s.setEspuntero(false);
+										s.setTipoVar($2.sval);
+										// faltaria mutabilidad de lo apuntado
+									}
+									estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
 	| ASIG expresion  {yyerror("Falta elemento de asignacion y palabra reservada 'let'",$1.getFila(),$1.getColumna());}
 	| ID ASIG  {yyerror("Falta elemento de asignacion ",$1.getFila(),$1.getColumna());}
 	| ID error  {yyerror("no se encontro ':=' ",$1.getFila(),$1.getColumna());}

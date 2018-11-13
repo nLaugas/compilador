@@ -6,4 +6,5 @@ __Sentencia If
 __Se espera que pulsando el boton generar archivos en la aplicacion No informe errores
 __if(_a<_b)_a:=3.5F3,end_if
 let mut integer _a;_b;*_c,
-let mut integer _a;_b;*_c,
+_d:=5_i,
+__let mut integer _a;_b;*_c,

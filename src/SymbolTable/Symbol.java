@@ -7,6 +7,11 @@ public class Symbol {
     private String tipoVar = null; // tipo de dato para identificadores(set en AS) y constantes(set en gramatica)
     private short tipo;
     private boolean usada=false;
+
+    public boolean isEsPuntero() {
+        return esPuntero;
+    }
+
     private boolean esPuntero;
     private boolean esMutable;
     private boolean mutivalidadApuntado; //ver cuando usar!
@@ -45,7 +50,9 @@ public class Symbol {
     public void setEsMutable(boolean esMutable){
         this.esMutable=esMutable;
     }
-
+    public boolean getEsMutable(){
+        return esMutable;
+    }
     public void setAtributo(boolean esMutable,boolean esPuntero, boolean mutivalidadApuntado){
         this.esMutable=esMutable;
         this.esPuntero=esPuntero;
@@ -59,10 +66,6 @@ public class Symbol {
         this.esPuntero=esPuntero;
         this.mutivalidadApuntado=mutivalidadApuntado;
         atributos=new Hashtable<>();
-    }
-
-    public void setEsPuntero(boolean esPuntero){
-
     }
 
     @Override
