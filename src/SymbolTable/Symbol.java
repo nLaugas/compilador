@@ -6,6 +6,7 @@ public class Symbol {
     private String lexema;
     private String tipoVar = null; // tipo de dato para identificadores(set en AS) y constantes(set en gramatica)
     private short tipo;
+    private boolean usada=false;
     private boolean esPuntero;
     private boolean esMutable;
     private boolean mutivalidadApuntado; //ver cuando usar!
@@ -20,6 +21,13 @@ public class Symbol {
      * las variables tienen tipo de toque tipo de dato y mutabilidad
      * las variables de tipo puntero agregan mutabilidad de lo apuntado y saber si es un puntero
      * **/
+    public boolean isUsada() {
+        return usada;
+    }
+
+    public void setUsada(boolean usada) {
+        this.usada = usada;
+    }
 
     public Symbol(String lexema, int number) {
         this.lexema = lexema;

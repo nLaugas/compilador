@@ -1,7 +1,9 @@
 __Sentencia If Else
 __Se espera que pulsando el boton generar archivos en la aplicacion No informe errores y genere los archivos deseados
-if(_a<_b)_a:=3.5F3, else _b:=3.5F3,end_if
-_a:=3_i,
+__if(_a<_b)_a:=3.5F3, else _b:=3.5F3,end_if
+__a:=3_i,
 __Sentencia If
 __Se espera que pulsando el boton generar archivos en la aplicacion No informe errores
-if(_a<_b)_a:=3.5F3,end_if
+__if(_a<_b)_a:=3.5F3,end_if
+let mut integer _a;_b;*_c,
+let mut integer _a;_b;*_c,

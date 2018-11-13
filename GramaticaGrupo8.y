@@ -32,24 +32,33 @@ sentencia: ejecutable {}
 	| declaracion {}
         ;
 
-declaracion: LET MUT tipo lista_id ',' {//for(Symbol s : id){
-										//	s.setEsMutable(true);
-										//	s.setTipoVar((Symbol)$3.obj.getAtributo("=>"));}
+declaracion: LET MUT tipo lista_id ',' {for(String lexem : id){    //estoy aca!
+											Symbol s = st.getSymbol(lexem);
+											
+											if (!s.isUsada()){
+												s.setUsada(true);
+												s.setEsMutable(true);
+												s.setTipoVar($3.sval);}
+											else{
+												yyerror("Variable ya definida ",$1.getFila(),$1.getColumna());		
+											}					
+                                            }id.clear();
+											
 										//id.clear();/*vacio lista*/
 										/*si algun id ya estaba definido debo retornar error*/	}
         | error {yyerror("Declaracion mal definida ");}
         ;
 
-lista_id: ID {id.add((Symbol)$1.obj); }
-	| '*' ID {	//(Symbol)$1.obj.setEspuntero(true); //reconoce puntero
-				//id.add((Symbol)$1.obj);} //agrega a lista de identificadores reconocidos
-	}
-	| ID ';' lista_id {id.add((Symbol)$1.obj);}
+lista_id: ID {id.add( ((Symbol)($1.obj)).getLexema() ); } 
+	| '*' ID {	((Symbol)($2.obj)).setEspuntero(true); //reconoce puntero
+				id.add(((Symbol)($2.obj)).getLexema());} //agrega a lista de identificadores reconocidos
+	
+	| ID ';' lista_id {id.add(((Symbol)($1.obj)).getLexema());}
         | ID lista_id{yyerror("Se esperaba ';' ",$1.getFila(),$1.getColumna());}
         ;
 
-tipo: INTEGER {}
-	| SINGLE {}
+tipo: INTEGER {$$.sval="integer";}
+	| FLOTANTE {$$.sval="float";}
 	| error ','{yyerror("Tipo indefinido",$1.getFila(),$1.getColumna());}
 	;
 
@@ -152,7 +161,7 @@ condicion: expresion '>' expresion {}
   Errors errors;
   public ArrayList<String> estructuras=new ArrayList<>();
   public ArrayList<String> tokens = new ArrayList<>();
-  public ArrayList<Symbol> id = new ArrayList<>();
+  public ArrayList<String> id = new ArrayList<>();
 
     int yylex(){
 
