@@ -21,6 +21,10 @@ public class AS_Entero_End extends SemanticAction{
         }
         lexical.symbolTable.setSymbol(String.valueOf(num)+"_i"/*lexical.buffer+symbol*/, Parser.ENTERO);
         lexical.symbolTable.setAtributo(String.valueOf(num)+"_i"/*lexical.buffer+symbol*/,"=>","CTE ENTERO");
+
+        //PARA LOS IDENTIFICADORES DE ESTE TIPO EN LA GRAMATICA VA ESTO MISMO
+        lexical.symbolTable.getSymbol(String.valueOf(num)+"_i").setTipoVar("integer");
+
         lexical.lastSymbol=String.valueOf(num)+"_i"; // no se usa mas
 
         lexical.yylval.obj=lexical.symbolTable.getSymbol(String.valueOf(num)+"_i");
