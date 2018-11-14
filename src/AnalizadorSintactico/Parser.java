@@ -768,6 +768,7 @@ case 31:
 {yyval.sval="float";}
 break;
 case 32:
+
 //#line 102 "GramaticaGrupo8.y"
 {if(!((Symbol)(val_peek(0).obj)).isUsada()){
 			/*error*/
@@ -783,14 +784,19 @@ case 33:
                       /*Symbol aux = st.getSymbol(lex.lastSymbol);*/
                       st.addcambiarSigno(((Symbol)(val_peek(0).obj)));  /*((Symbol))($2.obj))*/
                      
+
  		              }
 break;
 case 34:
 //#line 114 "GramaticaGrupo8.y"
 {
+
+
+
 		             yyval.sval="float";
                     /* Symbol aux = st.getSymbol(lex.lastSymbol);*/
                      st.addcambiarSigno(((Symbol)(val_peek(0).obj)));  /*((Symbol))($2.obj))*/
+
                     }
 break;
 case 35:
@@ -1047,3 +1053,14 @@ public Parser(boolean debugMe)
 
 }
 //################### END OF CLASS ##############################
+
+
+
+
+
+
+
+
+
+
+
