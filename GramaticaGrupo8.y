@@ -82,20 +82,20 @@ termino: factor '/' termino {}
 // integer y single son tipos de las varibles
 // estero y flotante son las constantes	
 factor: ENTERO {}
-	| FLOTANTE {}
+	| SINGLE {}
 	| ID {if(!((Symbol)($1.obj)).isUsada()){
 			//error
 			yyerror("variable no declarada",$1.getFila(),$1.getColumna());
 	}}
 	| '-' ENTERO {    
                       //Symbol aux = st.getSymbol(lex.lastSymbol);
-                      st.addcambiarSigno(((Symbol))($2.obj)));  //((Symbol))($2.obj))
+                      st.addcambiarSigno(((Symbol)($2.obj)));  //((Symbol))($2.obj))
                      
  		              }
-	|'-' FLOTANTE{
+	|'-' SINGLE{
 		             
                     // Symbol aux = st.getSymbol(lex.lastSymbol);
-                     st.addcambiarSigno(((Symbol))($2.obj)));  //((Symbol))($2.obj))
+                     st.addcambiarSigno(((Symbol)($2.obj)));  //((Symbol))($2.obj))
                     }
 	;
 
@@ -130,7 +130,7 @@ asignacion: ID ASIG  expresion{		if (!((Symbol)($1.obj)).getEsMutable()){
 									if (((Symbol)($3.obj)).isUsada()){
 										yyerror("La variable ya esta definida ",$1.getFila(),$1.getColumna());
 									}else{
-										Symbol s = ((Symbol)($4.obj));
+										Symbol s = ((Symbol)($3.obj));
 										s.setUsada(true);
 										s.setEsMutable(false);
 										s.setEspuntero(false);
