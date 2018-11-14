@@ -8,16 +8,16 @@ __if(_a<_b)_a:=3.5F3,end_if
 let mut integer _a;_b;*_c,
 
 
-let single _d:=5_i,
-let single *_e:=&_c,
+__let single _d:=5_i,
+__let single *_e:=&_c,
 
-_a:=5_i,
+__a:=5_i,
 __d:=5_i,
 
 __Operaciones Aritmeticas utilizadas en una asignacion
 __Se espera que sea aceptado y no genere errores al precionar el boton generar archivos. Creando los archivos correspondientes
 
-_a:=3_i*2_i+5_i,
-_c:=3.2F2/2_i+1_i,
+__a:=3_i*2_i+5_i,
+_c:=2_i/3.2F2,
 
 __let mut integer _a;_b;*_c,

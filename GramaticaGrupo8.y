@@ -4,6 +4,7 @@
 import AnalizadorLexico.LexicalAnalyzer;
 import Errors.Errors;
 import SymbolTable.*;
+import Tercetos.Terceto;
 
 import java.util.ArrayList;
 %}
@@ -70,49 +71,64 @@ ejecutable: asignacion ','{}
           | exp_print ','{}
 	  ;
 
-expresion: termino '+' expresion {if(!($1.sval.equals($3.sval))){
+expresion: termino '+' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
 			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
 }
-$$.sval=$1.sval;
+$$=$1;
 }
-	| termino '-' expresion {if(!($1.sval.equals($3.sval))){
+	| termino '-' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
 			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
 }
-$$.sval=$1.sval;
+$$=$1;
 }
-	| termino {$$.sval=$1.sval;}
+	| termino {$$=$1;}
         ;
 
-termino: factor '/' termino {if(!($1.sval.equals($3.sval))){
+
+termino: factor '/' termino {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
+			//System.out.println("tipo de primer elem: "+$1.sval+" tipo 2do elem : "+$3.sval);
 			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
 }
-$$.sval=$1.sval;
+$$=$1;
 }
-	| factor '*' termino{if(!($1.sval.equals($3.sval))){
-			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
-}
-$$.sval=$1.sval;
-}
-    | factor {$$.sval=$1.sval;}
+	| factor '*' termino{if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
+								yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
+							}
+							$$=$1;
+
+						// se crea terceto	
+					/*	TercetoMultiplicacion t = new TercetoMultiplicacion(contadorTerceto,"*",$1.obj,$3.obj,ts);
+											contadorVarAux++;
+											t.setVariableAux(contadorVarAux);
+											t.setTabla(tabla);
+											contadorTerceto ++;
+											listaTercetos.add(t);
+											$$.obj = t;
+*/
+						}
+    | factor {$$=$1;
+			  // terceto
+			  $$.obj=$1.obj;	
+			 }
 	;
 // integer y single son tipos de las varibles
 // estero y flotante son las constantes	
-factor: ENTERO {$$.sval="integer";}
-	| SINGLE {$$.sval="float";}
+factor: ENTERO {$$=$1;}
+	| FLOTANTE {$$=$1;}
 	| ID {if(!((Symbol)($1.obj)).isUsada()){
 			//error
 			yyerror("variable no declarada",$1.getFila(),$1.getColumna());
-			$$.sval="sin tipo";
-		}else{ $$.sval=((Symbol)($1.obj)).getTipoVar();
 			}
+			 $$=$1;
 	}
-	| '-' ENTERO {    $$.sval="integer";
+	| '-' ENTERO {    $$=$2;
                       //Symbol aux = st.getSymbol(lex.lastSymbol);
                       st.addcambiarSigno(((Symbol)($2.obj)));  //((Symbol))($2.obj))
                      
  		              }
-	|'-' SINGLE{
-		             $$.sval="float";
+	|'-' FLOTANTE{
+		             $$=$2;
+					 // Antes qedaban atributos sin setear
                     // Symbol aux = st.getSymbol(lex.lastSymbol);
                      st.addcambiarSigno(((Symbol)($2.obj)));  //((Symbol))($2.obj))
                     }
@@ -196,17 +212,17 @@ cuerpo: ejecutable {}
 	| error lista_ejecutable '}' {yyerror("LInea  Omision de la palabra reservada '{' ",$1.getFila(),$1.getColumna());}
 	;
 
-condicion: expresion '>' expresion {if(!($1.sval.equals($3.sval)))
+condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
-	| expresion '<' expresion {if(!($1.sval.equals($3.sval)))
+	| expresion '<' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
-	| expresion IGUAL expresion {if(!($1.sval.equals($3.sval)))
+	| expresion IGUAL expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
-	| expresion DIST expresion {if(!($1.sval.equals($3.sval)))
+	| expresion DIST expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
-	| expresion MAYIG expresion {if(!($1.sval.equals($3.sval)))
+	| expresion MAYIG expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
-	| expresion MENIG expresion {if(!($1.sval.equals($3.sval)))
+	| expresion MENIG expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
 	| '>' expresion {yyerror("Linea  se esperaba una expresion y se encontro '>'",$1.getFila(),$1.getColumna());}
 	| '<' expresion {yyerror("Linea  se esperaba una expresion y se encontro '<'",$1.getFila(),$1.getColumna());}
@@ -222,6 +238,9 @@ condicion: expresion '>' expresion {if(!($1.sval.equals($3.sval)))
   public ArrayList<String> estructuras=new ArrayList<>();
   public ArrayList<String> tokens = new ArrayList<>();
   public ArrayList<String> id = new ArrayList<>();
+  ArrayList<Terceto> listaTercetos = new ArrayList<>();
+  int contadorVarAux=0;
+  int contadorTerceto=0;
 
     int yylex(){
 
@@ -247,6 +266,6 @@ condicion: expresion '>' expresion {if(!($1.sval.equals($3.sval)))
 void yyerror(String s){
     errors.setError(lex.row, lex.column,s);
   }
-  void yyerror(String s,int row,int column){
+void yyerror(String s,int row,int column){
       errors.setError(row,column,s);
-    }
+  }
