@@ -21,12 +21,12 @@ public abstract class Terceto {
 		this.ts = ts;
 		this.errores = new Vector<String>();
 	}
-	
+
 	//public void getAssembler();
 	public void imprimirTerceto(){
 		System.out.println(num+" ( "+operador + ","+operando1+ ","+operando2+" )");
 	};
-	
+
 	public int getnum() {
 		return num;
 	}

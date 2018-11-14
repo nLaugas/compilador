@@ -26,6 +26,9 @@ public class T_Asignacion extends Terceto{
 			errores.add("Variable no declarada, "+(String)operando1);
 		if (tipo2 == "sin asignar")
 			errores.add("Variable no declarada, "+(String)operando2);
+		if (tipo2 != tipo1)
+			errores.add("Hay una incompatibilidad de tipo, entre "+(String)operando1+" de tipo "+
+					tipo1+", y "+(String)operando2+" de tipo "+tipo2);
 
 	}
 	
