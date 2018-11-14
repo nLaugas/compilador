@@ -745,17 +745,15 @@ break;
 case 32:
 //#line 78 "GramaticaGrupo8.y"
 {
-                      Symbol aux = st.getSymbol(lex.lastSymbol);
-                      st.addcambiarSigno(aux);
-                     
+                st.addcambiarSigno((Symbol)val_peek(0).obj);
+
  		              }
 break;
 case 33:
 //#line 83 "GramaticaGrupo8.y"
 {
-                     Symbol aux = st.getSymbol(lex.lastSymbol);
-                     st.addcambiarSigno(aux);
-                    
+  st.addcambiarSigno((Symbol)val_peek(0).obj);
+
                     }
 break;
 case 34:
@@ -974,3 +972,14 @@ public Parser(boolean debugMe)
 
 }
 //################### END OF CLASS ##############################
+
+
+
+
+
+
+
+
+
+
+
