@@ -196,12 +196,18 @@ cuerpo: ejecutable {}
 	| error lista_ejecutable '}' {yyerror("LInea  Omision de la palabra reservada '{' ",$1.getFila(),$1.getColumna());}
 	;
 
-condicion: expresion '>' expresion {}
-	| expresion '<' expresion {}
-	| expresion IGUAL expresion {}
-	| expresion DIST expresion {}
-	| expresion MAYIG expresion {}
-	| expresion MENIG expresion {}
+condicion: expresion '>' expresion {if(!($1.sval.equals($3.sval)))
+										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
+	| expresion '<' expresion {if(!($1.sval.equals($3.sval)))
+										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
+	| expresion IGUAL expresion {if(!($1.sval.equals($3.sval)))
+										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
+	| expresion DIST expresion {if(!($1.sval.equals($3.sval)))
+										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
+	| expresion MAYIG expresion {if(!($1.sval.equals($3.sval)))
+										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
+	| expresion MENIG expresion {if(!($1.sval.equals($3.sval)))
+										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
 	| '>' expresion {yyerror("Linea  se esperaba una expresion y se encontro '>'",$1.getFila(),$1.getColumna());}
 	| '<' expresion {yyerror("Linea  se esperaba una expresion y se encontro '<'",$1.getFila(),$1.getColumna());}
 	| MAYIG expresion {yyerror("Linea  se esperaba una expresion y se encontro '>='",$1.getFila(),$1.getColumna());}

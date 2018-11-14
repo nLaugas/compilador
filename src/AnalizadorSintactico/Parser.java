@@ -425,7 +425,7 @@ final static String yyrule[] = {
 "condicion : MENIG expresion",
 };
 
-//#line 212 "GramaticaGrupo8.y"
+//#line 218 "GramaticaGrupo8.y"
 
   LexicalAnalyzer lex;
   SymbolTable st;
@@ -920,45 +920,51 @@ case 54:
 break;
 case 55:
 //#line 199 "GramaticaGrupo8.y"
-{}
+{if(!(val_peek(2).sval.equals(val_peek(0).sval)))
+										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 56:
-//#line 200 "GramaticaGrupo8.y"
-{}
+//#line 201 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval)))
+										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 57:
-//#line 201 "GramaticaGrupo8.y"
-{}
+//#line 203 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval)))
+										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 58:
-//#line 202 "GramaticaGrupo8.y"
-{}
+//#line 205 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval)))
+										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 59:
-//#line 203 "GramaticaGrupo8.y"
-{}
+//#line 207 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval)))
+										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 60:
-//#line 204 "GramaticaGrupo8.y"
-{}
+//#line 209 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval)))
+										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 61:
-//#line 205 "GramaticaGrupo8.y"
+//#line 211 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '>'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 62:
-//#line 206 "GramaticaGrupo8.y"
+//#line 212 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '<'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 63:
-//#line 207 "GramaticaGrupo8.y"
+//#line 213 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '>='",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 64:
-//#line 208 "GramaticaGrupo8.y"
+//#line 214 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '<='",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
-//#line 884 "Parser.java"
+//#line 890 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
