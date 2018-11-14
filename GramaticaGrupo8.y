@@ -70,41 +70,62 @@ ejecutable: asignacion ','{}
           | exp_print ','{}
 	  ;
 
-expresion: termino '+' expresion {}
-	| termino '-' expresion {}
-	| termino {}
+expresion: termino '+' expresion {if(!($1.sval.equals($3.sval))){
+			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
+}
+$$.sval=$1.sval;
+}
+	| termino '-' expresion {if(!($1.sval.equals($3.sval))){
+			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
+}
+$$.sval=$1.sval;
+}
+	| termino {$$.sval=$1.sval;}
         ;
 
-termino: factor '/' termino {}
-	| factor '*' termino{}
-        | factor {}
+termino: factor '/' termino {if(!($1.sval.equals($3.sval))){
+			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
+}
+$$.sval=$1.sval;
+}
+	| factor '*' termino{if(!($1.sval.equals($3.sval))){
+			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
+}
+$$.sval=$1.sval;
+}
+    | factor {$$.sval=$1.sval;}
 	;
 // integer y single son tipos de las varibles
 // estero y flotante son las constantes	
-factor: ENTERO {}
-	| SINGLE {}
+factor: ENTERO {$$.sval="integer";}
+	| SINGLE {$$.sval="float";}
 	| ID {if(!((Symbol)($1.obj)).isUsada()){
 			//error
 			yyerror("variable no declarada",$1.getFila(),$1.getColumna());
-	}}
-	| '-' ENTERO {    
+			$$.sval="sin tipo";
+		}else{ $$.sval=((Symbol)($1.obj)).getTipoVar();
+			}
+	}
+	| '-' ENTERO {    $$.sval="integer";
                       //Symbol aux = st.getSymbol(lex.lastSymbol);
                       st.addcambiarSigno(((Symbol)($2.obj)));  //((Symbol))($2.obj))
                      
  		              }
 	|'-' SINGLE{
-		             
+		             $$.sval="float";
                     // Symbol aux = st.getSymbol(lex.lastSymbol);
                      st.addcambiarSigno(((Symbol)($2.obj)));  //((Symbol))($2.obj))
                     }
 	;
 
-asignacion: ID ASIG  expresion{		if (!((Symbol)($1.obj)).getEsMutable()){
-										yyerror("La variable no es mutable ",$1.getFila(),$1.getColumna());
-									}
+asignacion: ID ASIG  expresion{		//necesito el tipo de la expresion
 									if (!((Symbol)($1.obj)).isUsada()){
 										yyerror("La variable no esta definida ",$1.getFila(),$1.getColumna());
-									}
+									}else{if (!((Symbol)($1.obj)).getEsMutable()){
+										yyerror("La variable no es mutable ",$1.getFila(),$1.getColumna());
+									}else{if(!(((Symbol)($1.obj)).getTipoVar().equals($3.sval))){
+										yyerror("Tipos incompatibles en la asignacion ",$1.getFila(),$1.getColumna());
+									}}}
 									// crear tercetoe de asignacion
 	estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
     | LET tipo '*'ID ASIG '&' ID  { // Estoy definiendo una variable
@@ -122,6 +143,10 @@ asignacion: ID ASIG  expresion{		if (!((Symbol)($1.obj)).getEsMutable()){
 										yyerror("La variable no esta definida, &ID ",$1.getFila(),$1.getColumna());	
 									}else{
 										Symbol s = ((Symbol)($7.obj));
+										Symbol sy = ((Symbol)($4.obj));
+										if (!(s.getTipoVar().equals(sy.getTipoVar()))){
+											yyerror("incompatibilidad de tipos en la asignacion ",$1.getFila(),$1.getColumna());											
+										}
 										if (s.isEsPuntero())
 											yyerror("No se permiten punteros multiples ",$1.getFila(),$1.getColumna());
 									}
@@ -136,6 +161,9 @@ asignacion: ID ASIG  expresion{		if (!((Symbol)($1.obj)).getEsMutable()){
 										s.setEspuntero(false);
 										s.setTipoVar($2.sval);
 										// faltaria mutabilidad de lo apuntado
+										if(!(s.getTipoVar().equals($5.sval))){
+										yyerror("Tipos incompatibles en la asignacion ",$1.getFila(),$1.getColumna());
+									}
 									}
 									estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
 	| ASIG expresion  {yyerror("Falta elemento de asignacion y palabra reservada 'let'",$1.getFila(),$1.getColumna());}

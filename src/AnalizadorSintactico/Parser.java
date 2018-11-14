@@ -425,7 +425,7 @@ final static String yyrule[] = {
 "condicion : MENIG expresion",
 };
 
-//#line 184 "GramaticaGrupo8.y"
+//#line 212 "GramaticaGrupo8.y"
 
   LexicalAnalyzer lex;
   SymbolTable st;
@@ -721,72 +721,93 @@ case 23:
 break;
 case 24:
 //#line 73 "GramaticaGrupo8.y"
-{}
+{if(!(val_peek(2).sval.equals(val_peek(0).sval))){
+			yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());		
+}
+yyval.sval=val_peek(2).sval;
+}
 break;
 case 25:
-//#line 74 "GramaticaGrupo8.y"
-{}
+//#line 78 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval))){
+			yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());		
+}
+yyval.sval=val_peek(2).sval;
+}
 break;
 case 26:
-//#line 75 "GramaticaGrupo8.y"
-{}
+//#line 83 "GramaticaGrupo8.y"
+{yyval.sval=val_peek(0).sval;}
 break;
 case 27:
-//#line 78 "GramaticaGrupo8.y"
-{}
+//#line 86 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval))){
+			yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());		
+}
+yyval.sval=val_peek(2).sval;
+}
 break;
 case 28:
-//#line 79 "GramaticaGrupo8.y"
-{}
+//#line 91 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval))){
+			yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());		
+}
+yyval.sval=val_peek(2).sval;
+}
 break;
 case 29:
-//#line 80 "GramaticaGrupo8.y"
-{}
+//#line 96 "GramaticaGrupo8.y"
+{yyval.sval=val_peek(0).sval;}
 break;
 case 30:
-//#line 84 "GramaticaGrupo8.y"
-{}
+//#line 100 "GramaticaGrupo8.y"
+{yyval.sval="integer";}
 break;
 case 31:
-//#line 85 "GramaticaGrupo8.y"
-{}
+//#line 101 "GramaticaGrupo8.y"
+{yyval.sval="float";}
 break;
 case 32:
-//#line 86 "GramaticaGrupo8.y"
+//#line 102 "GramaticaGrupo8.y"
 {if(!((Symbol)(val_peek(0).obj)).isUsada()){
 			/*error*/
 			yyerror("variable no declarada",val_peek(0).getFila(),val_peek(0).getColumna());
-	}}
+			yyval.sval="sin tipo";
+		}else{ yyval.sval=((Symbol)(val_peek(0).obj)).getTipoVar();
+			}
+	}
 break;
 case 33:
-//#line 90 "GramaticaGrupo8.y"
-{    
+//#line 109 "GramaticaGrupo8.y"
+{    yyval.sval="integer";
                       /*Symbol aux = st.getSymbol(lex.lastSymbol);*/
                       st.addcambiarSigno(((Symbol)(val_peek(0).obj)));  /*((Symbol))($2.obj))*/
                      
  		              }
 break;
 case 34:
-//#line 95 "GramaticaGrupo8.y"
+//#line 114 "GramaticaGrupo8.y"
 {
-		             
+		             yyval.sval="float";
                     /* Symbol aux = st.getSymbol(lex.lastSymbol);*/
                      st.addcambiarSigno(((Symbol)(val_peek(0).obj)));  /*((Symbol))($2.obj))*/
                     }
 break;
 case 35:
-//#line 102 "GramaticaGrupo8.y"
-{		if (!((Symbol)(val_peek(2).obj)).getEsMutable()){
-										yyerror("La variable no es mutable ",val_peek(2).getFila(),val_peek(2).getColumna());
-									}
+//#line 121 "GramaticaGrupo8.y"
+{		/*necesito el tipo de la expresion*/
 									if (!((Symbol)(val_peek(2).obj)).isUsada()){
 										yyerror("La variable no esta definida ",val_peek(2).getFila(),val_peek(2).getColumna());
-									}
+									}else{if (!((Symbol)(val_peek(2).obj)).getEsMutable()){
+										yyerror("La variable no es mutable ",val_peek(2).getFila(),val_peek(2).getColumna());
+									}else{if(!(((Symbol)(val_peek(2).obj)).getTipoVar().equals(val_peek(0).sval))){
+										yyerror("Tipos incompatibles en la asignacion ",val_peek(2).getFila(),val_peek(2).getColumna());
+									}}}
 									/* crear tercetoe de asignacion*/
 	estructuras.add("Asignacion "+" fila "+val_peek(2).getFila()+" columna "+val_peek(2).getColumna());}
 break;
 case 36:
-//#line 110 "GramaticaGrupo8.y"
+//#line 131 "GramaticaGrupo8.y"
 { /* Estoy definiendo una variable*/
 									if (((Symbol)(val_peek(3).obj)).isUsada()){
 										yyerror("La variable ya esta definida ",val_peek(6).getFila(),val_peek(6).getColumna());
@@ -802,13 +823,17 @@ case 36:
 										yyerror("La variable no esta definida, &ID ",val_peek(6).getFila(),val_peek(6).getColumna());	
 									}else{
 										Symbol s = ((Symbol)(val_peek(0).obj));
+										Symbol sy = ((Symbol)(val_peek(3).obj));
+										if (!(s.getTipoVar().equals(sy.getTipoVar()))){
+											yyerror("incompatibilidad de tipos en la asignacion ",val_peek(6).getFila(),val_peek(6).getColumna());											
+										}
 										if (s.isEsPuntero())
 											yyerror("No se permiten punteros multiples ",val_peek(6).getFila(),val_peek(6).getColumna());
 									}
 									estructuras.add("Asignacion de puntero "+" fila "+val_peek(6).getFila()+" columna "+val_peek(6).getColumna());}
 break;
 case 37:
-//#line 129 "GramaticaGrupo8.y"
+//#line 154 "GramaticaGrupo8.y"
 {/*Estoy definiendo una variable*/
 									if (((Symbol)(val_peek(2).obj)).isUsada()){
 										yyerror("La variable ya esta definida ",val_peek(4).getFila(),val_peek(4).getColumna());
@@ -819,118 +844,121 @@ case 37:
 										s.setEspuntero(false);
 										s.setTipoVar(val_peek(3).sval);
 										/* faltaria mutabilidad de lo apuntado*/
+										if(!(s.getTipoVar().equals(val_peek(0).sval))){
+										yyerror("Tipos incompatibles en la asignacion ",val_peek(4).getFila(),val_peek(4).getColumna());
+									}
 									}
 									estructuras.add("Asignacion "+" fila "+val_peek(4).getFila()+" columna "+val_peek(4).getColumna());}
 break;
 case 38:
-//#line 141 "GramaticaGrupo8.y"
+//#line 169 "GramaticaGrupo8.y"
 {yyerror("Falta elemento de asignacion y palabra reservada 'let'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 39:
-//#line 142 "GramaticaGrupo8.y"
+//#line 170 "GramaticaGrupo8.y"
 {yyerror("Falta elemento de asignacion ",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 40:
-//#line 143 "GramaticaGrupo8.y"
+//#line 171 "GramaticaGrupo8.y"
 {yyerror("no se encontro ':=' ",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 41:
-//#line 146 "GramaticaGrupo8.y"
+//#line 174 "GramaticaGrupo8.y"
 {estructuras.add("Expresion print "+" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());}
 break;
 case 42:
-//#line 147 "GramaticaGrupo8.y"
+//#line 175 "GramaticaGrupo8.y"
 {yyerror("Linea  Error en la construccion del print",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 43:
-//#line 150 "GramaticaGrupo8.y"
+//#line 178 "GramaticaGrupo8.y"
 {}
 break;
 case 44:
-//#line 151 "GramaticaGrupo8.y"
+//#line 179 "GramaticaGrupo8.y"
 {}
 break;
 case 45:
-//#line 155 "GramaticaGrupo8.y"
+//#line 183 "GramaticaGrupo8.y"
 {estructuras.add("Sentencia IF Else" +" fila "+val_peek(7).getFila()+" columna "+val_peek(7).getColumna());}
 break;
 case 46:
-//#line 156 "GramaticaGrupo8.y"
+//#line 184 "GramaticaGrupo8.y"
 {estructuras.add("Sentencia IF " +" fila "+val_peek(5).getFila()+" columna "+val_peek(5).getColumna());}
 break;
 case 47:
-//#line 157 "GramaticaGrupo8.y"
+//#line 185 "GramaticaGrupo8.y"
 {yyerror(" falta la palabra reservada IF",val_peek(5).getFila(),val_peek(5).getColumna());}
 break;
 case 48:
-//#line 158 "GramaticaGrupo8.y"
+//#line 186 "GramaticaGrupo8.y"
 {yyerror(" Error en la construccion de la sentencia IF ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 49:
-//#line 159 "GramaticaGrupo8.y"
+//#line 187 "GramaticaGrupo8.y"
 {yyerror(" Falta la palabra reservada ELSE ",val_peek(5).getFila(),val_peek(5).getColumna());}
 break;
 case 50:
-//#line 162 "GramaticaGrupo8.y"
+//#line 190 "GramaticaGrupo8.y"
 {estructuras.add("Sentencia Loop " +" fila "+val_peek(5).getFila()+" columna "+val_peek(5).getColumna());}
 break;
 case 51:
-//#line 163 "GramaticaGrupo8.y"
+//#line 191 "GramaticaGrupo8.y"
 {yyerror("Linea  Falta palabra reservada UNTIL",val_peek(4).getFila(),val_peek(4).getColumna());}
 break;
 case 52:
-//#line 166 "GramaticaGrupo8.y"
+//#line 194 "GramaticaGrupo8.y"
 {}
 break;
 case 53:
-//#line 167 "GramaticaGrupo8.y"
+//#line 195 "GramaticaGrupo8.y"
 {}
 break;
 case 54:
-//#line 168 "GramaticaGrupo8.y"
+//#line 196 "GramaticaGrupo8.y"
 {yyerror("LInea  Omision de la palabra reservada '{' ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 55:
-//#line 171 "GramaticaGrupo8.y"
+//#line 199 "GramaticaGrupo8.y"
 {}
 break;
 case 56:
-//#line 172 "GramaticaGrupo8.y"
+//#line 200 "GramaticaGrupo8.y"
 {}
 break;
 case 57:
-//#line 173 "GramaticaGrupo8.y"
+//#line 201 "GramaticaGrupo8.y"
 {}
 break;
 case 58:
-//#line 174 "GramaticaGrupo8.y"
+//#line 202 "GramaticaGrupo8.y"
 {}
 break;
 case 59:
-//#line 175 "GramaticaGrupo8.y"
+//#line 203 "GramaticaGrupo8.y"
 {}
 break;
 case 60:
-//#line 176 "GramaticaGrupo8.y"
+//#line 204 "GramaticaGrupo8.y"
 {}
 break;
 case 61:
-//#line 177 "GramaticaGrupo8.y"
+//#line 205 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '>'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 62:
-//#line 178 "GramaticaGrupo8.y"
+//#line 206 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '<'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 63:
-//#line 179 "GramaticaGrupo8.y"
+//#line 207 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '>='",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 64:
-//#line 180 "GramaticaGrupo8.y"
+//#line 208 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '<='",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
-//#line 856 "Parser.java"
+//#line 884 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
