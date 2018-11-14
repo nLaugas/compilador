@@ -51,10 +51,8 @@ public abstract class Terceto {
 	public void setOperador(String operador) {
 		this.operador = operador;
 	}
-	public String toString()
-	{
-		return "["+num+"]";
-	}
+	public String toString() {return "["+num+"] ("+operador+", "+operando1+", "+operando2+")."; }
+
 
 	public boolean equals(Terceto t){
 		if (t.getOperador().equals(operador))
