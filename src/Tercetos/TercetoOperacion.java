@@ -21,11 +21,18 @@ public abstract class TercetoOperacion extends Terceto{
 		else
 			tipo2 =  ts.getSymbol((String)operando2).getTipoVar();
 
-		if (tipo1 == "DOUBLE") //esto seria con conversion?? || tipo2 == "DOUBLE")
-			tipo = "DOUBLE";
-		else 
-			tipo = "ULONG";
-		//donde chequeamos que no se conviertan los tipos? ose que no se permitan distintos
+
+		if (tipo1 == "single" || tipo2 == "single")
+			tipo = "single";
+		else
+			tipo = "integer";
+
+		if (tipo1 == "sin asignar")
+			errores.add("Variable no declarada, "+(String)operando1);
+		if (tipo2 == "sin asignar")
+			errores.add("Variable no declarada, "+(String)operando2);
+
+
 	}
 
 	@Override
