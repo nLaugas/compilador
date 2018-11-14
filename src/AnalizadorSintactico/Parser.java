@@ -190,94 +190,94 @@ public final static short FLOTANTE=277;
 public final static short YYERRCODE=256;
 final static short yylhs[] = {                           -1,
     0,    0,    2,    0,    1,    1,    3,    3,    5,    5,
-    7,    7,    7,    7,    6,    6,    6,    8,    8,    4,
-    4,    4,   12,   12,   12,   13,   13,   13,   14,   14,
-   14,   14,   14,    9,    9,    9,    9,    9,    9,   11,
-   11,   10,   10,   15,   15,   15,   15,   15,   16,   16,
-   18,   18,   18,   17,   17,   17,   17,   17,   17,   17,
-   17,   17,   17,
+    7,    7,    7,    7,    7,    6,    6,    6,    8,    8,
+    4,    4,    4,   12,   12,   12,   13,   13,   13,   14,
+   14,   14,   14,   14,    9,    9,    9,    9,    9,    9,
+   11,   11,   10,   10,   15,   15,   15,   15,   15,   16,
+   16,   18,   18,   18,   17,   17,   17,   17,   17,   17,
+   17,   17,   17,   17,
 };
 final static short yylen[] = {                            2,
     1,    1,    0,    3,    1,    2,    1,    1,    5,    1,
-    1,    2,    3,    2,    1,    1,    2,    1,    2,    2,
-    1,    2,    3,    3,    1,    3,    3,    1,    1,    1,
-    1,    2,    2,    3,    7,    5,    2,    2,    2,    4,
-    2,    1,    1,    8,    6,    6,    3,    6,    6,    5,
-    1,    3,    3,    3,    3,    3,    3,    3,    3,    2,
-    2,    2,    2,
+    1,    2,    3,    4,    2,    1,    1,    2,    1,    2,
+    2,    1,    2,    3,    3,    1,    3,    3,    1,    1,
+    1,    1,    2,    2,    3,    7,    5,    2,    2,    2,
+    4,    2,    1,    1,    8,    6,    6,    3,    6,    6,
+    5,    1,    3,    3,    3,    3,    3,    3,    3,    3,
+    2,    2,    2,    2,
 };
 final static short yydefred[] = {                         0,
     0,    0,    0,    0,    0,    2,    0,    0,    0,    0,
-    1,    0,    7,    8,    0,   21,    0,   42,   43,    0,
-    0,    0,   41,    0,   39,    0,   31,   29,   30,    0,
-   37,    0,    0,    0,    0,    0,   51,    0,    0,   15,
-   16,    0,    0,    0,    0,    0,    0,    0,    0,   10,
-    6,   20,   22,    4,   47,    0,    0,   34,   32,   33,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,   17,
-    0,    0,    0,   62,   63,   60,   61,    0,    0,    0,
-    0,    0,    0,    0,    0,   40,   23,   24,   27,   26,
-   19,   53,   52,    0,    0,    0,    0,    0,    0,    0,
-   58,   59,   56,   57,   54,   55,    0,    0,    0,   50,
-    0,   14,   12,    9,   36,    0,    0,    0,   45,   48,
-   49,   13,    0,   46,    0,   35,   44,
+    1,    0,    7,    8,    0,   22,    0,   43,   44,    0,
+    0,    0,   42,    0,   40,    0,   32,   31,   30,    0,
+   38,    0,    0,    0,    0,    0,   52,    0,    0,   16,
+   17,    0,    0,    0,    0,    0,    0,    0,    0,   10,
+    6,   21,   23,    4,   48,    0,    0,   35,   34,   33,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,   18,
+    0,    0,    0,   63,   64,   61,   62,    0,    0,    0,
+    0,    0,    0,    0,    0,   41,   24,   25,   28,   27,
+   20,   54,   53,    0,    0,    0,    0,    0,    0,    0,
+   59,   60,   57,   58,   55,   56,    0,    0,    0,   51,
+    0,   15,    0,    9,   37,    0,    0,    0,   46,   49,
+   50,   13,    0,    0,   47,    0,   14,   36,   45,
 };
 final static short yydgoto[] = {                         10,
    11,   20,   12,   37,   14,   43,   98,   66,   15,   16,
    17,   48,   32,   33,   18,   19,   49,   38,
 };
 final static short yysindex[] = {                       -34,
-    0,  -36,  -13, -231,    6,    0,  -20, -238,   11,    0,
-    0,  -11,    0,    0,   -6,    0,   -5,    0,    0, -250,
- -230,   11,    0, -220,    0,    6,    0,    0,    0, -261,
-    0,    5,  -16,    7, -226,    7,    0,  -31,    8,    0,
-    0, -226,  -32,    6,    6,    6,    6,  -57,   17,    0,
-    0,    0,    0,    0,    0,   25,   29,    0,    0,    0,
-    6,    6,    6,    6,    7,  -76,  -61,   34,   11,    0,
-  -28, -188, -182,    0,    0,    0,    0,    6,    6,    6,
-    6,    6,    6,  -20,  -20,    0,    0,    0,    0,    0,
-    0,    0,    0,   11,   40,  -35, -179,   41,    6, -177,
-    0,    0,    0,    0,    0,    0, -169,  -40,   49,    0,
-  -28,    0,    0,    0,    0,   54,  -20,  -20,    0,    0,
-    0,    0, -161,    0, -170,    0,    0,
+    0,  -36,  -13, -221,   15,    0,  -20, -239,   17,    0,
+    0,  -11,    0,    0,  -42,    0,  -21,    0,    0, -235,
+ -246,   17,    0, -219,    0,   15,    0,    0,    0, -257,
+    0,   -6,   -9,    7, -238,    7,    0,  -31,    2,    0,
+    0, -238,  -32,   15,   15,   15,   15,  -57,   10,    0,
+    0,    0,    0,    0,    0,   20,   22,    0,    0,    0,
+   15,   15,   15,   15,    7,  -77,  -69,   24,   17,    0,
+  -28, -207, -196,    0,    0,    0,    0,   15,   15,   15,
+   15,   15,   15,  -20,  -20,    0,    0,    0,    0,    0,
+    0,    0,    0,   17,   26,  -35, -193,   25,   15, -188,
+    0,    0,    0,    0,    0,    0, -187,  -40,   41,    0,
+  -28,    0,   31,    0,    0,   50,  -20,  -20,    0,    0,
+    0,    0,  -28, -169,    0, -178,    0,    0,    0,
 };
 final static short yyrindex[] = {                         0,
     1,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,  102,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,   60,    0,    0,    0,    0,
-    0,   31,   24,    0,    0,    0,    0,    0,    0,    0,
+    0,   95,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,   53,    0,    0,    0,    0,
+    0,   34,   29,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,  -19,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,  -27,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,   61,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,   55,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,
+    0,    0,   56,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,
 };
 final static short yygindex[] = {                         0,
-   95,    0,    0,   23,    0,   66,  -94,  -25,    0,    0,
-    0,   16,  -10,    0,    0,    0,  -14,  -72,
+   92,    0,    0,   16,    0,   63,  -81,  -25,    0,    0,
+    0,   40,  -10,    0,    0,    0,  -14,  -59,
 };
-final static int YYTABLESIZE=299;
+final static int YYTABLESIZE=302;
 static short yytable[];
 static { yytable();}
 static void yytable(){
 yytable = new short[]{                          9,
-   10,  112,   83,   22,   82,    9,   97,   56,   69,   73,
-   67,  107,  108,   97,   59,   60,  122,   39,   54,    9,
-   31,   40,   13,  111,   25,   63,   24,   55,    9,   39,
-   64,   41,   26,   40,   13,  120,   42,   52,   53,   91,
-   10,   58,   57,   41,  124,  125,    9,   61,   92,   62,
-   30,   70,   89,   90,   95,   30,   65,   84,   65,   74,
-   75,   76,   77,   93,   28,   85,   28,   28,   28,   86,
-   47,   25,   46,   94,   25,   99,   87,   88,  100,  109,
-  110,  113,   36,   28,  114,   28,  116,   65,  117,  121,
-   25,  123,   25,  101,  102,  103,  104,  105,  106,  126,
-  127,    5,   36,   38,   11,   18,   51,   71,    0,    0,
-    0,    0,    0,    0,  115,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+   10,   52,   83,   22,   82,    9,   97,   56,   69,   73,
+   67,   55,   59,   97,  112,   13,   39,   39,   60,    9,
+   40,   40,   53,  111,  107,  108,   24,   13,    9,  122,
+   41,   41,   63,   54,   25,   42,   61,   64,   62,   91,
+   10,  127,   26,   57,   31,   70,    9,   92,  120,   65,
+   84,   65,   89,   90,   95,   93,   99,  125,  126,   30,
+   85,   30,   86,   94,  100,   58,  110,  113,  114,   29,
+  117,   29,   29,   29,   26,  116,   47,   26,   46,  109,
+   65,  121,   36,   74,   75,   76,   77,  124,   29,  123,
+   29,  128,  129,   26,    5,   26,   39,   19,   11,   12,
+   87,   88,   36,   51,   71,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,  101,  102,  103,
+  104,  105,  106,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,  115,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
@@ -290,30 +290,31 @@ yytable = new short[]{                          9,
   119,    7,   96,   35,    6,   34,    2,    7,    3,    8,
     4,   68,   23,    5,   50,    2,    0,    3,    0,    4,
     0,    7,    5,   35,    0,    0,   10,   10,    0,   10,
-    7,   10,    8,    2,   10,    3,   27,    4,    0,    3,
-    5,   27,   10,    0,   10,   44,   45,    0,    7,    0,
-   35,   28,   29,    0,    0,    0,   28,   29,   28,   28,
-   28,   28,    0,    0,    0,   25,   25,   25,   25,
+    7,   10,    8,    2,   10,    3,    0,    4,    0,    3,
+    5,    0,   10,    0,   10,   27,    0,   27,    7,    0,
+   35,   44,   45,    0,   28,    0,   28,    0,    0,    0,
+   29,    0,   29,   29,   29,   29,   29,    0,   26,   26,
+   26,   26,
 };
 }
 static short yycheck[];
 static { yycheck(); }
 static void yycheck() {
 yycheck = new short[] {                         40,
-    0,   96,   60,   40,   62,   40,   42,   22,   40,   42,
-   36,   84,   85,   42,  276,  277,  111,  256,  269,   40,
-    5,  260,    0,   59,  256,   42,   40,  258,   40,  256,
-   47,  270,  264,  260,   12,  108,  275,   44,   44,   65,
-   40,   26,  263,  270,  117,  118,   40,   43,  125,   45,
-   45,   44,   63,   64,   69,   45,   34,   41,   36,   44,
-   45,   46,   47,  125,   41,   41,   43,   44,   45,   41,
-   60,   41,   62,   40,   44,  264,   61,   62,  261,   94,
-   41,  261,  123,   60,   44,   62,  264,   65,  258,   41,
-   60,   38,   62,   78,   79,   80,   81,   82,   83,  261,
-  271,    0,  123,   44,   44,  125,   12,   42,   -1,   -1,
-   -1,   -1,   -1,   -1,   99,   -1,   -1,   -1,   -1,   -1,
-   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+    0,   44,   60,   40,   62,   40,   42,   22,   40,   42,
+   36,  258,  270,   42,   96,    0,  256,  256,  276,   40,
+  260,  260,   44,   59,   84,   85,   40,   12,   40,  111,
+  270,  270,   42,  269,  256,  275,   43,   47,   45,   65,
+   40,  123,  264,  263,    5,   44,   40,  125,  108,   34,
+   41,   36,   63,   64,   69,  125,  264,  117,  118,   45,
+   41,   45,   41,   40,  261,   26,   41,  261,   44,   41,
+  258,   43,   44,   45,   41,  264,   60,   44,   62,   94,
+   65,   41,  123,   44,   45,   46,   47,   38,   60,   59,
+   62,  261,  271,   60,    0,   62,   44,  125,   44,   44,
+   61,   62,  123,   12,   42,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   78,   79,   80,
+   81,   82,   83,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   99,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
@@ -326,10 +327,11 @@ yycheck = new short[] {                         40,
   271,  272,  261,  274,  269,  256,  257,  272,  259,  274,
   261,  273,  256,  264,  256,  257,   -1,  259,   -1,  261,
    -1,  272,  264,  274,   -1,   -1,  256,  257,   -1,  259,
-  272,  261,  274,  257,  264,  259,  261,  261,   -1,  269,
-  264,  261,  272,   -1,  274,  265,  266,   -1,  272,   -1,
-  274,  276,  277,   -1,   -1,   -1,  276,  277,  265,  266,
-  267,  268,   -1,   -1,   -1,  265,  266,  267,  268,
+  272,  261,  274,  257,  264,  259,   -1,  261,   -1,  269,
+  264,   -1,  272,   -1,  274,  261,   -1,  261,  272,   -1,
+  274,  265,  266,   -1,  270,   -1,  270,   -1,   -1,   -1,
+  276,   -1,  276,  265,  266,  267,  268,   -1,  265,  266,
+  267,  268,
 };
 }
 final static short YYFINAL=10;
@@ -370,6 +372,7 @@ final static String yyrule[] = {
 "lista_id : ID",
 "lista_id : '*' ID",
 "lista_id : ID ';' lista_id",
+"lista_id : '*' ID ';' lista_id",
 "lista_id : ID lista_id",
 "tipo : INTEGER",
 "tipo : SINGLE",
@@ -386,10 +389,10 @@ final static String yyrule[] = {
 "termino : factor '*' termino",
 "termino : factor",
 "factor : ENTERO",
-"factor : FLOTANTE",
+"factor : SINGLE",
 "factor : ID",
 "factor : '-' ENTERO",
-"factor : '-' FLOTANTE",
+"factor : '-' SINGLE",
 "asignacion : ID ASIG expresion",
 "asignacion : LET tipo '*' ID ASIG '&' ID",
 "asignacion : LET tipo ID ASIG expresion",
@@ -422,14 +425,14 @@ final static String yyrule[] = {
 "condicion : MENIG expresion",
 };
 
-//#line 149 "GramaticaGrupo8.y"
+//#line 218 "GramaticaGrupo8.y"
 
   LexicalAnalyzer lex;
   SymbolTable st;
   Errors errors;
   public ArrayList<String> estructuras=new ArrayList<>();
   public ArrayList<String> tokens = new ArrayList<>();
-  public ArrayList<Symbol> id = new ArrayList<>();
+  public ArrayList<String> id = new ArrayList<>();
 
     int yylex(){
 
@@ -458,7 +461,7 @@ void yyerror(String s){
   void yyerror(String s,int row,int column){
       errors.setError(row,column,s);
     }
-//#line 389 "Parser.java"
+//#line 392 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -646,250 +649,328 @@ case 8:
 break;
 case 9:
 //#line 35 "GramaticaGrupo8.y"
-{/*for(Symbol s : id){*/
-										/*	s.setEsMutable(true);*/
-										/*	s.setTipoVar((Symbol)$3.obj.getAtributo("=>"));}*/
-										/*id.clear();/*vacio lista* /*/
-										/*si algun id ya estaba definido debo retornar error*/	}
+{for(String lexem : id){    /*estoy aca!*/
+											Symbol s = st.getSymbol(lexem);
+											
+											if (!s.isUsada()){
+												s.setUsada(true);
+												s.setEsMutable(true);
+												s.setTipoVar(val_peek(2).sval);}
+											else{
+												yyerror("Variable ya definida ",val_peek(4).getFila(),val_peek(4).getColumna());		
+											}					
+                                            }id.clear();
+										}
 break;
 case 10:
-//#line 40 "GramaticaGrupo8.y"
+//#line 47 "GramaticaGrupo8.y"
 {yyerror("Declaracion mal definida ");}
 break;
 case 11:
-//#line 43 "GramaticaGrupo8.y"
-{id.add((Symbol)val_peek(0).obj); }
+//#line 50 "GramaticaGrupo8.y"
+{id.add( ((Symbol)(val_peek(0).obj)).getLexema() ); }
 break;
 case 12:
-//#line 44 "GramaticaGrupo8.y"
-{	/*(Symbol)$1.obj.setEspuntero(true); //reconoce puntero*/
-				/*id.add((Symbol)$1.obj);} //agrega a lista de identificadores reconocidos*/
-	}
+//#line 51 "GramaticaGrupo8.y"
+{	((Symbol)(val_peek(0).obj)).setEspuntero(true); /*reconoce puntero*/
+				id.add(((Symbol)(val_peek(0).obj)).getLexema());}
 break;
 case 13:
-//#line 47 "GramaticaGrupo8.y"
-{id.add((Symbol)val_peek(2).obj);}
+//#line 54 "GramaticaGrupo8.y"
+{id.add(((Symbol)(val_peek(2).obj)).getLexema());}
 break;
 case 14:
-//#line 48 "GramaticaGrupo8.y"
-{yyerror("Se esperaba ';' ",val_peek(1).getFila(),val_peek(1).getColumna());}
+//#line 55 "GramaticaGrupo8.y"
+{id.add(((Symbol)(val_peek(2).obj)).getLexema());}
 break;
 case 15:
-//#line 51 "GramaticaGrupo8.y"
-{}
+//#line 56 "GramaticaGrupo8.y"
+{yyerror("Se esperaba ';' ",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 16:
-//#line 52 "GramaticaGrupo8.y"
-{}
+//#line 59 "GramaticaGrupo8.y"
+{yyval.sval="integer";}
 break;
 case 17:
-//#line 53 "GramaticaGrupo8.y"
-{yyerror("Tipo indefinido",val_peek(1).getFila(),val_peek(1).getColumna());}
+//#line 60 "GramaticaGrupo8.y"
+{yyval.sval="float";}
 break;
 case 18:
-//#line 56 "GramaticaGrupo8.y"
-{}
+//#line 61 "GramaticaGrupo8.y"
+{yyerror("Tipo indefinido",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 19:
-//#line 57 "GramaticaGrupo8.y"
+//#line 64 "GramaticaGrupo8.y"
 {}
 break;
 case 20:
-//#line 60 "GramaticaGrupo8.y"
-{}
-break;
-case 21:
-//#line 61 "GramaticaGrupo8.y"
-{}
-break;
-case 22:
-//#line 62 "GramaticaGrupo8.y"
-{}
-break;
-case 23:
 //#line 65 "GramaticaGrupo8.y"
 {}
 break;
-case 24:
-//#line 66 "GramaticaGrupo8.y"
+case 21:
+//#line 68 "GramaticaGrupo8.y"
 {}
 break;
-case 25:
-//#line 67 "GramaticaGrupo8.y"
+case 22:
+//#line 69 "GramaticaGrupo8.y"
 {}
 break;
-case 26:
+case 23:
 //#line 70 "GramaticaGrupo8.y"
 {}
 break;
+case 24:
+//#line 73 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval))){
+			yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());		
+}
+yyval.sval=val_peek(2).sval;
+}
+break;
+case 25:
+//#line 78 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval))){
+			yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());		
+}
+yyval.sval=val_peek(2).sval;
+}
+break;
+case 26:
+//#line 83 "GramaticaGrupo8.y"
+{yyval.sval=val_peek(0).sval;}
+break;
 case 27:
-//#line 71 "GramaticaGrupo8.y"
-{}
+//#line 86 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval))){
+			yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());		
+}
+yyval.sval=val_peek(2).sval;
+}
 break;
 case 28:
-//#line 72 "GramaticaGrupo8.y"
-{}
+//#line 91 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval))){
+			yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());		
+}
+yyval.sval=val_peek(2).sval;
+}
 break;
 case 29:
-//#line 75 "GramaticaGrupo8.y"
-{}
+//#line 96 "GramaticaGrupo8.y"
+{yyval.sval=val_peek(0).sval;}
 break;
 case 30:
-//#line 76 "GramaticaGrupo8.y"
-{}
+//#line 100 "GramaticaGrupo8.y"
+{yyval.sval="integer";}
 break;
 case 31:
-//#line 77 "GramaticaGrupo8.y"
-{}
+//#line 101 "GramaticaGrupo8.y"
+{yyval.sval="float";}
 break;
 case 32:
-//#line 78 "GramaticaGrupo8.y"
-{
-                st.addcambiarSigno((Symbol)val_peek(0).obj);
+
+//#line 102 "GramaticaGrupo8.y"
+{if(!((Symbol)(val_peek(0).obj)).isUsada()){
+			/*error*/
+			yyerror("variable no declarada",val_peek(0).getFila(),val_peek(0).getColumna());
+			yyval.sval="sin tipo";
+		}else{ yyval.sval=((Symbol)(val_peek(0).obj)).getTipoVar();
+			}
+	}
+break;
+case 33:
+//#line 109 "GramaticaGrupo8.y"
+{    yyval.sval="integer";
+                      /*Symbol aux = st.getSymbol(lex.lastSymbol);*/
+                      st.addcambiarSigno(((Symbol)(val_peek(0).obj)));  /*((Symbol))($2.obj))*/
+                     
 
  		              }
 break;
-case 33:
-//#line 83 "GramaticaGrupo8.y"
+case 34:
+//#line 114 "GramaticaGrupo8.y"
 {
-  st.addcambiarSigno((Symbol)val_peek(0).obj);
+
+
+
+		             yyval.sval="float";
+                    /* Symbol aux = st.getSymbol(lex.lastSymbol);*/
+                     st.addcambiarSigno(((Symbol)(val_peek(0).obj)));  /*((Symbol))($2.obj))*/
 
                     }
 break;
-case 34:
-//#line 90 "GramaticaGrupo8.y"
-{ /*if (!(Symbol)$1.obj.usar())/*((!(Symbol)$1.obj.usar())&&(!(Symbol)$1.obj.getTipo()==$3.ival))*//*{*/
-									/*yyerror("error en la asignacion, la variable no existe ",$1.getFila(),$1.getColumna());		*/
-									/*}*/
+case 35:
+//#line 121 "GramaticaGrupo8.y"
+{		/*necesito el tipo de la expresion*/
+									if (!((Symbol)(val_peek(2).obj)).isUsada()){
+										yyerror("La variable no esta definida ",val_peek(2).getFila(),val_peek(2).getColumna());
+									}else{if (!((Symbol)(val_peek(2).obj)).getEsMutable()){
+										yyerror("La variable no es mutable ",val_peek(2).getFila(),val_peek(2).getColumna());
+									}else{if(!(((Symbol)(val_peek(2).obj)).getTipoVar().equals(val_peek(0).sval))){
+										yyerror("Tipos incompatibles en la asignacion ",val_peek(2).getFila(),val_peek(2).getColumna());
+									}}}
+									/* crear tercetoe de asignacion*/
 	estructuras.add("Asignacion "+" fila "+val_peek(2).getFila()+" columna "+val_peek(2).getColumna());}
 break;
-case 35:
-//#line 94 "GramaticaGrupo8.y"
-{ /*if ((Symbol)$1.obj.usar()){*/
-											/* esta para usar, entonces ya existe*/
-									/*		yyerror("error en la asignacion, la variable ya esta definida",$1.getFila(),$1.getColumna());	*/
-									/*		}*/
-											/*deberia asignarle el tipo a la variable*/
-
-										estructuras.add("Asignacion de puntero "+" fila "+val_peek(6).getFila()+" columna "+val_peek(6).getColumna());}
-break;
 case 36:
-//#line 101 "GramaticaGrupo8.y"
-{/*if ((Symbol)$1.obj.usar()){*/
-											/* esta para usar, entonces ya existe*/
-										/*	yyerror("error en la asignacion, la variable ya esta definida",$1.getFila(),$1.getColumna());	*/
-										/*	}*/
-										estructuras.add("Asignacion "+" fila "+val_peek(4).getFila()+" columna "+val_peek(4).getColumna());}
+//#line 131 "GramaticaGrupo8.y"
+{ /* Estoy definiendo una variable*/
+									if (((Symbol)(val_peek(3).obj)).isUsada()){
+										yyerror("La variable ya esta definida ",val_peek(6).getFila(),val_peek(6).getColumna());
+									}else{
+										Symbol s = ((Symbol)(val_peek(3).obj));
+										s.setUsada(true);
+										s.setEsMutable(false);
+										s.setEspuntero(true);
+										s.setTipoVar(val_peek(5).sval);
+										/* faltaria mutabilidad de lo apuntado*/
+									}
+									if (!((Symbol)(val_peek(0).obj)).isUsada()){
+										yyerror("La variable no esta definida, &ID ",val_peek(6).getFila(),val_peek(6).getColumna());	
+									}else{
+										Symbol s = ((Symbol)(val_peek(0).obj));
+										Symbol sy = ((Symbol)(val_peek(3).obj));
+										if (!(s.getTipoVar().equals(sy.getTipoVar()))){
+											yyerror("incompatibilidad de tipos en la asignacion ",val_peek(6).getFila(),val_peek(6).getColumna());											
+										}
+										if (s.isEsPuntero())
+											yyerror("No se permiten punteros multiples ",val_peek(6).getFila(),val_peek(6).getColumna());
+									}
+									estructuras.add("Asignacion de puntero "+" fila "+val_peek(6).getFila()+" columna "+val_peek(6).getColumna());}
 break;
 case 37:
-//#line 106 "GramaticaGrupo8.y"
-{yyerror("Falta elemento de asignacion y palabra reservada 'let'",val_peek(1).getFila(),val_peek(1).getColumna());}
+//#line 154 "GramaticaGrupo8.y"
+{/*Estoy definiendo una variable*/
+									if (((Symbol)(val_peek(2).obj)).isUsada()){
+										yyerror("La variable ya esta definida ",val_peek(4).getFila(),val_peek(4).getColumna());
+									}else{
+										Symbol s = ((Symbol)(val_peek(2).obj));
+										s.setUsada(true);
+										s.setEsMutable(false);
+										s.setEspuntero(false);
+										s.setTipoVar(val_peek(3).sval);
+										/* faltaria mutabilidad de lo apuntado*/
+										if(!(s.getTipoVar().equals(val_peek(0).sval))){
+										yyerror("Tipos incompatibles en la asignacion ",val_peek(4).getFila(),val_peek(4).getColumna());
+									}
+									}
+									estructuras.add("Asignacion "+" fila "+val_peek(4).getFila()+" columna "+val_peek(4).getColumna());}
 break;
 case 38:
-//#line 107 "GramaticaGrupo8.y"
-{yyerror("Falta elemento de asignacion ",val_peek(1).getFila(),val_peek(1).getColumna());}
+//#line 169 "GramaticaGrupo8.y"
+{yyerror("Falta elemento de asignacion y palabra reservada 'let'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 39:
-//#line 108 "GramaticaGrupo8.y"
-{yyerror("no se encontro ':=' ",val_peek(1).getFila(),val_peek(1).getColumna());}
+//#line 170 "GramaticaGrupo8.y"
+{yyerror("Falta elemento de asignacion ",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 40:
-//#line 111 "GramaticaGrupo8.y"
-{estructuras.add("Expresion print "+" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());}
+//#line 171 "GramaticaGrupo8.y"
+{yyerror("no se encontro ':=' ",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 41:
-//#line 112 "GramaticaGrupo8.y"
-{yyerror("Linea  Error en la construccion del print",val_peek(1).getFila(),val_peek(1).getColumna());}
+//#line 174 "GramaticaGrupo8.y"
+{estructuras.add("Expresion print "+" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());}
 break;
 case 42:
-//#line 115 "GramaticaGrupo8.y"
-{}
+//#line 175 "GramaticaGrupo8.y"
+{yyerror("Linea  Error en la construccion del print",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 43:
-//#line 116 "GramaticaGrupo8.y"
+//#line 178 "GramaticaGrupo8.y"
 {}
 break;
 case 44:
-//#line 120 "GramaticaGrupo8.y"
-{estructuras.add("Sentencia IF Else" +" fila "+val_peek(7).getFila()+" columna "+val_peek(7).getColumna());}
-break;
-case 45:
-//#line 121 "GramaticaGrupo8.y"
-{estructuras.add("Sentencia IF " +" fila "+val_peek(5).getFila()+" columna "+val_peek(5).getColumna());}
-break;
-case 46:
-//#line 122 "GramaticaGrupo8.y"
-{yyerror(" falta la palabra reservada IF",val_peek(5).getFila(),val_peek(5).getColumna());}
-break;
-case 47:
-//#line 123 "GramaticaGrupo8.y"
-{yyerror(" Error en la construccion de la sentencia IF ",val_peek(2).getFila(),val_peek(2).getColumna());}
-break;
-case 48:
-//#line 124 "GramaticaGrupo8.y"
-{yyerror(" Falta la palabra reservada ELSE ",val_peek(5).getFila(),val_peek(5).getColumna());}
-break;
-case 49:
-//#line 127 "GramaticaGrupo8.y"
-{estructuras.add("Sentencia Loop " +" fila "+val_peek(5).getFila()+" columna "+val_peek(5).getColumna());}
-break;
-case 50:
-//#line 128 "GramaticaGrupo8.y"
-{yyerror("Linea  Falta palabra reservada UNTIL",val_peek(4).getFila(),val_peek(4).getColumna());}
-break;
-case 51:
-//#line 131 "GramaticaGrupo8.y"
+//#line 179 "GramaticaGrupo8.y"
 {}
 break;
+case 45:
+//#line 183 "GramaticaGrupo8.y"
+{estructuras.add("Sentencia IF Else" +" fila "+val_peek(7).getFila()+" columna "+val_peek(7).getColumna());}
+break;
+case 46:
+//#line 184 "GramaticaGrupo8.y"
+{estructuras.add("Sentencia IF " +" fila "+val_peek(5).getFila()+" columna "+val_peek(5).getColumna());}
+break;
+case 47:
+//#line 185 "GramaticaGrupo8.y"
+{yyerror(" falta la palabra reservada IF",val_peek(5).getFila(),val_peek(5).getColumna());}
+break;
+case 48:
+//#line 186 "GramaticaGrupo8.y"
+{yyerror(" Error en la construccion de la sentencia IF ",val_peek(2).getFila(),val_peek(2).getColumna());}
+break;
+case 49:
+//#line 187 "GramaticaGrupo8.y"
+{yyerror(" Falta la palabra reservada ELSE ",val_peek(5).getFila(),val_peek(5).getColumna());}
+break;
+case 50:
+//#line 190 "GramaticaGrupo8.y"
+{estructuras.add("Sentencia Loop " +" fila "+val_peek(5).getFila()+" columna "+val_peek(5).getColumna());}
+break;
+case 51:
+//#line 191 "GramaticaGrupo8.y"
+{yyerror("Linea  Falta palabra reservada UNTIL",val_peek(4).getFila(),val_peek(4).getColumna());}
+break;
 case 52:
-//#line 132 "GramaticaGrupo8.y"
+//#line 194 "GramaticaGrupo8.y"
 {}
 break;
 case 53:
-//#line 133 "GramaticaGrupo8.y"
-{yyerror("LInea  Omision de la palabra reservada '{' ",val_peek(2).getFila(),val_peek(2).getColumna());}
+//#line 195 "GramaticaGrupo8.y"
+{}
 break;
 case 54:
-//#line 136 "GramaticaGrupo8.y"
-{}
+//#line 196 "GramaticaGrupo8.y"
+{yyerror("LInea  Omision de la palabra reservada '{' ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 55:
-//#line 137 "GramaticaGrupo8.y"
-{}
+//#line 199 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval)))
+										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 56:
-//#line 138 "GramaticaGrupo8.y"
-{}
+//#line 201 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval)))
+										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 57:
-//#line 139 "GramaticaGrupo8.y"
-{}
+//#line 203 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval)))
+										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 58:
-//#line 140 "GramaticaGrupo8.y"
-{}
+//#line 205 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval)))
+										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 59:
-//#line 141 "GramaticaGrupo8.y"
-{}
+//#line 207 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval)))
+										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 60:
-//#line 142 "GramaticaGrupo8.y"
-{yyerror("Linea  se esperaba una expresion y se encontro '>'",val_peek(1).getFila(),val_peek(1).getColumna());}
+//#line 209 "GramaticaGrupo8.y"
+{if(!(val_peek(2).sval.equals(val_peek(0).sval)))
+										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 61:
-//#line 143 "GramaticaGrupo8.y"
-{yyerror("Linea  se esperaba una expresion y se encontro '<'",val_peek(1).getFila(),val_peek(1).getColumna());}
+//#line 211 "GramaticaGrupo8.y"
+{yyerror("Linea  se esperaba una expresion y se encontro '>'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 62:
-//#line 144 "GramaticaGrupo8.y"
-{yyerror("Linea  se esperaba una expresion y se encontro '>='",val_peek(1).getFila(),val_peek(1).getColumna());}
+//#line 212 "GramaticaGrupo8.y"
+{yyerror("Linea  se esperaba una expresion y se encontro '<'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 63:
-//#line 145 "GramaticaGrupo8.y"
+//#line 213 "GramaticaGrupo8.y"
+{yyerror("Linea  se esperaba una expresion y se encontro '>='",val_peek(1).getFila(),val_peek(1).getColumna());}
+break;
+case 64:
+//#line 214 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '<='",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
-//#line 817 "Parser.java"
+//#line 890 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

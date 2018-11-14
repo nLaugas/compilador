@@ -10,14 +10,16 @@ public abstract class Terceto {
 //	public String varAux;   tendria que ser el resultado de la operacion? eso que dijo marcela de los cuartetos ficticios
 	// habria que agregarla a la tabla de simbolos?
 	public SymbolTable ts;
+	public Vector<String> errores; // ACA LE DOY 3 VUELTAS DE ALAMBRE A LOS ERRORES SEMANTICOS
 
 	public Terceto(int num,String operador,Object operando1,Object operando2,SymbolTable ts){
-		this.operando1=operando1;
+		this.operando1=operando1;//operando 1 y 2 son los lexemas de los simbolos
 		this.operando2=operando2;
 		this.operador=operador;
 		this.num=num;
 		//varAux="";
 		this.ts = ts;
+		this.errores = new Vector<String>();
 	}
 	
 	//public void getAssembler();
@@ -69,6 +71,18 @@ public abstract class Terceto {
 		return true;
 		return false;
 	}
+
+	/*
+	public void OperandosDeclarados(){
+		ParserVal token = vectorTokens.elementAt(i);
+		Symbol simbolo = token.obj;
+		if (simbolo.getTipoVar=="sin asignar")//controlar de agregar este por defecto a symbol
+			simbolo.setTipoVar(tipo);
+		else
+			yyerror("Se esta intentado redeclarar la variable "+simboblo.getLexema(),token.getFila(),token.getColumna());
+		;
+		}
+*/
 
 	public abstract String getTipo();
 	public abstract Vector<String> getAssembler();

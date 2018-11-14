@@ -32,24 +32,32 @@ sentencia: ejecutable {}
 	| declaracion {}
         ;
 
-declaracion: LET MUT tipo lista_id ',' {//for(Symbol s : id){
-										//	s.setEsMutable(true);
-										//	s.setTipoVar((Symbol)$3.obj.getAtributo("=>"));}
-										//id.clear();/*vacio lista*/
-										/*si algun id ya estaba definido debo retornar error*/	}
+declaracion: LET MUT tipo lista_id ',' {for(String lexem : id){    //estoy aca!
+											Symbol s = st.getSymbol(lexem);
+											
+											if (!s.isUsada()){
+												s.setUsada(true);
+												s.setEsMutable(true);
+												s.setTipoVar($3.sval);}
+											else{
+												yyerror("Variable ya definida ",$1.getFila(),$1.getColumna());		
+											}					
+                                            }id.clear();
+										}
         | error {yyerror("Declaracion mal definida ");}
         ;
 
-lista_id: ID {id.add((Symbol)$1.obj); }
-	| '*' ID {	//(Symbol)$1.obj.setEspuntero(true); //reconoce puntero
-				//id.add((Symbol)$1.obj);} //agrega a lista de identificadores reconocidos
-	}
-	| ID ';' lista_id {id.add((Symbol)$1.obj);}
+lista_id: ID {id.add( ((Symbol)($1.obj)).getLexema() ); } 
+	| '*' ID {	((Symbol)($2.obj)).setEspuntero(true); //reconoce puntero
+				id.add(((Symbol)($2.obj)).getLexema());} //agrega a lista de identificadores reconocidos
+	
+	| ID ';' lista_id {id.add(((Symbol)($1.obj)).getLexema());}
+	| '*' ID ';' lista_id {id.add(((Symbol)($2.obj)).getLexema());}
         | ID lista_id{yyerror("Se esperaba ';' ",$1.getFila(),$1.getColumna());}
         ;
 
-tipo: INTEGER {}
-	| SINGLE {}
+tipo: INTEGER {$$.sval="integer";}
+	| SINGLE {$$.sval="float";}
 	| error ','{yyerror("Tipo indefinido",$1.getFila(),$1.getColumna());}
 	;
 
@@ -62,47 +70,102 @@ ejecutable: asignacion ','{}
           | exp_print ','{}
 	  ;
 
-expresion: termino '+' expresion {}
-	| termino '-' expresion {}
-	| termino {}
+expresion: termino '+' expresion {if(!($1.sval.equals($3.sval))){
+			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
+}
+$$.sval=$1.sval;
+}
+	| termino '-' expresion {if(!($1.sval.equals($3.sval))){
+			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
+}
+$$.sval=$1.sval;
+}
+	| termino {$$.sval=$1.sval;}
         ;
 
-termino: factor '/' termino {}
-	| factor '*' termino{}
-        | factor {}
+termino: factor '/' termino {if(!($1.sval.equals($3.sval))){
+			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
+}
+$$.sval=$1.sval;
+}
+	| factor '*' termino{if(!($1.sval.equals($3.sval))){
+			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
+}
+$$.sval=$1.sval;
+}
+    | factor {$$.sval=$1.sval;}
 	;
-	
-factor: ENTERO {}
-	| FLOTANTE {}
-	| ID {}
-	| '-' ENTERO {
-                      Symbol aux = st.getSymbol(lex.lastSymbol);
-                      st.addcambiarSigno(aux);
+// integer y single son tipos de las varibles
+// estero y flotante son las constantes	
+factor: ENTERO {$$.sval="integer";}
+	| SINGLE {$$.sval="float";}
+	| ID {if(!((Symbol)($1.obj)).isUsada()){
+			//error
+			yyerror("variable no declarada",$1.getFila(),$1.getColumna());
+			$$.sval="sin tipo";
+		}else{ $$.sval=((Symbol)($1.obj)).getTipoVar();
+			}
+	}
+	| '-' ENTERO {    $$.sval="integer";
+                      //Symbol aux = st.getSymbol(lex.lastSymbol);
+                      st.addcambiarSigno(((Symbol)($2.obj)));  //((Symbol))($2.obj))
                      
  		              }
-	|'-' FLOTANTE{
-                     Symbol aux = st.getSymbol(lex.lastSymbol);
-                     st.addcambiarSigno(aux);
-                    
+	|'-' SINGLE{
+		             $$.sval="float";
+                    // Symbol aux = st.getSymbol(lex.lastSymbol);
+                     st.addcambiarSigno(((Symbol)($2.obj)));  //((Symbol))($2.obj))
                     }
 	;
 
-asignacion: ID ASIG  expresion { /*if (!(Symbol)$1.obj.usar())/*((!(Symbol)$1.obj.usar())&&(!(Symbol)$1.obj.getTipo()==$3.ival))*///{
-									//yyerror("error en la asignacion, la variable no existe ",$1.getFila(),$1.getColumna());		
-									//}
+asignacion: ID ASIG  expresion{		//necesito el tipo de la expresion
+									if (!((Symbol)($1.obj)).isUsada()){
+										yyerror("La variable no esta definida ",$1.getFila(),$1.getColumna());
+									}else{if (!((Symbol)($1.obj)).getEsMutable()){
+										yyerror("La variable no es mutable ",$1.getFila(),$1.getColumna());
+									}else{if(!(((Symbol)($1.obj)).getTipoVar().equals($3.sval))){
+										yyerror("Tipos incompatibles en la asignacion ",$1.getFila(),$1.getColumna());
+									}}}
+									// crear tercetoe de asignacion
 	estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
-    | LET tipo '*'ID ASIG '&' ID  { //if ((Symbol)$1.obj.usar()){
-											// esta para usar, entonces ya existe
-									//		yyerror("error en la asignacion, la variable ya esta definida",$1.getFila(),$1.getColumna());	
-									//		}
-											//deberia asignarle el tipo a la variable
-
-										estructuras.add("Asignacion de puntero "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
-    | LET tipo ID ASIG expresion  {//if ((Symbol)$1.obj.usar()){
-											// esta para usar, entonces ya existe
-										//	yyerror("error en la asignacion, la variable ya esta definida",$1.getFila(),$1.getColumna());	
-										//	}
-										estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
+    | LET tipo '*'ID ASIG '&' ID  { // Estoy definiendo una variable
+									if (((Symbol)($4.obj)).isUsada()){
+										yyerror("La variable ya esta definida ",$1.getFila(),$1.getColumna());
+									}else{
+										Symbol s = ((Symbol)($4.obj));
+										s.setUsada(true);
+										s.setEsMutable(false);
+										s.setEspuntero(true);
+										s.setTipoVar($2.sval);
+										// faltaria mutabilidad de lo apuntado
+									}
+									if (!((Symbol)($7.obj)).isUsada()){
+										yyerror("La variable no esta definida, &ID ",$1.getFila(),$1.getColumna());	
+									}else{
+										Symbol s = ((Symbol)($7.obj));
+										Symbol sy = ((Symbol)($4.obj));
+										if (!(s.getTipoVar().equals(sy.getTipoVar()))){
+											yyerror("incompatibilidad de tipos en la asignacion ",$1.getFila(),$1.getColumna());											
+										}
+										if (s.isEsPuntero())
+											yyerror("No se permiten punteros multiples ",$1.getFila(),$1.getColumna());
+									}
+									estructuras.add("Asignacion de puntero "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
+    | LET tipo ID ASIG expresion  {//Estoy definiendo una variable
+									if (((Symbol)($3.obj)).isUsada()){
+										yyerror("La variable ya esta definida ",$1.getFila(),$1.getColumna());
+									}else{
+										Symbol s = ((Symbol)($3.obj));
+										s.setUsada(true);
+										s.setEsMutable(false);
+										s.setEspuntero(false);
+										s.setTipoVar($2.sval);
+										// faltaria mutabilidad de lo apuntado
+										if(!(s.getTipoVar().equals($5.sval))){
+										yyerror("Tipos incompatibles en la asignacion ",$1.getFila(),$1.getColumna());
+									}
+									}
+									estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
 	| ASIG expresion  {yyerror("Falta elemento de asignacion y palabra reservada 'let'",$1.getFila(),$1.getColumna());}
 	| ID ASIG  {yyerror("Falta elemento de asignacion ",$1.getFila(),$1.getColumna());}
 	| ID error  {yyerror("no se encontro ':=' ",$1.getFila(),$1.getColumna());}
@@ -133,12 +196,18 @@ cuerpo: ejecutable {}
 	| error lista_ejecutable '}' {yyerror("LInea  Omision de la palabra reservada '{' ",$1.getFila(),$1.getColumna());}
 	;
 
-condicion: expresion '>' expresion {}
-	| expresion '<' expresion {}
-	| expresion IGUAL expresion {}
-	| expresion DIST expresion {}
-	| expresion MAYIG expresion {}
-	| expresion MENIG expresion {}
+condicion: expresion '>' expresion {if(!($1.sval.equals($3.sval)))
+										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
+	| expresion '<' expresion {if(!($1.sval.equals($3.sval)))
+										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
+	| expresion IGUAL expresion {if(!($1.sval.equals($3.sval)))
+										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
+	| expresion DIST expresion {if(!($1.sval.equals($3.sval)))
+										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
+	| expresion MAYIG expresion {if(!($1.sval.equals($3.sval)))
+										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
+	| expresion MENIG expresion {if(!($1.sval.equals($3.sval)))
+										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());}
 	| '>' expresion {yyerror("Linea  se esperaba una expresion y se encontro '>'",$1.getFila(),$1.getColumna());}
 	| '<' expresion {yyerror("Linea  se esperaba una expresion y se encontro '<'",$1.getFila(),$1.getColumna());}
 	| MAYIG expresion {yyerror("Linea  se esperaba una expresion y se encontro '>='",$1.getFila(),$1.getColumna());}
@@ -152,7 +221,7 @@ condicion: expresion '>' expresion {}
   Errors errors;
   public ArrayList<String> estructuras=new ArrayList<>();
   public ArrayList<String> tokens = new ArrayList<>();
-  public ArrayList<Symbol> id = new ArrayList<>();
+  public ArrayList<String> id = new ArrayList<>();
 
     int yylex(){
 
