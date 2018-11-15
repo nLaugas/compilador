@@ -8,6 +8,7 @@ import SymbolTable.*;
 import Tercetos.*;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.Stack;
 %}
 
 /* Lista de tokens */
@@ -93,7 +94,18 @@ lista_ejecutable: ejecutable {}
 	;
 
 ejecutable: asignacion ','{}
-          | bloque {}
+          | bloque {//#######Solo llego aca si termino un if o un loop
+        Integer i = p.pop();
+        if (listaTercetos.get(i).getOperador() == "BI")
+        {
+        listaTercetos.get(i).setOperando1(listaTercetos.get(contadorTerceto));
+
+            }
+        if (listaTercetos.get(i).getOperador() == "BF")
+            {	listaTercetos.get(i).setOperando2(listaTercetos.get(contadorTerceto));
+            }
+
+}
           | exp_print ','{}
 	  ;
 
@@ -346,21 +358,53 @@ bloque: sent_if {}
 	;
 
 
-sent_if: IF '(' condicion ')' cuerpo ELSE cuerpo END_IF{estructuras.add("Sentencia IF Else" +" fila "+$1.getFila()+" columna "+$1.getColumna());}
-        |IF '(' condicion ')' cuerpo END_IF{estructuras.add("Sentencia IF " +" fila "+$1.getFila()+" columna "+$1.getColumna());}
-	|  '(' condicion ')' cuerpo ELSE cuerpo {yyerror(" falta la palabra reservada IF",$1.getFila(),$1.getColumna());}
-	| IF error ELSE {yyerror(" Error en la construccion de la sentencia IF ",$1.getFila(),$1.getColumna());}
-	| IF '(' condicion ')' cuerpo cuerpo {yyerror(" Falta la palabra reservada ELSE ",$1.getFila(),$1.getColumna());}
+sent_if: IF condicion_salto cuerpo else_ cuerpo END_IF{estructuras.add("Sentencia IF Else" +" fila "+$1.getFila()+" columna "+$1.getColumna());}
+        |IF condicion_salto cuerpo END_IF{estructuras.add("Sentencia IF " +" fila "+$1.getFila()+" columna "+$1.getColumna());}
+	|  condicion_salto cuerpo else_ cuerpo {yyerror(" falta la palabra reservada IF",$1.getFila(),$1.getColumna());}
+	| IF error else_ {yyerror(" Error en la construccion de la sentencia IF ",$1.getFila(),$1.getColumna());}
+	| IF condicion_salto cuerpo cuerpo {yyerror(" Falta la palabra reservada ELSE ",$1.getFila(),$1.getColumna());}
 	;
 
-sent_loop: LOOP cuerpo UNTIL '(' condicion ')'{estructuras.add("Sentencia Loop " +" fila "+$1.getFila()+" columna "+$1.getColumna());}
-	| LOOP cuerpo '(' condicion ')'{yyerror("Linea  Falta palabra reservada UNTIL",$1.getFila(),$1.getColumna());}
+sent_loop: loop_ cuerpo UNTIL condicion_salto {estructuras.add("Sentencia Loop " +" fila "+$1.getFila()+" columna "+$1.getColumna());}
+	| loop_ cuerpo condicion_salto {yyerror("Linea  Falta palabra reservada UNTIL",$1.getFila(),$1.getColumna());}
 	;
 
 cuerpo: ejecutable {}
 	| '{' lista_ejecutable '}'{}
 	| error lista_ejecutable '}' {yyerror("LInea  Omision de la palabra reservada '{' ",$1.getFila(),$1.getColumna());}
 	;
+
+loop_: LOOP {//#### unica forma de marcar donde comienza el loop y ver donde salto (no diferenciamos bloque de loop)
+        p.push(contadorTerceto);}
+;
+
+
+else_: ELSE {//#### aca hacemos el salto incondicional, debimos inventar este no terminal porque no diferenciamos bloque else de bloque if
+        Terceto t = new T_BI(contadorTerceto,"BI","trampita","trampita",st);
+        contadorTerceto ++;
+        listaTercetos.add(t);
+        Integer i = p.pop();
+        if (listaTercetos.get(i).getOperador() == "BF")
+            listaTercetos.get(i).setOperando2(listaTercetos.get(contadorTerceto));
+        else
+            listaTercetos.get(i).setOperando1(listaTercetos.get(contadorTerceto));
+        p.push(contadorTerceto-1);
+    System.out.println(t.toString());
+    $$=$1;
+    $$.obj = t;
+															}
+;
+
+condicion_salto: '(' condicion ')' {    //#### aca hacemos lo del salto para no repetirlo en todas las condiciones
+    p.push(contadorTerceto);
+    Terceto t = new T_BF(contadorTerceto,"BF",$2.obj,"trampita",st);//##use trampita por las dudas, ya por deporte, no parece que sea necesario
+    contadorTerceto ++;
+    listaTercetos.add(t);
+    System.out.println(t.toString());
+    $$=$1;
+    $$.obj = t;
+
+};
 
 condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
@@ -374,7 +418,8 @@ condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(
     listaTercetos.add(t);
     System.out.println(t.toString());
     $$=$1;
-    $$.obj = t;										}
+    $$.obj = t;
+    									}
 	| expresion '<' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
   Terceto t = new T_Comparador(contadorTerceto,"<",$1.obj,$3.obj,st);
@@ -454,7 +499,8 @@ condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(
   public ArrayList<String> estructuras=new ArrayList<>();
   public ArrayList<String> tokens = new ArrayList<>();
   public ArrayList<String> id = new ArrayList<>();
-  ArrayList<Terceto> listaTercetos = new ArrayList<>();
+  public ArrayList<Terceto> listaTercetos = new ArrayList<>();
+  public Stack<Integer> p = new Stack<Integer>();
   int contadorVarAux=0;
   int contadorTerceto=0;
 

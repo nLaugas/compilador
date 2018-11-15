@@ -2,9 +2,9 @@ package Tercetos;
 import java.util.Vector;
 import SymbolTable.*;
 
-public class T_BL extends Terceto {
+public class T_BF extends Terceto {
 		
-	public T_BL(int nro,String operador,Object operando1,Object operando2, SymbolTable ts){
+	public T_BF(int nro, String operador, Object operando1, Object operando2, SymbolTable ts){
 		super(nro,operador,operando1,operando2,ts);
 		}
 	

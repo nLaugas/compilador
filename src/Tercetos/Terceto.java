@@ -53,10 +53,13 @@ public abstract class Terceto {
 	}
 	public String toString() {
 		String op1,op2;
-		if (esTerceto(1))
-			op1 =operando1.toString().substring(0,3);
+		if (operando1!="trampita")
+			if (esTerceto(1))
+				op1 =operando1.toString().substring(0,3);
+			else
+				op1=((Symbol)operando1).getLexema();
 		else
-			op1=((Symbol)operando1).getLexema();
+			op1="- ";
 		if (operando2!="trampita"){
 			if (esTerceto(2))
 				op2 = operando2.toString().substring(0, 3);
