@@ -430,7 +430,7 @@ final static String yyrule[] = {
   public ArrayList<String> estructuras=new ArrayList<>();
   public ArrayList<String> tokens = new ArrayList<>();
   public ArrayList<String> id = new ArrayList<>();
-  ArrayList<Terceto> listaTercetos = new ArrayList<>();
+  public ArrayList<Terceto> listaTercetos = new ArrayList<>();
   int contadorVarAux=0;
   int contadorTerceto=0;
 
