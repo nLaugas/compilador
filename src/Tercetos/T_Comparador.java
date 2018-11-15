@@ -13,11 +13,12 @@ public class T_Comparador extends Terceto{
 		if (esTerceto(1))
 			tipo1 =((Terceto)operando1).getTipo();
 		else
-			tipo1 = (String) ((Symbol)operando1).getTipoVar();
+			tipo1 =  ((Symbol)operando1).getTipoVar();//revisar la parte de (String)operando1 (tiene que ser el lexema)
 		if (esTerceto(2))
-			tipo2 =((Terceto)operando1).getTipo();
+			tipo2 =((Terceto)operando2).getTipo();
 		else
-			tipo2 = (String) ((Symbol)operando2).getTipoVar();
+			tipo2 =  ((Symbol)operando2).getTipoVar();
+
 
 		if (tipo1 == "single" || tipo2 == "single")
 			tipo = "single";
@@ -25,13 +26,14 @@ public class T_Comparador extends Terceto{
 			tipo = "integer";
 
 		if (tipo1 == "sin asignar")
-			errores.add("Variable no declarada, "+(String)operando1);
+			errores.add("Variable no declarada, "+operando1.toString());
 		if (tipo2 == "sin asignar")
-			errores.add("Variable no declarada, "+(String)operando2);
+			errores.add("Variable no declarada, "+operando2.toString());
 		if (tipo2 != tipo1)
-			errores.add("Hay una incompatibilidad de tipo, entre "+(String)operando1+" de tipo "+
-					tipo1+", y "+(String)operando2+" de tipo "+tipo2);
-	}
+			errores.add("Hay una incompatibilidad de tipo, entre "+operando1.toString()+" de tipo "+
+					tipo1+", y "+operando2.toString()+" de tipo "+tipo2);
+
+		}
 
 	@Override
 	public String getTipo()

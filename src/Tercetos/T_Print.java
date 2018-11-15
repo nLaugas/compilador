@@ -8,7 +8,7 @@ public class T_Print extends Terceto {
 
 	
 	public T_Print(int nro, String operador, Object operando1, Object operando2, SymbolTable ts){
-		super(nro,operador,operando1,operando2,ts);
+		super(nro,operador,operando1,"trampita",ts);
 		}
 	
 	

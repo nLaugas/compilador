@@ -51,7 +51,20 @@ public abstract class Terceto {
 	public void setOperador(String operador) {
 		this.operador = operador;
 	}
-	public String toString() {return "["+num+"] ("+operador+", "+operando1+", "+operando2+")."; }
+	public String toString() {
+		String op1,op2;
+		if (esTerceto(1))
+			op1 =operando1.toString().substring(0,3);
+		else
+			op1=((Symbol)operando1).getLexema();
+		if (operando2!="trampita"){
+			if (esTerceto(2))
+				op2 = operando2.toString().substring(0, 3);
+			else
+				op2 = ((Symbol) operando2).getLexema();
+		}
+		else op2 = "- ";
+		return "["+num+"] ("+operador+", "+op1+", "+op2+")."; }
 
 
 	public boolean equals(Terceto t){
