@@ -54,7 +54,7 @@ declaracion: LET MUT tipo lista_id ',' {for(String lexem : id){    //estoy aca!
                                                     simbolo.setTipoVar(tipo);
                                                 else
                                                     yyerror("Se esta intentado redeclarar la variable "+simboblo.getLexema(),token.getFila(),token.getColumna());
-                                                ;}
+                                                }
 
 										}
         | error {yyerror("Declaracion mal definida ");}
@@ -110,7 +110,7 @@ expresion: termino '+' expresion {/*if(!(((Symbol)($1.obj)).getTipoVar().equals(
 														contadorTerceto ++;
 														listaTercetos.add(t);
 														$$.obj = t;*/
-								Terceto t = new T_Suma_Resta(contadorTerceto,"+",$1.getLexema(),$3.getLexema(),st);
+								Terceto t = new T_Suma_Resta(contadorTerceto,"+",$1.obj,$3.obj,st);
                                 //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
                                 //contadorVarAux++;         por ahora no lo necesitamos
                                 //t.setVariableAux(contadorVarAux);
@@ -119,7 +119,8 @@ expresion: termino '+' expresion {/*if(!(((Symbol)($1.obj)).getTipoVar().equals(
                                       ;}
                                 contadorTerceto ++;
                                 listaTercetos.add(t);
-                                $$.obj = t;
+                     System.out.println(t.toString());
+                $$.obj = t;
 }
 	| termino '-' expresion {/*
 	                        if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
@@ -134,7 +135,7 @@ expresion: termino '+' expresion {/*if(!(((Symbol)($1.obj)).getTipoVar().equals(
 														listaTercetos.add(t);
 														$$.obj = t;
 										*/
-						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",$1.getLexema(),$3.getLexema(),st);
+						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",$1.obj,$3.obj,st);
                              //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
                             //contadorVarAux++;         por ahora no lo necesitamos
                             //t.setVariableAux(contadorVarAux);
@@ -143,7 +144,8 @@ expresion: termino '+' expresion {/*if(!(((Symbol)($1.obj)).getTipoVar().equals(
                                    ;}
                             contadorTerceto ++;
                             listaTercetos.add(t);
-                            $$.obj = t;
+                     System.out.println(t.toString());
+            $$.obj = t;
 }
 	| termino {$$=$1;
     $$.obj=$1.obj; //creo que es necesario para que no se pierdan los lexemas, si quieren reveanlo
@@ -164,9 +166,10 @@ termino: factor '/' termino {/*
                             contadorTerceto ++;
                             t.setTabla(tabla);
                             listaTercetos.add(t);
-                            $$.obj = t;
+                     System.out.println(t.toString());
+            $$.obj = t;
 				*/
-                Terceto t = new T_Mult_Div(contadorTerceto,"/",$1.getLexema(),$3.getLexema(),st);
+                Terceto t = new T_Mult_Div(contadorTerceto,"/",$1.obj,$3.obj,st);
                 //contadorVarAux++;         por ahora no lo necesitamos
                 //t.setVariableAux(contadorVarAux);
                 for(int i=0; i< t.errores.size();i++){
@@ -174,7 +177,8 @@ termino: factor '/' termino {/*
                        ;}
                 contadorTerceto ++;
                 listaTercetos.add(t);
-                $$.obj = t;
+                     System.out.println(t.toString());
+$$.obj = t;
 
 }
 	| factor '*' termino{/*
@@ -189,9 +193,10 @@ termino: factor '/' termino {/*
                         t.setTabla(tabla);
                         contadorTerceto ++;
                         listaTercetos.add(t);
-                        $$.obj = t;
+                     System.out.println(t.toString());
+        $$.obj = t;
                         */
-                Terceto t = new T_Mult_Div(contadorTerceto,"*",$1.getLexema(),$3.getLexema(),st);
+                Terceto t = new T_Mult_Div(contadorTerceto,"*",$1.obj,$3.obj,st);
                 //contadorVarAux++;         por ahora no lo necesitamos
                 //t.setVariableAux(contadorVarAux);
                 for(int i=0; i< t.errores.size();i++){
@@ -199,7 +204,8 @@ termino: factor '/' termino {/*
                        ;}
                 contadorTerceto ++;
                 listaTercetos.add(t);
-                $$.obj = t;
+                     System.out.println(t.toString());
+$$.obj = t;
     }
     | factor {$$=$1;
 			  // terceto

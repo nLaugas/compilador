@@ -13,11 +13,11 @@ public class T_Comparador extends Terceto{
 		if (esTerceto(1))
 			tipo1 =((Terceto)operando1).getTipo();
 		else
-			tipo1 = (String) ts.getSymbol((String)operando1).getTipoVar();
+			tipo1 = (String) ((Symbol)operando1).getTipoVar();
 		if (esTerceto(2))
 			tipo2 =((Terceto)operando1).getTipo();
 		else
-			tipo2 = (String) ts.getSymbol((String)operando2).getTipoVar();
+			tipo2 = (String) ((Symbol)operando2).getTipoVar();
 
 		if (tipo1 == "single" || tipo2 == "single")
 			tipo = "single";
