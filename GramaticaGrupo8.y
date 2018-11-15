@@ -72,39 +72,60 @@ ejecutable: asignacion ','{}
 	  ;
 
 expresion: termino '+' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
-			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
-}
-$$=$1;
+									yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
+								  }
+								  $$=$1;
+								  T_Suma_Resta t = new T_Suma_Resta(contadorTerceto,"+",$1.obj,$3.obj,ts);
+														contadorVarAux++;
+														t.setVariableAux(contadorVarAux);
+														t.setTabla(tabla);
+														contadorTerceto ++;
+														listaTercetos.add(t);
+														$$.obj = t;
 }
 	| termino '-' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
-			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
-}
-$$=$1;
+								yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
+							}
+							 $$=$1;
+							T_Suma_Resta t = new T_Suma_Resta(contadorTerceto,"-",$1.obj,$3.obj,ts);
+														contadorVarAux++;
+														t.setVariableAux(contadorVarAux);
+														t.setTabla(tabla);
+														contadorTerceto ++;
+														listaTercetos.add(t);
+														$$.obj = t;
 }
 	| termino {$$=$1;}
         ;
 
 
 termino: factor '/' termino {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
-			//System.out.println("tipo de primer elem: "+$1.sval+" tipo 2do elem : "+$3.sval);
-			yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
-}
-$$=$1;
+								//System.out.println("tipo de primer elem: "+$1.sval+" tipo 2do elem : "+$3.sval);
+								yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
+							}
+							$$=$1;
+							// 
+							T_Mult_Div t = new T_Mult_Div(contadorTerceto,"/",$1.obj,$3.obj,ts);
+											contadorVarAux++;
+											t.setVariableAux(contadorVarAux);
+											contadorTerceto ++;
+											t.setTabla(tabla);
+											listaTercetos.add(t);
+											$$.obj = t;			
+
 }
 	| factor '*' termino{if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
 								yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
 							}
 							$$=$1;
-
 						// se crea terceto	
-					/*	TercetoMultiplicacion t = new TercetoMultiplicacion(contadorTerceto,"*",$1.obj,$3.obj,ts);
+						T_Mult_Div t = new T_Mult_Div(contadorTerceto,"*",$1.obj,$3.obj,ts);
 											contadorVarAux++;
 											t.setVariableAux(contadorVarAux);
 											t.setTabla(tabla);
 											contadorTerceto ++;
 											listaTercetos.add(t);
 											$$.obj = t;
-*/
 						}
     | factor {$$=$1;
 			  // terceto
@@ -121,12 +142,12 @@ factor: ENTERO {$$=$1;}
 			}
 			 $$=$1;
 	}
-	| '-' ENTERO {    $$=$2;
+	| '-' ENTERO {    /** Revisar sino pierdo el puntero al elemento qe necesito **/
+					  $$=$2;
                       //Symbol aux = st.getSymbol(lex.lastSymbol);
                       st.addcambiarSigno(((Symbol)($2.obj)));  //((Symbol))($2.obj))
-                     
  		              }
-	|'-' FLOTANTE{
+	|'-' FLOTANTE{			/** Revisar sino pierdo el puntero al elemento qe necesito **/
 		             $$=$2;
 					 // Antes qedaban atributos sin setear
                     // Symbol aux = st.getSymbol(lex.lastSymbol);
@@ -187,7 +208,12 @@ asignacion: ID ASIG  expresion{		//necesito el tipo de la expresion
 	| ID error  {yyerror("no se encontro ':=' ",$1.getFila(),$1.getColumna());}
 	;
 
-exp_print: PRINT '(' CADENA ')' {estructuras.add("Expresion print "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
+exp_print: PRINT '(' CADENA ')' {estructuras.add("Expresion print "+" fila "+$1.getFila()+" columna "+$1.getColumna());
+									T_Print t = new T_Print(contadorTerceto,"OUT",$3.obj,"-",ts);	
+										contadorTerceto ++;
+										listaTercetos.add(t);   
+										$$.obj = t;
+}
 	| PRINT error {yyerror("Linea  Error en la construccion del print",$1.getFila(),$1.getColumna());}
 	;
 
