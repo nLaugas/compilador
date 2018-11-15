@@ -10,6 +10,11 @@ public abstract class Terceto {
 //	public String varAux;   tendria que ser el resultado de la operacion? eso que dijo marcela de los cuartetos ficticios
 	// habria que agregarla a la tabla de simbolos?
 	public SymbolTable ts;
+
+	// ver para qe se usa
+	protected String label="";
+
+
 	public Vector<String> errores; // ACA LE DOY 3 VUELTAS DE ALAMBRE A LOS ERRORES SEMANTICOS
 
 	public Terceto(int num,String operador,Object operando1,Object operando2,SymbolTable ts){
@@ -69,6 +74,14 @@ public abstract class Terceto {
 		else op2 = "- ";
 		return "["+num+"] ("+operador+", "+op1+", "+op2+")."; }
 
+	/** Ver aca **/
+	public void setLabel(){
+		label = "Label"+num+":";
+	}
+	public String getLabel()
+	{
+		return label;
+	}
 
 	public boolean equals(Terceto t){
 		if (t.getOperador().equals(operador))

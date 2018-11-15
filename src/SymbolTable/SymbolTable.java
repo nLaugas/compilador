@@ -1,6 +1,7 @@
 package SymbolTable;
 
 
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -40,6 +41,10 @@ public class SymbolTable {
         // por ejemplo 25_i y '25_i' o _palabra y 'palabra' o 2.5F35 y '2.5F35'
         //donde albos token tienen el mismo lexema pero distinto tipo
         //como el probrema viene traido por las cadenas de caracteres, guardamos el primer ' como parte del lexema
+    }
+
+    public ArrayList<String> getEntradas(){
+        return new ArrayList<String>( tb.keySet());
     }
 
     public void addcambiarSigno(Symbol aux){
