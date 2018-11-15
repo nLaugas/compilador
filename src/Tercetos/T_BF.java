@@ -15,8 +15,20 @@ public class T_BF extends Terceto {
 		return codigoAss;
 	
 	}
-	
-	
+
+	public String toString() {
+		String op1,op2;
+		if (operando1!="trampita")
+			op1 =operando1.toString().substring(0,3);
+		else
+			op1="-";
+		if (operando2!="trampita")
+			op2=(String.valueOf(operando2));
+		else
+			op2="-";
+		return "["+num+"] ("+operador+", "+op1+"], ["+op2+"]).";
+	}
+
 	@Override
 	public String getTipo() {
 		// TODO Auto-generated method stub
