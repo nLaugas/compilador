@@ -3,6 +3,7 @@ import AnalizadorSintactico.Parser;
 import AnalizadorSintactico.ParserVal;
 import Errors.Errors;
 import SymbolTable.SymbolTable;
+import Tercetos.Terceto;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -52,6 +53,14 @@ public class OutFile {
         String out = new String();
         for(String pv : par.estructuras){
             out+=pv+"\n";
+        }
+        this.crear(out,ruta);
+    }
+
+    public void tercetoFile(Parser par, String ruta){
+        String out = new String();
+        for(Terceto t : par.listaTercetos){
+            out+=t.toString()+"\n";
         }
         this.crear(out,ruta);
     }

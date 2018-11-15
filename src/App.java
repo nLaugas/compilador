@@ -139,7 +139,7 @@ public class App extends JFrame{
                 outFile.tokenFile(par, "token.txt");
                 outFile.structFile(par,"estructurasReconocidas.txt");
                 outFile.errorFiles(errors,"errores.txt");
-
+                outFile.tercetoFile(par,"terceto.txt");
             }
         });
 
