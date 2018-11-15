@@ -45,12 +45,12 @@ public class GeneradorAssembler {
         variables.add(new String("PERDIDA_INFORMACION_CONVERSION DB \"Perdida de informacion en conversion\" , 0"));
         variables.add(new String(""));
         variables.add(new String("_@cero DW 0,0"));
-        variables.add(new String("_@max_double1 DQ 1.7976931348623157e308"));
-        variables.add(new String("_@min_double1 DQ -1.7976931348623157e308"));
-        variables.add(new String("_@max_double2 DQ 2.2250738585072014e-308 "));
-        variables.add(new String("_@min_double2 DQ -2.2250738585072014e-308"));
-        variables.add(new String("_@max_ulong DD 4294967295"));
-        variables.add(new String("_@min_ulong DD 0"));
+        variables.add(new String("_@max_float1 DQ 1.17549435e38"));
+        variables.add(new String("_@min_float1 DQ -1.17549435e38"));
+        variables.add(new String("_@max_float2 DQ 3.40282347e-38 "));
+        variables.add(new String("_@min_float2 DQ -3.40282347e-38"));
+        variables.add(new String("_@max_integer DD 32768"));
+        variables.add(new String("_@min_integer DD 0"));
 
         int cant = 1;
         int cant2 = 1;
@@ -74,14 +74,14 @@ public class GeneradorAssembler {
 					variables.add(new String("_integer" +  cant2 + " DD " + lexema));
 					cant2++;
 				}
-				/*
+/**
 			else if (tabla.getSymbol(lexema).getTipo() == 300){
-				if ((String)tabla.getElemento(lexema,TIPO) == "DOUBLE")
+				if ((String)tabla.getElemento(lexema,TIPO) == "float")
 					variables.addElement(new String("_"+lexema+ " DQ ?"));
 				else
 					variables.addElement(new String("_"+lexema+ " DD ?"));
-					*/
-			//}
+
+			}**/
 			}
 
         Vector <String> msj; 
@@ -110,16 +110,6 @@ public class GeneradorAssembler {
 		this.codigo.addAll(this.declaracionDeVariables());
 		this.codigo.addAll(codAss);
 		codigo.add(new String("EXIT:"));
-		/*codigo.add(new String("invoke ExitProcess, 0"));
-		codigo.add(new String("OVERFLOW_EN_SUMA"));
-		codigo.add(new String("invoke MessageBox, NULL, addr OVERFLOW_EN_SUMA, addr TITULO , MB_OK " ));
-		codigo.add(new String("JMP EXIT"));
-		codigo.add(new String("RESULTADO_NEGATIVO_RESTA"));
-		codigo.add(new String("invoke MessageBox, NULL, addr RESULTADO_NEGATIVO_RESTA, addr TITULO , MB_OK " ));
-		codigo.add(new String("JMP EXIT"));
-		codigo.add(new String("PERDIDA_INFORMACION_CONVERSION"));
-		codigo.add(new String("invoke MessageBox, NULL, addr PERDIDA_INFORMACION_CONVERSION, addr TITULO , MB_OK " ));
-		codigo.add(new String("JMP EXIT"));*/
 		codigo.add(new String("END START"));
 		return codigo;
 	}

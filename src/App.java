@@ -27,6 +27,7 @@ public class App extends JFrame{
     String archivo="";
     private Errors errors;
     private OutFile outFile = new OutFile();
+    private GeneradorAssembler genAssembler;
     //este metodo es solo para mostrar el contenido de manera prolija
     //al momento de apretar el boton "token"
     public String mostrarToken(int valor){
@@ -129,17 +130,17 @@ public class App extends JFrame{
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
-
         genArchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 par.run();
+                genAssembler = new GeneradorAssembler(par,st);
                 outFile.tlFile(st,"tablaSimbolos.txt");
                 outFile.tokenFile(par, "token.txt");
                 outFile.structFile(par,"estructurasReconocidas.txt");
                 outFile.errorFiles(errors,"errores.txt");
                 outFile.tercetoFile(par,"terceto.txt");
+                outFile.assemblerFile(genAssembler.getCodigoAssembler(),"assembler.asm");
             }
         });
 
