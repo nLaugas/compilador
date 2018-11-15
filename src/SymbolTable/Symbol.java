@@ -4,7 +4,7 @@ import java.util.Hashtable;
 
 public class Symbol {
     private String lexema;
-    private String tipoVar = null; // tipo de dato para identificadores(set en AS) y constantes(set en gramatica)
+    private String tipoVar = "sin asignar"; // tipo de dato para identificadores(set en AS) y constantes(set en gramatica)
     private short tipo;
     private boolean usada=false;
 

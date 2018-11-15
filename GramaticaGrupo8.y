@@ -40,20 +40,48 @@ declaracion: LET MUT tipo lista_id ',' {for(String lexem : id){    //estoy aca!
 												s.setUsada(true);
 												s.setEsMutable(true);
 												s.setTipoVar($3.sval);}
-											else{
+											else{//se puede poner bien que variable es si id es una lista de parserVal
 												yyerror("Variable ya definida ",$1.getFila(),$1.getColumna());		
 											}					
                                             }id.clear();
+                                            Vector<ParserVal> vectorTokens = (Vector<ParserVal>)($4.obj);
+                                            String tipo = ($3.sval);// para que esto ande tocar la regla del no terminal tipo
+                                            tipo = tipo.toLowerCase();
+                                            for(int i=0; i< vectorTokens.size();i++){
+                                                ParserVal token = vectorTokens.elementAt(i);
+                                                Symbol simbolo = token.obj;
+                                                if (simbolo.getTipoVar=="sin asignar")//controlar de agregar este por defecto a symbol
+                                                    simbolo.setTipoVar(tipo);
+                                                else
+                                                    yyerror("Se esta intentado redeclarar la variable "+simboblo.getLexema(),token.getFila(),token.getColumna());
+                                                ;}
+
 										}
         | error {yyerror("Declaracion mal definida ");}
         ;
 
-lista_id: ID {id.add( ((Symbol)($1.obj)).getLexema() ); } 
+lista_id: ID {  id.add( ((Symbol)($1.obj)).getLexema() );
+                Vector<ParserVal> vect = new Vector<ParserVal>();//$1 es el parser val con el symbolo de ese ID
+                vect.add($1);//ver si anda, hay que castear a Symbol?
+                $$.obj = vect; }
 	| '*' ID {	((Symbol)($2.obj)).setEspuntero(true); //reconoce puntero
-				id.add(((Symbol)($2.obj)).getLexema());} //agrega a lista de identificadores reconocidos
+				id.add(((Symbol)($2.obj)).getLexema());//} //agrega a lista de identificadores reconocidos
+				Vector<ParserVal> vect = new Vector<ParserVal>();//$2 es el parser val con el symbolo de ese ID
+                vect.add($2);//ver si anda, hay que castear a Symbol? .obj
+                $$.obj = vect;
+                                }
 	
-	| ID ';' lista_id {id.add(((Symbol)($1.obj)).getLexema());}
-	| '*' ID ';' lista_id {id.add(((Symbol)($2.obj)).getLexema());}
+	| ID ';' lista_id {id.add(((Symbol)($1.obj)).getLexema());
+                     Vector<ParserVal> vect = (Vector<ParserVal>)($3.obj); //$3 me trae el vector original primero y desp aumenta
+                    vect.add($1);//ver si anda, hay que castear a Symbol? .obj
+                    $$.obj = vect;
+	}
+	| '*' ID ';' lista_id {id.add(((Symbol)($2.obj)).getLexema());
+                            ((Symbol)($2.obj)).setEspuntero(true); //reconoce puntero
+                            Vector<ParserVal> vect = (Vector<ParserVal>)($4.obj); //$4 me trae el vector original primero y desp aumenta
+                            vect.add($2);//ver si anda, hay que castear a Symbol? .obj
+                            $$.obj = vect;
+	}
         | ID lista_id{yyerror("Se esperaba ';' ",$1.getFila(),$1.getColumna());}
         ;
 
