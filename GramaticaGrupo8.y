@@ -99,7 +99,7 @@ ejecutable: asignacion ','{}
           | exp_print ','{}
 	  ;
 
-expresion: termino '+' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
+expresion: termino '+' expresion {/*if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
 									yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
 								  }
 								  $$=$1;
@@ -109,9 +109,20 @@ expresion: termino '+' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((
 														t.setTabla(tabla);
 														contadorTerceto ++;
 														listaTercetos.add(t);
-														$$.obj = t;
+														$$.obj = t;*/
+								Terceto t = new T_Suma_Resta(contadorTerceto,"+",$1.getLexema(),$3.getLexema(),st);
+                                //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
+                                //contadorVarAux++;         por ahora no lo necesitamos
+                                //t.setVariableAux(contadorVarAux);
+                                for(int i=0; i< t.errores.size();i++){
+                                          yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
+                                      ;}
+                                contadorTerceto ++;
+                                listaTercetos.add(t);
+                                $$.obj = t;
 }
-	| termino '-' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
+	| termino '-' expresion {/*
+	                        if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
 								yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
 							}
 							 $$=$1;
@@ -122,39 +133,74 @@ expresion: termino '+' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((
 														contadorTerceto ++;
 														listaTercetos.add(t);
 														$$.obj = t;
+										*/
+						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",$1.getLexema(),$3.getLexema(),st);
+                             //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
+                            //contadorVarAux++;         por ahora no lo necesitamos
+                            //t.setVariableAux(contadorVarAux);
+                            for(int i=0; i< t.errores.size();i++){
+                                       yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
+                                   ;}
+                            contadorTerceto ++;
+                            listaTercetos.add(t);
+                            $$.obj = t;
 }
-	| termino {$$=$1;}
+	| termino {$$=$1;
+    $$.obj=$1.obj; //creo que es necesario para que no se pierdan los lexemas, si quieren reveanlo
+}
         ;
 
 
-termino: factor '/' termino {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
+termino: factor '/' termino {/*
+                            if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
 								//System.out.println("tipo de primer elem: "+$1.sval+" tipo 2do elem : "+$3.sval);
 								yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
 							}
 							$$=$1;
 							// 
 							T_Mult_Div t = new T_Mult_Div(contadorTerceto,"/",$1.obj,$3.obj,ts);
-											contadorVarAux++;
-											t.setVariableAux(contadorVarAux);
-											contadorTerceto ++;
-											t.setTabla(tabla);
-											listaTercetos.add(t);
-											$$.obj = t;			
+                            contadorVarAux++;
+                            t.setVariableAux(contadorVarAux);
+                            contadorTerceto ++;
+                            t.setTabla(tabla);
+                            listaTercetos.add(t);
+                            $$.obj = t;
+				*/
+                Terceto t = new T_Mult_Div(contadorTerceto,"/",$1.getLexema(),$3.getLexema(),st);
+                //contadorVarAux++;         por ahora no lo necesitamos
+                //t.setVariableAux(contadorVarAux);
+                for(int i=0; i< t.errores.size();i++){
+                           yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
+                       ;}
+                contadorTerceto ++;
+                listaTercetos.add(t);
+                $$.obj = t;
 
 }
-	| factor '*' termino{if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
+	| factor '*' termino{/*
+	                    if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
 								yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
 							}
 							$$=$1;
 						// se crea terceto	
 						T_Mult_Div t = new T_Mult_Div(contadorTerceto,"*",$1.obj,$3.obj,ts);
-											contadorVarAux++;
-											t.setVariableAux(contadorVarAux);
-											t.setTabla(tabla);
-											contadorTerceto ++;
-											listaTercetos.add(t);
-											$$.obj = t;
-						}
+                        contadorVarAux++;
+                        t.setVariableAux(contadorVarAux);
+                        t.setTabla(tabla);
+                        contadorTerceto ++;
+                        listaTercetos.add(t);
+                        $$.obj = t;
+                        */
+                Terceto t = new T_Mult_Div(contadorTerceto,"*",$1.getLexema(),$3.getLexema(),st);
+                //contadorVarAux++;         por ahora no lo necesitamos
+                //t.setVariableAux(contadorVarAux);
+                for(int i=0; i< t.errores.size();i++){
+                           yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
+                       ;}
+                contadorTerceto ++;
+                listaTercetos.add(t);
+                $$.obj = t;
+    }
     | factor {$$=$1;
 			  // terceto
 			  $$.obj=$1.obj;	
