@@ -98,11 +98,11 @@ ejecutable: asignacion ','{}
         Integer i = p.pop();
         if (listaTercetos.get(i).getOperador() == "BI")
         {
-        listaTercetos.get(i).setOperando1(listaTercetos.get(contadorTerceto));
+        listaTercetos.get(i).setOperando1(contadorTerceto);
 
             }
         if (listaTercetos.get(i).getOperador() == "BF")
-            {	listaTercetos.get(i).setOperando2(listaTercetos.get(contadorTerceto));
+            {	listaTercetos.get(i).setOperando2(contadorTerceto);
             }
 
 }
@@ -293,7 +293,7 @@ if (!((Symbol)($1.obj)).isUsada()){
         if (s.isEsPuntero())
             yyerror("No se permiten punteros multiples ",$1.getFila(),$1.getColumna());
                                 }
-	  Terceto t = new T_Asignacion(contadorTerceto,":=",$4.obj,$7.obj,st);
+	  Terceto t = new T_Asignacion(contadorTerceto,"&",$4.obj,$7.obj,st);
     //contadorVarAux++;         por ahora no lo necesitamos
     //t.setVariableAux(contadorVarAux);
     for(int i=0; i< t.errores.size();i++){
@@ -385,9 +385,9 @@ else_: ELSE {//#### aca hacemos el salto incondicional, debimos inventar este no
         listaTercetos.add(t);
         Integer i = p.pop();
         if (listaTercetos.get(i).getOperador() == "BF")
-            listaTercetos.get(i).setOperando2(listaTercetos.get(contadorTerceto));
+            listaTercetos.get(i).setOperando2(contadorTerceto);
         else
-            listaTercetos.get(i).setOperando1(listaTercetos.get(contadorTerceto));
+            listaTercetos.get(i).setOperando1(contadorTerceto);
         p.push(contadorTerceto-1);
     System.out.println(t.toString());
     $$=$1;

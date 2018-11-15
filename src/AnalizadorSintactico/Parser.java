@@ -749,11 +749,11 @@ case 22:
         Integer i = p.pop();
         if (listaTercetos.get(i).getOperador() == "BI")
         {
-        listaTercetos.get(i).setOperando1(listaTercetos.get(contadorTerceto-1));
+        listaTercetos.get(i).setOperando1(contadorTerceto);
 
             }
         if (listaTercetos.get(i).getOperador() == "BF")
-            {	listaTercetos.get(i).setOperando2(listaTercetos.get(contadorTerceto-1));
+            {	listaTercetos.get(i).setOperando2(contadorTerceto);
             }
 
 }
@@ -975,7 +975,7 @@ case 36:
         if (s.isEsPuntero())
             yyerror("No se permiten punteros multiples ",val_peek(6).getFila(),val_peek(6).getColumna());
                                 }
-	  Terceto t = new T_Asignacion(contadorTerceto,":=",val_peek(3).obj,val_peek(0).obj,st);
+	  Terceto t = new T_Asignacion(contadorTerceto,"&",val_peek(3).obj,val_peek(0).obj,st);
     /*contadorVarAux++;         por ahora no lo necesitamos*/
     /*t.setVariableAux(contadorVarAux);*/
     for(int i=0; i< t.errores.size();i++){
@@ -1110,12 +1110,12 @@ case 56:
         contadorTerceto ++;
         listaTercetos.add(t);
         Integer i = p.pop();
-        System.out.println(i);
         if (listaTercetos.get(i).getOperador() == "BF")
-            listaTercetos.get(i).setOperando2(listaTercetos.get(contadorTerceto-1));
+            listaTercetos.get(i).setOperando2(contadorTerceto);
         else
-            listaTercetos.get(i).setOperando1(listaTercetos.get(contadorTerceto-1));
+            listaTercetos.get(i).setOperando1(contadorTerceto);
         p.push(contadorTerceto-1);
+        System.out.println(t.toString());
     yyval=val_peek(0);
     yyval.obj = t;
 															}
@@ -1127,6 +1127,7 @@ case 57:
     Terceto t = new T_BF(contadorTerceto,"BF",val_peek(1).obj,"trampita",st);/*##use trampita por las dudas, ya por deporte, no parece que sea necesario*/
     contadorTerceto ++;
     listaTercetos.add(t);
+    System.out.println(t.toString());
     yyval=val_peek(2);
     yyval.obj = t;
 

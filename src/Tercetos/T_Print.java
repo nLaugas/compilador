@@ -23,6 +23,19 @@ public class T_Print extends Terceto {
     	Vector<String> codigoAss = new Vector<String>();
 		return codigoAss;	
 	}
+
+	public String toString() {
+		String op1,op2;
+		if (operando1!="trampita")
+			if (esTerceto(1))
+				op1 =operando1.toString().substring(0,3);
+			else
+				op1=((Symbol)operando1).getLexema();
+		else
+			op1="- ";
+
+		return "["+num+"] ("+operador+", "+op1+", [-]).";
+	}
 	
 	public SymbolTable getTabla() {
 		return ts;
