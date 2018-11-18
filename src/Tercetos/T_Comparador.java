@@ -57,6 +57,63 @@ public class T_Comparador extends Terceto{
 	public void setTabla(SymbolTable ts) {
 		this.ts = ts;
 	}
-	
+
+	public String getSaltoConSigno() {
+		if (operador.equals(">")){
+			//Saltas por Menor Igual
+			return "JLE ";
+		}
+		if (operador.equals("<")){
+			//Saltas por Mayor Igual
+			return "JGE ";
+		}
+		if (operador.equals(">=")){
+			//Saltas por Menor
+			return "JL ";
+		}
+		if (operador.equals("<=")){
+			//Saltas por Mayor
+			return "JG ";
+		}
+		if (operador.equals("=")){
+			//Saltas por distinto
+			return "JNE ";
+		}
+		if (operador.equals("!=")){
+			//Saltas por igual
+			return "JE ";
+		}
+		return null;
+	}
+
+	public String getSaltoSinSigno() {
+		if (operador.equals(">")){
+			//Saltas por Menor Igual
+			return "JBE ";
+		}
+		if (operador.equals("<")){
+			//Saltas por Mayor Igual
+			return "JAE ";
+		}
+		if (operador.equals(">=")){
+			//Saltas por Menor
+			return "JB ";
+		}
+		if (operador.equals("<=")){
+			//Saltas por Mayor
+			return "JA ";
+		}
+		if (operador.equals("=")){
+			//Saltas por distinto
+			return "JNE ";
+		}
+		if (operador.equals("!=")){
+			//Saltas por igual
+			return "JE ";
+		}
+		return null;
+	}
+
+
 
 }
