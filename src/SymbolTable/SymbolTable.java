@@ -42,6 +42,12 @@ public class SymbolTable {
         //donde albos token tienen el mismo lexema pero distinto tipo
         //como el probrema viene traido por las cadenas de caracteres, guardamos el primer ' como parte del lexema
     }
+    public void setSymbol(Symbol aux) {
+        if (!tb.containsKey(aux.getLexema())){
+            tb.put(aux.getLexema(), aux);
+            productor.add(aux.getLexema());
+        }
+    }
 
     public ArrayList<String> getEntradas(){
         return new ArrayList<String>( tb.keySet());

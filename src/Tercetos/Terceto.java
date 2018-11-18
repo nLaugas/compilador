@@ -7,7 +7,7 @@ public abstract class Terceto {
 	public Object operando2;
 	public String operador;
 	public int num; //numero de terceto, arrancando en 0 o 1?
-//	public String varAux;   tendria que ser el resultado de la operacion? eso que dijo marcela de los cuartetos ficticios
+	public String varAux;//   tendria que ser el resultado de la operacion? eso que dijo marcela de los cuartetos ficticios
 	// habria que agregarla a la tabla de simbolos?
 	public SymbolTable ts;
 
@@ -22,7 +22,7 @@ public abstract class Terceto {
 		this.operando2=operando2;
 		this.operador=operador;
 		this.num=num;
-		//varAux="";
+		this.varAux="";
 		this.ts = ts;
 		this.errores = new Vector<String>();
 	}
@@ -103,6 +103,16 @@ public abstract class Terceto {
 		return false;
 	}
 
+	public String getVarAux(){
+		return "_"+varAux;
+	}
+
+	public void setVariableAux(int a){
+		varAux = "@AUX"+Integer.toString(a);
+		Symbol s = new Symbol(varAux, 500);
+		s.setTipoVar(this.getTipo());
+		this.ts.setSymbol(s);
+	}
 	/*
 	public void OperandosDeclarados(){
 		ParserVal token = vectorTokens.elementAt(i);
