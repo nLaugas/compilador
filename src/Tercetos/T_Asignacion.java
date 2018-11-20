@@ -37,7 +37,7 @@ public class T_Asignacion extends Terceto{
 	@Override
 	public Vector<String> getAssembler(){
 		Vector<String> v = new Vector<String>();
-		String op1 = getOperando1().toString();
+/**		String op1 = getOperando1().toString();
 		String op2 = getOperando2().toString();
 
 		Character a = op1.charAt(0);
@@ -62,7 +62,7 @@ public class T_Asignacion extends Terceto{
 		{
 			v.add(new String("\r\nFLD " + op2));
 			v.add(new String("FSTP " + "_"));
-		}
+		}**/
 		return v;
 }
 	@Override
