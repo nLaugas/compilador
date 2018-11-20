@@ -60,14 +60,14 @@ public abstract class Terceto {
 		String op1,op2;
 		if (operando1!="trampita")
 			if (esTerceto(1))
-				op1 =operando1.toString().substring(0,3);
+				op1 ="["+String.valueOf(((Terceto)operando1).num)+"]";
 			else
 				op1=((Symbol)operando1).getLexema();
 		else
 			op1="- ";
 		if (operando2!="trampita"){
 			if (esTerceto(2))
-				op2 = operando2.toString().substring(0, 3);
+				op2 = "["+String.valueOf(((Terceto)operando2).num)+"]";
 			else
 				op2 = ((Symbol) operando2).getLexema();
 		}
@@ -82,7 +82,6 @@ public abstract class Terceto {
 	{
 		return label;
 	}
-
 	public boolean equals(Terceto t){
 		if (t.getOperador().equals(operador))
 			return true;
