@@ -73,7 +73,9 @@ public class GeneradorAssembler {
 			else if (tabla.getSymbol(lexema).getTipo() == 275){
 					variables.add(new String("_integer" +  cant2 + " DD " + lexema));
 					cant2++;
-				}
+				}else if (tabla.getSymbol(lexema).getTipoVar().equals("cadena")){
+				variables .add(new String(lexema+" DB " + "\"" + lexema+ "\"" + " ,0"));
+			}
 /**
 			else if (tabla.getSymbol(lexema).getTipo() == 300){
 				if ((String)tabla.getElemento(lexema,TIPO) == "float")
@@ -83,13 +85,13 @@ public class GeneradorAssembler {
 
 			}**/
 			}
-
+/**
         Vector <String> msj; 
         for (int i = 0; i<tercetos.size(); i++){
  		   Terceto t2 = tercetos.get(i);
  		   if (t2.getTipo() == "cadena")
  			 	variables .add(new String("mensaje"+ i + " DB " + "\"" + (String) t2.getOperando1()+ "\"" + " ,0"));
- 	   }
+ 	   }**/
     
         return variables;
 	}
@@ -109,6 +111,7 @@ public class GeneradorAssembler {
 		this.codigo = this.inicializacion();
 		this.codigo.addAll(this.declaracionDeVariables());
 		this.codigo.addAll(codAss);
+		codigo.add(new String("Invoke ExitProcess, 0"));
 		codigo.add(new String("EXIT:"));
 		codigo.add(new String("END START"));
 		return codigo;

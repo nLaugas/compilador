@@ -1,15 +1,14 @@
+__let mut integer _a;_b;*_c,
+__let integer _d:=5_i,
+__let integer _e:=_d,
 
-let mut integer _a;_b;*_c,
-let integer _d:=5_i,
-let integer _e:=_d,
+__a:=5_i,
+__d:=5_i,
 
-_a:=5_i,
-_d:=5_i,
+__a:=3_i*2_i+5_i,
+__b:=3.2F5/2_i+1_i*2_i,
 
-_a:=3_i*2_i+5_i,
-_b:=3.2F5/2_i+1_i*2_i,
-
-if(_a!=_b)_a:=3.5F3, else _b:=3.5F3,end_if
- print ('casco'),
+__if(_a!=_b)_a:=3.5F3, else _b:=3.5F3,end_if
+print ('casco'),
 
 __let mut integer _a;_b;*_c,

@@ -22,6 +22,7 @@ public class AS_Cadena_End extends SemanticAction{
 
         lexical.yylval.obj=lexical.symbolTable.getSymbol(lexical.buffer);
         lexical.symbolTable.getSymbol(lexical.buffer).setTipoVar("cadena");
+        lexical.symbolTable.getSymbol(lexical.buffer).setLexema(lexical.buffer);
 
         lexical.buffer = "";
         lexical.index++;
