@@ -32,8 +32,8 @@ public abstract class TercetoOperacion extends Terceto{
 		if (tipo2 == "sin asignar")
 			errores.add("Variable no declarada, "+operando2.toString());
 		if (tipo2 != tipo1)
-			errores.add("Hay una incompatibilidad de tipo, entre "+operando1.toString()+" de tipo "+
-					tipo1+", y "+operando2.toString()+" de tipo "+tipo2);
+			errores.add("Hay una incompatibilidad de tipo en la asignacion, "+
+					tipo1+operador+tipo2);
 
 
 	}

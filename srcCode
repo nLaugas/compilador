@@ -5,6 +5,8 @@ let integer _e:=_d,
 _a:=5_i,
 _d:=5_i,
 
+let integer _k:=3.2F4,
+
 _a:=3_i*2_i+5_i,
 _b:=3.2F5/2_i+1_i*2_i,
 

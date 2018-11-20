@@ -34,7 +34,7 @@ public class AS_Entero_End extends SemanticAction{
         lexical.lastSymbol=String.valueOf(num)+"_i"; // no se usa mas
 
         lexical.yylval.obj=lexical.symbolTable.getSymbol(String.valueOf(num)+"_i");
-
+        lexical.yylval.sval="integer";
         lexical.buffer = "";
         lexical.column++;
         lexical.index++;
