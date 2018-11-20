@@ -87,10 +87,12 @@ public abstract class Terceto {
 			return true;
 		else return false;
 	}
+
+
 	public boolean esTerceto(int a)// quiero saber si el operando es un terceto
 	{//si es un terceto lo guarde con un corchete al principio y al final, despues se los saco en c/u
 		if (operando1.toString().isEmpty() || operando2.toString().isEmpty()){
-			System.out.println("hicimos cagada, llego un operando que no sabe hacerse string");
+			System.out.println("anduvo mal, llego un operando que no sabe hacerse string");
 			return false;
 		}
 		if (a == 1)
