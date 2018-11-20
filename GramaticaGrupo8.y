@@ -1,7 +1,7 @@
 /* Declaraciones */
 
 %{
-package AnalizadorSintactico;
+
 import AnalizadorLexico.LexicalAnalyzer;
 import Errors.Errors;
 import SymbolTable.*;
@@ -46,11 +46,6 @@ declaracion: LET MUT tipo lista_id ',' {
                                                     simbolo.setUsada(true);
                                                     simbolo.setEsMutable(true);
                                                     simbolo.setTipoVar($3.sval);}
-                                                /*else{//se puede poner bien que variable es si id es una lista de parserVal
-                                                 //   yyerror("Variable ya definida ",$1.getFila(),$1.getColumna());
-                                                }
-                                                if (simbolo.getTipoVar()=="sin asignar")//controlar de agregar este por defecto a symbol
-                                                    simbolo.setTipoVar(tipo);*/
                                                 else
                                                     yyerror("Se esta intentado redeclarar la variable "+simbolo.getLexema(),token.getFila(),token.getColumna());
                                                 }
