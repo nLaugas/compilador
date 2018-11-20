@@ -73,7 +73,7 @@ public class GeneradorAssembler {
 			else if (tabla.getSymbol(lexema).getTipo() == 275){
 					variables.add(new String("_integer" +  cant2 + " DD " + lexema));
 					cant2++;
-				}else if (tabla.getSymbol(lexema).getTipoVar().equals("cadena")){
+				}else if (tabla.getSymbol(lexema).getTipo() == Parser.CADENA){
 				variables .add(new String(lexema+" DB " + "\"" + lexema+ "\"" + " ,0"));
 			}
 /**
