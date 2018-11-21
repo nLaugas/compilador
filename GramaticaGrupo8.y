@@ -198,9 +198,7 @@ if (!((Symbol)($1.obj)).isUsada()){
     yyerror("La variable no esta definida ",$1.getFila(),$1.getColumna());
 }else{if (!((Symbol)($1.obj)).getEsMutable()){
     yyerror("La variable no es mutable ",$1.getFila(),$1.getColumna());
-}else{if(!(((Symbol)($1.obj)).getTipoVar().equals($3.sval))){
-    yyerror("Tipos incompatibles en la asignacion ",$1.getFila(),$1.getColumna());
-									}}}
+}}
                 Terceto t = new T_Asignacion(contadorTerceto,":=",$1.obj,$3.obj,st);
                 //t.setVariableAux(contadorVarAux);//casi seguro que si hay que crearla aca
                 //contadorVarAux++;//
@@ -230,9 +228,6 @@ if (!((Symbol)($1.obj)).isUsada()){
     }else{
         Symbol s = ((Symbol)($7.obj));
         Symbol sy = ((Symbol)($4.obj));
-        if (!(s.getTipoVar().equals(sy.getTipoVar()))){
-            yyerror("incompatibilidad de tipos en la asignacion ",$1.getFila(),$1.getColumna());
-        }
         if (s.isEsPuntero())
             yyerror("No se permiten punteros multiples ",$1.getFila(),$1.getColumna());
                                 }
@@ -257,11 +252,7 @@ if (!((Symbol)($1.obj)).isUsada()){
             s.setEsMutable(false);
             s.setEspuntero(false);
             s.setTipoVar($2.sval);
-            // faltaria mutabilidad de lo apuntado
-            if(!(s.getTipoVar().equals($5.sval))){
-            yyerror("Tipos incompatibles en la asignacion ",$1.getFila(),$1.getColumna());
-        }
-                                }
+            // faltaria mutabilidad de lo apuntado                                }
       Terceto t = new T_Asignacion(contadorTerceto,":=",$3.obj,$5.obj,st);
     //t.setVariableAux(contadorVarAux);
     //contadorVarAux++;
@@ -391,8 +382,7 @@ condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(
     System.out.println(t.toString());
     $$=$1;
     $$.obj = t;										}
-	| expresion DIST expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
-										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
+	| expresion DIST expresion {
   Terceto t = new T_Comparador(contadorTerceto,"!=",$1.obj,$3.obj,st);
    // t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
    // contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
