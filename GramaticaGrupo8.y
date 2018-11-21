@@ -104,10 +104,7 @@ ejecutable: asignacion ','{}
           | exp_print ','{}
 	  ;
 
-expresion: termino '+' expresion {/*if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
-									yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
-								  }
-								  $$=$1;*/ /*				$$.obj = t;*/
+expresion: termino '+' expresion {
 								Terceto t = new T_Suma_Resta(contadorTerceto,"+",$1.obj,$3.obj,st);
                                 //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
                                 t.setVariableAux(contadorVarAux);
@@ -121,12 +118,7 @@ expresion: termino '+' expresion {/*if(!(((Symbol)($1.obj)).getTipoVar().equals(
                 $$=$1;
                 $$.obj = t;
 }
-	| termino '-' expresion {/*
-	                        if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
-								yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
-							}
-							 $$=$1;
-										*/
+	| termino '-' expresion {
 						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",$1.obj,$3.obj,st);
                              //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
                             t.setVariableAux(contadorVarAux);
@@ -146,22 +138,7 @@ expresion: termino '+' expresion {/*if(!(((Symbol)($1.obj)).getTipoVar().equals(
         ;
 
 
-termino: factor '/' termino {/*
-                            if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
-								//System.out.println("tipo de primer elem: "+$1.sval+" tipo 2do elem : "+$3.sval);
-								yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
-							}
-							$$=$1;
-							// 
-							T_Mult_Div t = new T_Mult_Div(contadorTerceto,"/",$1.obj,$3.obj,ts);
-                            t.setVariableAux(contadorVarAux);
-                            contadorVarAux++;
-                            contadorTerceto ++;
-                            t.setTabla(tabla);
-                            listaTercetos.add(t);
-                     System.out.println(t.toString());
-            $$.obj = t;
-				*/
+termino: factor '/' termino {
                 Terceto t = new T_Mult_Div(contadorTerceto,"/",$1.obj,$3.obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
@@ -175,15 +152,7 @@ $$=$1;
 $$.obj = t;
 
 }
-	| factor '*' termino{/*
-	                    if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar()))){
-								yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());		
-							}
-							$$=$1;
-                        System.out.println(t.toString());
-                        $$=$1;
-                        $$.obj = t;
-                        */
+	| factor '*' termino{
                 Terceto t = new T_Mult_Div(contadorTerceto,"*",$1.obj,$3.obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
@@ -233,8 +202,8 @@ if (!((Symbol)($1.obj)).isUsada()){
     yyerror("Tipos incompatibles en la asignacion ",$1.getFila(),$1.getColumna());
 									}}}
                 Terceto t = new T_Asignacion(contadorTerceto,":=",$1.obj,$3.obj,st);
-                t.setVariableAux(contadorVarAux);//casi seguro que si hay que crearla aca
-                contadorVarAux++;
+                //t.setVariableAux(contadorVarAux);//casi seguro que si hay que crearla aca
+                //contadorVarAux++;//
                 for(int i=0; i< t.errores.size();i++){
                            yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
                        ;}
@@ -268,8 +237,8 @@ if (!((Symbol)($1.obj)).isUsada()){
             yyerror("No se permiten punteros multiples ",$1.getFila(),$1.getColumna());
                                 }
 	  Terceto t = new T_Asignacion(contadorTerceto,"&",$4.obj,$7.obj,st);
-    t.setVariableAux(contadorVarAux);
-    contadorVarAux++;
+    //t.setVariableAux(contadorVarAux);
+    //contadorVarAux++;
     for(int i=0; i< t.errores.size();i++){
                yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
            ;}
@@ -294,8 +263,8 @@ if (!((Symbol)($1.obj)).isUsada()){
         }
                                 }
       Terceto t = new T_Asignacion(contadorTerceto,":=",$3.obj,$5.obj,st);
-    t.setVariableAux(contadorVarAux);
-    contadorVarAux++;
+    //t.setVariableAux(contadorVarAux);
+    //contadorVarAux++;
     for(int i=0; i< t.errores.size();i++){
                yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
            ;}
@@ -385,8 +354,8 @@ condicion_salto: '(' condicion ')' {    //#### aca hacemos lo del salto para no 
 condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
   Terceto t = new T_Comparador(contadorTerceto,">",$1.obj,$3.obj,st);
-    t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
-    contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
+   // t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
+   // contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
     for(int i=0; i< t.errores.size();i++){
                yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
            ;}
@@ -399,8 +368,8 @@ condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(
 	| expresion '<' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
   Terceto t = new T_Comparador(contadorTerceto,"<",$1.obj,$3.obj,st);
-    t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
-    contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
+   // t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
+   // contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
     for(int i=0; i< t.errores.size();i++){
                yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
            ;}
@@ -412,8 +381,8 @@ condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(
 	| expresion '=' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
   Terceto t = new T_Comparador(contadorTerceto,"=",$1.obj,$3.obj,st);
-    t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
-    contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
+   // t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
+   // contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
     for(int i=0; i< t.errores.size();i++){
                yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
            ;}
@@ -425,8 +394,8 @@ condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(
 	| expresion DIST expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
   Terceto t = new T_Comparador(contadorTerceto,"!=",$1.obj,$3.obj,st);
-    t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
-    contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
+   // t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
+   // contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
     for(int i=0; i< t.errores.size();i++){
                yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
            ;}
@@ -438,8 +407,8 @@ condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(
 	| expresion MAYIG expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
   Terceto t = new T_Comparador(contadorTerceto,">=",$1.obj,$3.obj,st);
-    t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
-    contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
+   // t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
+   // contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
     for(int i=0; i< t.errores.size();i++){
                yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
            ;}
@@ -451,8 +420,8 @@ condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(
 	| expresion MENIG expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
   Terceto t = new T_Comparador(contadorTerceto,"<=",$1.obj,$3.obj,st);
-    t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
-    contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
+   // t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
+   // contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
     for(int i=0; i< t.errores.size();i++){
                yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
            ;}
