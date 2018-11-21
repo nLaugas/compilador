@@ -45,7 +45,39 @@ public class T_Comparador extends Terceto{
 	public Vector<String> getAssembler()
 	{
 		Vector<String> v = new Vector<String>();
+		String op1 = ((Symbol)(operando1)).getLexema();
+		String op2 = getOperando2().toString();
 
+		Character a = op1.charAt(0);
+		if (!Character.isDigit(a))
+			op1 = "_" + op1;
+
+		if (esTerceto(1)){
+			op1 = ((Terceto)operando1).getVarAux(); }
+		else {
+			op1 = ((Symbol)(operando1)).getLexema();
+			a = op1.charAt(0);
+			if (!Character.isDigit(a))
+				op1 = "_" + op1;
+		}
+		if (esTerceto(2)){
+			op2 = ((Terceto)operando2).getVarAux(); }
+		else {
+			op2 = ((Symbol)(operando2)).getLexema();
+			a = op2.charAt(0);
+			if (!Character.isDigit(a))
+				op2 = "_" + op2;
+		}
+
+		if (getTipo() == "integer"){
+			v.add(new String("\r\nMOV AX, " + op1));
+			v.add(new String("CMP AX, " + op2));
+		}
+		else {
+			v.add(new String("\r\nFLD " +op1));
+			v.add(new String("\r\nFLD " +op2));
+			v.add(new String("\r\nFCOMP"));
+		}
 		return v;
 	}
 

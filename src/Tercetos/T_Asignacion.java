@@ -37,7 +37,7 @@ public class T_Asignacion extends Terceto{
 	@Override
 	public Vector<String> getAssembler(){
 		Vector<String> v = new Vector<String>();
-		String op1 = getOperando1().toString();
+		String op1 = ((Symbol)(operando1)).getLexema();
 		String op2 = getOperando2().toString();
 
 		Character a = op1.charAt(0);
@@ -47,18 +47,19 @@ public class T_Asignacion extends Terceto{
 		if (esTerceto(2)){
 			op2 = ((Terceto)operando2).getVarAux(); }
 		else {
+			op2 = ((Symbol)(operando2)).getLexema();
 			a = op2.charAt(0);
 			if (!Character.isDigit(a))
 				op2 = "_" + op2;
 		}
 		if (getTipo() == "single"){
 			v.add(new String("\r\nMOV EAX, " + op2));
-			v.add(new String("MOV " + getVarAux()+ " ,EAX"));
+			v.add(new String("MOV " + getVarAux()+ " ,EAX")); //aca va varAux o op1?
 		}
 		else
 		{
 			v.add(new String("\r\nFLD " + op2));
-			v.add(new String("FSTP " + getVarAux()));
+			v.add(new String("FSTP " + getVarAux())); //aca va varAux o op1?
 		}
 		return v;
 }
