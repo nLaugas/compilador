@@ -429,7 +429,7 @@ final static String yyrule[] = {
 "condicion : MENIG expresion",
 };
 
-//#line 471 "GramaticaGrupo8.y"
+//#line 468 "GramaticaGrupo8.y"
 
   LexicalAnalyzer lex;
   SymbolTable st;
@@ -882,12 +882,14 @@ case 32:
 {if(!((Symbol)(val_peek(0).obj)).isUsada()){
 			/*error*/
 			yyerror("variable no declarada",val_peek(0).getFila(),val_peek(0).getColumna());
-			}
-			 yyval=val_peek(0);
+			}else{
+			 val_peek(0).sval=((Symbol)(val_peek(0).obj)).getTipoVar();
+             yyval=val_peek(0);}
+
 	}
 break;
 case 33:
-//#line 214 "GramaticaGrupo8.y"
+//#line 216 "GramaticaGrupo8.y"
 {    /** Revisar sino pierdo el puntero al elemento qe necesito **/
 					  yyval=val_peek(0);
                       /*Symbol aux = st.getSymbol(lex.lastSymbol);*/
@@ -895,7 +897,7 @@ case 33:
  		              }
 break;
 case 34:
-//#line 219 "GramaticaGrupo8.y"
+//#line 221 "GramaticaGrupo8.y"
 {			/** Revisar sino pierdo el puntero al elemento qe necesito **/
 		             yyval=val_peek(0);
 					 /* Antes qedaban atributos sin setear*/
@@ -904,15 +906,13 @@ case 34:
                     }
 break;
 case 35:
-//#line 227 "GramaticaGrupo8.y"
+//#line 229 "GramaticaGrupo8.y"
 {		/*necesito el tipo de la expresion*/
 if (!((Symbol)(val_peek(2).obj)).isUsada()){
     yyerror("La variable no esta definida ",val_peek(2).getFila(),val_peek(2).getColumna());
 }else{if (!((Symbol)(val_peek(2).obj)).getEsMutable()){
     yyerror("La variable no es mutable ",val_peek(2).getFila(),val_peek(2).getColumna());
-}else{if(!(((Symbol)(val_peek(2).obj)).getTipoVar().equals(val_peek(0).sval))){
-    yyerror("Tipos incompatibles en la asignacion ",val_peek(2).getFila(),val_peek(2).getColumna());
-									}}}
+}}
                 Terceto t = new T_Asignacion(contadorTerceto,":=",val_peek(2).obj,val_peek(0).obj,st);
                 t.setVariableAux(contadorVarAux);/*casi seguro que si hay que crearla aca*/
                 contadorVarAux++;
@@ -975,9 +975,6 @@ case 37:
             s.setEspuntero(false);
             s.setTipoVar(val_peek(3).sval);
             /* faltaria mutabilidad de lo apuntado*/
-            if(!(s.getTipoVar().equals(val_peek(0).sval))){
-            yyerror("Tipos incompatibles en la asignacion ",val_peek(4).getFila(),val_peek(4).getColumna());
-        }
                                 }
       Terceto t = new T_Asignacion(contadorTerceto,":=",val_peek(2).obj,val_peek(0).obj,st);
     t.setVariableAux(contadorVarAux);
@@ -994,19 +991,19 @@ case 37:
     estructuras.add("Asignacion "+" fila "+val_peek(4).getFila()+" columna "+val_peek(4).getColumna());}
 break;
 case 38:
-//#line 309 "GramaticaGrupo8.y"
+//#line 306 "GramaticaGrupo8.y"
 {yyerror("Falta elemento de asignacion y palabra reservada 'let'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 39:
-//#line 310 "GramaticaGrupo8.y"
+//#line 307 "GramaticaGrupo8.y"
 {yyerror("Falta elemento de asignacion ",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 40:
-//#line 311 "GramaticaGrupo8.y"
+//#line 308 "GramaticaGrupo8.y"
 {yyerror("no se encontro ':=' ",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 41:
-//#line 314 "GramaticaGrupo8.y"
+//#line 311 "GramaticaGrupo8.y"
 {estructuras.add("Expresion print "+" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());
                 Terceto t = new T_Print(contadorTerceto,"PRINT",val_peek(1).obj,"",st);
                /* t.setVariableAux(contadorVarAux);         //un print no tiene resultado por ende no tiene tipo*/
@@ -1022,64 +1019,64 @@ case 41:
 }
 break;
 case 42:
-//#line 327 "GramaticaGrupo8.y"
+//#line 324 "GramaticaGrupo8.y"
 {yyerror("Linea  Error en la construccion del print",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 43:
-//#line 330 "GramaticaGrupo8.y"
+//#line 327 "GramaticaGrupo8.y"
 {}
 break;
 case 44:
-//#line 331 "GramaticaGrupo8.y"
+//#line 328 "GramaticaGrupo8.y"
 {}
 break;
 case 45:
-//#line 335 "GramaticaGrupo8.y"
+//#line 332 "GramaticaGrupo8.y"
 {estructuras.add("Sentencia IF Else" +" fila "+val_peek(5).getFila()+" columna "+val_peek(5).getColumna());}
 break;
 case 46:
-//#line 336 "GramaticaGrupo8.y"
+//#line 333 "GramaticaGrupo8.y"
 {estructuras.add("Sentencia IF " +" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());}
 break;
 case 47:
-//#line 337 "GramaticaGrupo8.y"
+//#line 334 "GramaticaGrupo8.y"
 {yyerror(" falta la palabra reservada IF",val_peek(3).getFila(),val_peek(3).getColumna());}
 break;
 case 48:
-//#line 338 "GramaticaGrupo8.y"
+//#line 335 "GramaticaGrupo8.y"
 {yyerror(" Error en la construccion de la sentencia IF ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 49:
-//#line 339 "GramaticaGrupo8.y"
+//#line 336 "GramaticaGrupo8.y"
 {yyerror(" Falta la palabra reservada ELSE ",val_peek(3).getFila(),val_peek(3).getColumna());}
 break;
 case 50:
-//#line 342 "GramaticaGrupo8.y"
+//#line 339 "GramaticaGrupo8.y"
 {estructuras.add("Sentencia Loop " +" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());}
 break;
 case 51:
-//#line 343 "GramaticaGrupo8.y"
+//#line 340 "GramaticaGrupo8.y"
 {yyerror("Linea  Falta palabra reservada UNTIL",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 52:
-//#line 346 "GramaticaGrupo8.y"
+//#line 343 "GramaticaGrupo8.y"
 {}
 break;
 case 53:
-//#line 347 "GramaticaGrupo8.y"
+//#line 344 "GramaticaGrupo8.y"
 {}
 break;
 case 54:
-//#line 348 "GramaticaGrupo8.y"
+//#line 345 "GramaticaGrupo8.y"
 {yyerror("LInea  Omision de la palabra reservada '{' ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 55:
-//#line 351 "GramaticaGrupo8.y"
+//#line 348 "GramaticaGrupo8.y"
 {/*#### unica forma de marcar donde comienza el loop y ver donde salto (no diferenciamos bloque de loop)*/
         p.push(contadorTerceto);}
 break;
 case 56:
-//#line 356 "GramaticaGrupo8.y"
+//#line 353 "GramaticaGrupo8.y"
 {/*#### aca hacemos el salto incondicional, debimos inventar este no terminal porque no diferenciamos bloque else de bloque if*/
         /*aca ya hicimos el pop cuando termino el cuerpo del if*/
         Terceto t = new T_BI(contadorTerceto,"BI","trampita","trampita",st);
@@ -1098,7 +1095,7 @@ case 56:
 															}
 break;
 case 57:
-//#line 374 "GramaticaGrupo8.y"
+//#line 371 "GramaticaGrupo8.y"
 {    /*#### aca hacemos lo del salto para no repetirlo en todas las condiciones*/
     p.push(contadorTerceto);
     Terceto t = new T_BF(contadorTerceto,"BF",val_peek(1).obj,"trampita",st);/*##use trampita por las dudas, ya por deporte, no parece que sea necesario*/
@@ -1111,7 +1108,7 @@ case 57:
 }
 break;
 case 58:
-//#line 385 "GramaticaGrupo8.y"
+//#line 382 "GramaticaGrupo8.y"
 {if(!(((Symbol)(val_peek(2).obj)).getTipoVar().equals(((Symbol)(val_peek(0).obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());
   Terceto t = new T_Comparador(contadorTerceto,">",val_peek(2).obj,val_peek(0).obj,st);
@@ -1128,7 +1125,7 @@ case 58:
     									}
 break;
 case 59:
-//#line 399 "GramaticaGrupo8.y"
+//#line 396 "GramaticaGrupo8.y"
 {if(!(((Symbol)(val_peek(2).obj)).getTipoVar().equals(((Symbol)(val_peek(0).obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());
   Terceto t = new T_Comparador(contadorTerceto,"<",val_peek(2).obj,val_peek(0).obj,st);
@@ -1144,7 +1141,7 @@ case 59:
     yyval.obj = t;										}
 break;
 case 60:
-//#line 412 "GramaticaGrupo8.y"
+//#line 409 "GramaticaGrupo8.y"
 {if(!(((Symbol)(val_peek(2).obj)).getTipoVar().equals(((Symbol)(val_peek(0).obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());
   Terceto t = new T_Comparador(contadorTerceto,"=",val_peek(2).obj,val_peek(0).obj,st);
@@ -1160,7 +1157,7 @@ case 60:
     yyval.obj = t;										}
 break;
 case 61:
-//#line 425 "GramaticaGrupo8.y"
+//#line 422 "GramaticaGrupo8.y"
 {if(!(((Symbol)(val_peek(2).obj)).getTipoVar().equals(((Symbol)(val_peek(0).obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());
   Terceto t = new T_Comparador(contadorTerceto,"!=",val_peek(2).obj,val_peek(0).obj,st);
@@ -1176,7 +1173,7 @@ case 61:
     yyval.obj = t;										}
 break;
 case 62:
-//#line 438 "GramaticaGrupo8.y"
+//#line 435 "GramaticaGrupo8.y"
 {if(!(((Symbol)(val_peek(2).obj)).getTipoVar().equals(((Symbol)(val_peek(0).obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());
   Terceto t = new T_Comparador(contadorTerceto,">=",val_peek(2).obj,val_peek(0).obj,st);
@@ -1192,7 +1189,7 @@ case 62:
     yyval.obj = t;										}
 break;
 case 63:
-//#line 451 "GramaticaGrupo8.y"
+//#line 448 "GramaticaGrupo8.y"
 {if(!(((Symbol)(val_peek(2).obj)).getTipoVar().equals(((Symbol)(val_peek(0).obj)).getTipoVar())))
 										yyerror("tipos incompatibles ",val_peek(2).getFila(),val_peek(2).getColumna());
   Terceto t = new T_Comparador(contadorTerceto,"<=",val_peek(2).obj,val_peek(0).obj,st);
@@ -1208,22 +1205,22 @@ case 63:
     yyval.obj = t;										}
 break;
 case 64:
-//#line 464 "GramaticaGrupo8.y"
+//#line 461 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '>'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 65:
-//#line 465 "GramaticaGrupo8.y"
+//#line 462 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '<'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 66:
-//#line 466 "GramaticaGrupo8.y"
+//#line 463 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '>='",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 67:
-//#line 467 "GramaticaGrupo8.y"
+//#line 464 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '<='",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
-//#line 1149 "Parser.java"
+//#line 1146 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

@@ -177,8 +177,10 @@ factor: ENTERO {$$=$1;}
 	| ID {if(!((Symbol)($1.obj)).isUsada()){
 			//error
 			yyerror("variable no declarada",$1.getFila(),$1.getColumna());
-			}
-			 $$=$1;
+			}else{
+			 $1.sval=((Symbol)($1.obj)).getTipoVar();
+             $$=$1;}
+
 	}
 	| '-' ENTERO {    /** Revisar sino pierdo el puntero al elemento qe necesito **/
 					  $$=$2;
@@ -198,9 +200,7 @@ if (!((Symbol)($1.obj)).isUsada()){
     yyerror("La variable no esta definida ",$1.getFila(),$1.getColumna());
 }else{if (!((Symbol)($1.obj)).getEsMutable()){
     yyerror("La variable no es mutable ",$1.getFila(),$1.getColumna());
-}else{if(!(((Symbol)($1.obj)).getTipoVar().equals($3.sval))){
-    yyerror("Tipos incompatibles en la asignacion ",$1.getFila(),$1.getColumna());
-									}}}
+}}
                 Terceto t = new T_Asignacion(contadorTerceto,":=",$1.obj,$3.obj,st);
                 //t.setVariableAux(contadorVarAux);//casi seguro que si hay que crearla aca
                 //contadorVarAux++;//
@@ -258,9 +258,6 @@ if (!((Symbol)($1.obj)).isUsada()){
             s.setEspuntero(false);
             s.setTipoVar($2.sval);
             // faltaria mutabilidad de lo apuntado
-            if(!(s.getTipoVar().equals($5.sval))){
-            yyerror("Tipos incompatibles en la asignacion ",$1.getFila(),$1.getColumna());
-        }
                                 }
       Terceto t = new T_Asignacion(contadorTerceto,":=",$3.obj,$5.obj,st);
     //t.setVariableAux(contadorVarAux);
