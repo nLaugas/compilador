@@ -53,12 +53,12 @@ public class T_Asignacion extends Terceto{
 		}
 		if (getTipo() == "single"){
 			v.add(new String("\r\nMOV EAX, " + op2));
-			v.add(new String("MOV " + "_"+ " ,EAX"));
+			v.add(new String("MOV " + getVarAux()+ " ,EAX"));
 		}
 		else
 		{
 			v.add(new String("\r\nFLD " + op2));
-			v.add(new String("FSTP " + "_"));
+			v.add(new String("FSTP " + getVarAux()));
 		}
 		return v;
 }

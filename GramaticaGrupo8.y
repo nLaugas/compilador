@@ -107,8 +107,8 @@ ejecutable: asignacion ','{}
 expresion: termino '+' expresion {
 								Terceto t = new T_Suma_Resta(contadorTerceto,"+",$1.obj,$3.obj,st);
                                 //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
-                                t.setVariableAux(contadorVarAux);
-                                contadorVarAux++;
+                                t.setVariableAux(contaAux);
+                                contaAux++;
                                 for(int i=0; i< t.errores.size();i++){
                                           yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
                                       ;}
@@ -121,7 +121,7 @@ expresion: termino '+' expresion {
 	| termino '-' expresion {
 						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",$1.obj,$3.obj,st);
                              //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
-                            t.setVariableAux(contadorVarAux);
+                            t.setVariableAux(contaAux);
                             contadorVarAux++;
                             for(int i=0; i< t.errores.size();i++){
                                        yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
@@ -200,8 +200,8 @@ if (!((Symbol)($1.obj)).isUsada()){
     yyerror("La variable no es mutable ",$1.getFila(),$1.getColumna());
 }}
                 Terceto t = new T_Asignacion(contadorTerceto,":=",$1.obj,$3.obj,st);
-                //t.setVariableAux(contadorVarAux);//casi seguro que si hay que crearla aca
-                //contadorVarAux++;//
+                t.setVariableAux(contadorVarAux);//casi seguro que si hay que crearla aca
+                contadorVarAux++;//
                 for(int i=0; i< t.errores.size();i++){
                            yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
                        ;}
@@ -232,8 +232,8 @@ if (!((Symbol)($1.obj)).isUsada()){
             yyerror("No se permiten punteros multiples ",$1.getFila(),$1.getColumna());
                                 }
 	  Terceto t = new T_Asignacion(contadorTerceto,"&",$4.obj,$7.obj,st);
-    //t.setVariableAux(contadorVarAux);
-    //contadorVarAux++;
+    t.setVariableAux(contadorVarAux);
+    contadorVarAux++;
     for(int i=0; i< t.errores.size();i++){
                yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
            ;}
@@ -254,8 +254,8 @@ if (!((Symbol)($1.obj)).isUsada()){
             s.setTipoVar($2.sval);
             // faltaria mutabilidad de lo apuntado                                }
       Terceto t = new T_Asignacion(contadorTerceto,":=",$3.obj,$5.obj,st);
-    //t.setVariableAux(contadorVarAux);
-    //contadorVarAux++;
+    t.setVariableAux(contadorVarAux);
+    contadorVarAux++;
     for(int i=0; i< t.errores.size();i++){
                yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
            ;}

@@ -881,8 +881,8 @@ public class Parser
             yyerror("La variable no es mutable ",val_peek(2).getFila(),val_peek(2).getColumna());
           }}
           Terceto t = new T_Asignacion(contadorTerceto,":=",val_peek(2).obj,val_peek(0).obj,st);
-          /*t.setVariableAux(contadorVarAux);//casi seguro que si hay que crearla aca*/
-          /*contadorVarAux++;//*/
+          t.setVariableAux(contadorVarAux);//casi seguro que si hay que crearla aca*
+          contadorVarAux++;//*/
           for(int i=0; i< t.errores.size();i++){
             yyerror(t.errores.elementAt(i),val_peek(2).getFila(),val_peek(2).getColumna());
             ;}
@@ -915,8 +915,8 @@ public class Parser
               yyerror("No se permiten punteros multiples ",val_peek(6).getFila(),val_peek(6).getColumna());
           }
           Terceto t = new T_Asignacion(contadorTerceto,"&",val_peek(3).obj,val_peek(0).obj,st);
-          /*t.setVariableAux(contadorVarAux);*/
-          /*contadorVarAux++;*/
+          t.setVariableAux(contadorVarAux);
+          contadorVarAux++;
           for(int i=0; i< t.errores.size();i++){
             yyerror(t.errores.elementAt(i),val_peek(6).getFila(),val_peek(6).getColumna());
             ;}
@@ -940,8 +940,8 @@ public class Parser
             s.setTipoVar(val_peek(3).sval);
             /* faltaria mutabilidad de lo apuntado                                }*/
             Terceto t = new T_Asignacion(contadorTerceto,":=",val_peek(2).obj,val_peek(0).obj,st);
-            /*t.setVariableAux(contadorVarAux);*/
-            /*contadorVarAux++;*/
+            t.setVariableAux(contadorVarAux);
+            contadorVarAux++;
             for(int i=0; i< t.errores.size();i++){
               yyerror(t.errores.elementAt(i),val_peek(4).getFila(),val_peek(4).getColumna());
               ;}
@@ -969,8 +969,8 @@ public class Parser
 //#line 274 "GramaticaGrupo8.y"
         {estructuras.add("Expresion print "+" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());
           Terceto t = new T_Print(contadorTerceto,"PRINT",val_peek(1).obj,"",st);
-          /* t.setVariableAux(contadorVarAux);         //un print no tiene resultado por ende no tiene tipo*/
-          /*contadorVarAux++;         creo que para los print no es necesario porque los aux son para el resultado*/
+          // t.setVariableAux(contadorVarAux);         //un print no tiene resultado por ende no tiene tipo*/
+          //contadorVarAux++;     //    creo que para los print no es necesario porque los aux son para el resultado*/
           for(int i=0; i< t.errores.size();i++){
             yyerror(t.errores.elementAt(i),val_peek(3).getFila(),val_peek(3).getColumna());
             ;}
