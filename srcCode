@@ -3,17 +3,14 @@ __let integer _d:=5_i,
 __let integer _e:=_d,
 
 _a:=5_i+3_i,
-__d:=5_i,
+_d:=5_i,
 
-<<<<<<< HEAD
 let integer _k:=3.2F4,
 
 _a:=3_i*2_i+5_i,
 _b:=3.2F5/2_i+1_i*2_i,
-=======
-__a:=3_i*2_i+5_i,
-__b:=3.2F5/2_i+1_i*2_i,
->>>>>>> e3e0f79a027198058bcd10b0d748efde20dd1a48
+
+
 
 __if(_a!=_b)_a:=3.5F3, else _b:=3.5F3,end_if
 print ('casco'),
