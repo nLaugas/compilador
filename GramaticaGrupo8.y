@@ -264,7 +264,7 @@ if (!((Symbol)($1.obj)).isUsada()){
     System.out.println(t.toString());
     $$=$1;
     $$.obj = t;
-
+}
     estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
 	| ASIG expresion  {yyerror("Falta elemento de asignacion y palabra reservada 'let'",$1.getFila(),$1.getColumna());}
 	| ID ASIG  {yyerror("Falta elemento de asignacion ",$1.getFila(),$1.getColumna());}
@@ -342,8 +342,7 @@ condicion_salto: '(' condicion ')' {    //#### aca hacemos lo del salto para no 
 
 };
 
-condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
-										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
+condicion: expresion '>' expresion {
   Terceto t = new T_Comparador(contadorTerceto,">",$1.obj,$3.obj,st);
    // t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
    // contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
@@ -356,8 +355,7 @@ condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(
     $$=$1;
     $$.obj = t;
     									}
-	| expresion '<' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
-										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
+	| expresion '<' expresion {
   Terceto t = new T_Comparador(contadorTerceto,"<",$1.obj,$3.obj,st);
    // t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
    // contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
@@ -369,9 +367,7 @@ condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(
     System.out.println(t.toString());
     $$=$1;
     $$.obj = t;										}
-	| expresion '=' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
-										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
-  Terceto t = new T_Comparador(contadorTerceto,"=",$1.obj,$3.obj,st);
+	| expresion '=' expresion {  Terceto t = new T_Comparador(contadorTerceto,"=",$1.obj,$3.obj,st);
    // t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
    // contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
     for(int i=0; i< t.errores.size();i++){
@@ -394,8 +390,7 @@ condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(
     System.out.println(t.toString());
     $$=$1;
     $$.obj = t;										}
-	| expresion MAYIG expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
-										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
+	| expresion MAYIG expresion {
   Terceto t = new T_Comparador(contadorTerceto,">=",$1.obj,$3.obj,st);
    // t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
    // contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
@@ -407,8 +402,7 @@ condicion: expresion '>' expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(
     System.out.println(t.toString());
     $$=$1;
     $$.obj = t;										}
-	| expresion MENIG expresion {if(!(((Symbol)($1.obj)).getTipoVar().equals(((Symbol)($3.obj)).getTipoVar())))
-										yyerror("tipos incompatibles ",$1.getFila(),$1.getColumna());
+	| expresion MENIG expresion {
   Terceto t = new T_Comparador(contadorTerceto,"<=",$1.obj,$3.obj,st);
    // t.setVariableAux(contadorVarAux);//revisar, creo que aca no va
    // contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose
