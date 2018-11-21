@@ -44,16 +44,13 @@ public class T_Asignacion extends Terceto{
 		if (!Character.isDigit(a))
 			op1 = "_" + op1;
 
-		//if (tieneCorchete(2)){
-			//op2 = op2.substring(1, op2.length()-1);
-	//		op2 = ((Terceto)operando2).getVarAux();
-
-	//	}
-	//	else {
+		if (esTerceto(2)){
+			op2 = ((Terceto)operando2).getVarAux(); }
+		else {
 			a = op2.charAt(0);
 			if (!Character.isDigit(a))
 				op2 = "_" + op2;
-	//	}
+		}
 		if (getTipo() == "single"){
 			v.add(new String("\r\nMOV EAX, " + op2));
 			v.add(new String("MOV " + "_"+ " ,EAX"));

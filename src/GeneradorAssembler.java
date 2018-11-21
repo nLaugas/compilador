@@ -1,4 +1,4 @@
-import AnalizadorSintactico.Parser;
+import AnalizadorSintactico.*;
 import SymbolTable.SymbolTable;
 import Tercetos.Terceto;
 

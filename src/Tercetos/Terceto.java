@@ -60,14 +60,14 @@ public abstract class Terceto {
 		String op1,op2;
 		if (operando1!="trampita")
 			if (esTerceto(1))
-				op1 =operando1.toString().substring(0,3);
+				op1 ="["+String.valueOf(((Terceto)operando1).num)+"]";
 			else
 				op1=((Symbol)operando1).getLexema();
 		else
 			op1="- ";
 		if (operando2!="trampita"){
 			if (esTerceto(2))
-				op2 = operando2.toString().substring(0, 3);
+				op2 = "["+String.valueOf(((Terceto)operando2).num)+"]";
 			else
 				op2 = ((Symbol) operando2).getLexema();
 		}
@@ -82,16 +82,17 @@ public abstract class Terceto {
 	{
 		return label;
 	}
-
 	public boolean equals(Terceto t){
 		if (t.getOperador().equals(operador))
 			return true;
 		else return false;
 	}
+
+
 	public boolean esTerceto(int a)// quiero saber si el operando es un terceto
 	{//si es un terceto lo guarde con un corchete al principio y al final, despues se los saco en c/u
 		if (operando1.toString().isEmpty() || operando2.toString().isEmpty()){
-			System.out.println("hicimos cagada, llego un operando que no sabe hacerse string");
+			System.out.println("anduvo mal, llego un operando que no sabe hacerse string");
 			return false;
 		}
 		if (a == 1)
