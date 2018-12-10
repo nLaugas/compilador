@@ -17,6 +17,7 @@ public class T_Asignacion extends Terceto{
 		else
 			tipo2 =  ((Symbol)operando2).getTipoVar();
 
+		System.out.println("tipo1 : "+tipo1+"tipo2 : "+tipo2);
 
 		if (tipo1 == "single" || tipo2 == "single")
 			tipo = "single";
@@ -40,33 +41,28 @@ public class T_Asignacion extends Terceto{
 		String op1 = ((Symbol)(operando1)).getLexema();
 		String op2 = getOperando2().toString();
 
-		Character a = op1.charAt(0);
-		if (!Character.isDigit(a))
-			op1 = "_" + op1;
-
 		if (esTerceto(2)){
 			op2 = ((Terceto)operando2).getVarAux(); }
 		else {
 			op2 = ((Symbol)(operando2)).getLexema();
-			a = op2.charAt(0);
-			if (!Character.isDigit(a))
-				op2 = "_" + op2;
 		}
-		if (getTipo() == "single"){
-			v.add(new String("\r\nMOV EAX, " + op2));
-			v.add(new String("MOV " + getVarAux()+ " ,EAX")); //aca va varAux o op1?
+
+		System.out.println("el tipo es : "+getTipo());
+		if (getTipo() == "integer"){
+			v.add(new String("\r\nMOV AX, " + op2));
+			v.add(new String("MOV " + op1+ " ,AX")); //aca va varAux o op1?
 		}
 		else
 		{
 			v.add(new String("\r\nFLD " + op2));
-			v.add(new String("FSTP " + getVarAux())); //aca va varAux o op1?
+			v.add(new String("FSTP " + op2));
 		}
 		return v;
 }
 	@Override
 	public String getTipo() {
 		// TODO Auto-generated method stub
-		return null;
+		return tipo;
 	}
 
 	public SymbolTable getTabla() {
