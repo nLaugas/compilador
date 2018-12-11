@@ -46,8 +46,6 @@ public class T_Asignacion extends Terceto{
 		else {
 			op2 = ((Symbol)(operando2)).getLexema();
 		}
-
-		System.out.println("el tipo es : "+getTipo());
 		if (getTipo() == "integer"){
 			v.add(new String("\r\nMOV AX, " + op2));
 			v.add(new String("MOV " + op1+ " ,AX")); //aca va varAux o op1?
@@ -55,7 +53,7 @@ public class T_Asignacion extends Terceto{
 		else
 		{
 			v.add(new String("\r\nFLD " + op2));
-			v.add(new String("FSTP " + op2));
+			v.add(new String("FSTP " + op1));
 		}
 		return v;
 }

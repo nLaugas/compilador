@@ -67,11 +67,11 @@ public class GeneradorAssembler {
 				else
 					variables.add(new String( lexema+ " DW ?"));    // resservo espacio para INTEGER
 			else if (tabla.getSymbol(lexema).getTipo() == 269){ // 269 es token de single
-				variables.add(new String("_"+lexema +  cant + " DD " + lexema));
+				variables.add(new String(lexema +  cant + " DD " + lexema));
 
 			}
 			else if (tabla.getSymbol(lexema).getTipo() == 275){
-				variables.add(new String("_"+ lexema + " DW " + lexema.substring(0, lexema.length() - 2)));
+				variables.add(new String( lexema + " DW " + lexema.substring(0, lexema.length() - 2)));
 			}else if (tabla.getSymbol(lexema).getTipo() == Parser.CADENA){
 				variables .add(new String("_"+lexema+" DB " + "\"" + lexema+ "\"" + " ,0"));
 			}else if(tabla.getSymbol(lexema).getTipo()  == 500){
