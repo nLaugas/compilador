@@ -42,7 +42,6 @@ public class GeneradorAssembler {
 		variables.add(new String("TITULO DB \"Mensaje\" , 0"));
 		variables.add(new String("OVERFLOW_EN_SUMA DB \"Overflow en suma\" , 0"));
 		variables.add(new String("RESULTADO_NEGATIVO_RESTA DB \"Resultado negativo en resta\" , 0"));
-		variables.add(new String("PERDIDA_INFORMACION_CONVERSION DB \"Perdida de informacion en conversion\" , 0"));
 		variables.add(new String(""));
 		variables.add(new String("_@cero DW 0,0"));
 		variables.add(new String("_@max_float1 DQ 1.17549435e38"));
@@ -67,15 +66,17 @@ public class GeneradorAssembler {
 				else
 					variables.add(new String( lexema+ " DW ?"));    // resservo espacio para INTEGER
 			else if (tabla.getSymbol(lexema).getTipo() == 269){ // 269 es token de single
-				variables.add(new String(lexema +  cant + " DD " + lexema));
-
+				variables.add(new String("_"+lexema +  cant + " DD " + lexema));
 			}
 			else if (tabla.getSymbol(lexema).getTipo() == 275){
-				variables.add(new String( lexema + " DW " + lexema.substring(0, lexema.length() - 2)));
+				variables.add(new String( "_"+lexema + " DW " + lexema.substring(0, lexema.length() - 2)));
 			}else if (tabla.getSymbol(lexema).getTipo() == Parser.CADENA){
 				variables .add(new String("_"+lexema+" DB " + "\"" + lexema+ "\"" + " ,0"));
 			}else if(tabla.getSymbol(lexema).getTipo()  == 500){
-				variables.add(new String("_"+lexema  + " DD ?"));
+				if (tabla.getSymbol(lexema).getTipoVar()=="integer")
+					variables.add(new String("_"+lexema  + " DW ?"));
+				else
+					variables.add(new String("_"+lexema  + " DD ?"));
 			}
 
 /**
@@ -113,6 +114,9 @@ public class GeneradorAssembler {
 		this.codigo = this.inicializacion();
 		this.codigo.addAll(this.declaracionDeVariables());
 		this.codigo.addAll(codAss);
+		codigo.add(new String("jMP EXIT"));
+		codigo.add(new String("@OVERFLOW_EN_SUMA:"));
+		codigo.add(new String("Invoke MessageBox, NULL, addr OVERFLOW_EN_SUMA, addr OVERFLOW_EN_SUMA, MB_OK"));
 		codigo.add(new String("Invoke ExitProcess, 0"));
 		codigo.add(new String("EXIT:"));
 		codigo.add(new String("END START"));

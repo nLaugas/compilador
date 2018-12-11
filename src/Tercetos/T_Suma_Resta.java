@@ -21,9 +21,11 @@ public class T_Suma_Resta extends TercetoOperacion {
 			tipo1 = ((Terceto)operando1).getTipo();
 		}
 		else {
-
             op1 = ((Symbol)(operando1)).getLexema();
             tipo1 = ((Symbol)(operando1)).getTipoVar();
+			Character a = op1.charAt(0);
+			if (Character.isDigit(a))
+				op1 = "_" + op1;
 
 		}
 		if (esTerceto(2)){
@@ -34,20 +36,18 @@ public class T_Suma_Resta extends TercetoOperacion {
 		else {
 			//tipo2 = tabla.getTipo(op2);
             op2 = ((Symbol)(operando2)).getLexema();
-
             tipo2 = ((Symbol)(operando2)).getTipoVar();
-			/**   no se si va
-			Character a = op2.charAt(0);
-			if (!Character.isDigit(a))
-				op2 = "_" + op2;**/
 
+            Character a = op2.charAt(0);
+			if (Character.isDigit(a))
+				op2 = "_" + op2;
 		}
 	 if (getTipo() == "integer"){
 	 	if (operador=="+") {
 			v.add(new String("\r\nMOV AX, " + op1));
 			v.add(new String("ADD AX, " + op2));
 			v.add(new String("MOV " + getVarAux() + " ,AX"));
-			v.add(new String("JO OVERFLOW_EN_SUMA"));
+			v.add(new String("JO @OVERFLOW_EN_SUMA"));
 			v.add("\n");
 		}else{
 	 		//para la resta
