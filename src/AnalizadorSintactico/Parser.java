@@ -42,6 +42,11 @@ public class Parser
   int yynerrs;            //number of errors so far
   int yyerrflag;          //was there an error?
   int yychar;             //the current working character
+  Terceto tercetoAuxFin;
+  Terceto tercetoAuxBF;
+  public void acomodar(){
+
+  }
 
   //########## MESSAGES ##########
 //###############################################################
@@ -1019,7 +1024,9 @@ public class Parser
         break;
         case 50:
 //#line 302 "GramaticaGrupo8.y"
-        {estructuras.add("Sentencia Loop " +" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());}
+        {estructuras.add("Sentencia Loop " +" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());
+        this.acomodar();
+        }
         break;
         case 51:
 //#line 303 "GramaticaGrupo8.y"
@@ -1040,7 +1047,12 @@ public class Parser
         case 55:
 //#line 311 "GramaticaGrupo8.y"
         {/*#### unica forma de marcar donde comienza el loop y ver donde salto (no diferenciamos bloque de loop)*/
-          p.push(contadorTerceto);}
+          p.push(contadorTerceto);
+          Terceto t = new T_Fin(contadorTerceto,"FIN_DE_SALTO","trampita","trampita",st);
+          contadorTerceto ++;
+          listaTercetos.add(t);
+          tercetoAuxFin=t;
+        }
         break;
         case 56:
 //#line 316 "GramaticaGrupo8.y"
@@ -1084,6 +1096,7 @@ public class Parser
             yyerror(t.errores.elementAt(i),val_peek(2).getFila(),val_peek(2).getColumna());
             ;}
           contadorTerceto ++;
+          tercetoAuxBF=t;
           listaTercetos.add(t);
           System.out.println(t.toString());
           yyval=val_peek(2);
