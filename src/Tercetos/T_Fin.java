@@ -25,7 +25,11 @@ private String label="";
 		// TODO Auto-generated method stub
 		return null;
 	};
-	
+/**
+	public String toString(){
+		return "["+this.getnum()+"]"+"Terceto_Fin";
+	}
+**/
 	public String getLabel() {
 		return label;
 	}

@@ -107,7 +107,7 @@ public class GeneradorAssembler {
 		for (Terceto t: tercetos){
 			if (((String) t.getOperador()).equals("BF")){
 				tercetos.get((int)t.getOperando2()).setLabel();}
-			if ((t.getLabel()!="") /*&& ((t.getOperador() != "FIN_DE_SALTO")|| (t.getOperador() != "FIN_CASE"))*/)
+			if ((t.getLabel()!="") && ((t.getOperador() != "FIN_DE_SALTO") || (t.getOperador() != "FIN_CASE")))
 				codAss.add(new String(t.getLabel()));
 			codAss.addAll(t.getAssembler());
 		}

@@ -5,5 +5,6 @@ _a:=5_i+3_i,
 __d:=5_i,
 __a:=3_i-2_i+5_i,
 if(_a!=_b)_a:=5_i, else {_b:=3_i,_a:=5_i,}end_if
+_a:=5_i+3_i,
 __print ('casco'),
 __let mut integer _a;_b;*_c,
