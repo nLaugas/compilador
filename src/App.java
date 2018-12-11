@@ -142,24 +142,19 @@ public class App extends JFrame{
                 outFile.tercetoFile(par,"terceto.txt");
                 outFile.assemblerFile(genAssembler.getCodigoAssembler(),"assembler.asm");
 
-                String comc = "cmd /c .\\masm32\\bin\\ml /c /Zd /coff assembler.asm ";
-                System.out.print("comc: "+comc);
+                String comc = "C:\\masm32\\bin\\ml /c /Zd /coff assembler.asm ";
+                String coml = "C:\\masm32\\bin\\Link /SUBSYSTEM:CONSOLE assembler.obj ";
+
                 Process ptasm32 = null;
+                Process ptlink32 = null;
+
                 try {
                     ptasm32 = Runtime.getRuntime().exec(comc);
-                } catch (IOException e1) {
-                    e1.printStackTrace();
-                }
-                InputStream is = ptasm32.getInputStream();
-
-                String coml = "cmd /c \\masm32\\bin\\Link /SUBSYSTEM:CONSOLE assembler.obj ";
-                System.out.print("coml: "+coml);
-                Process ptlink32 = null;
-                try {
                     ptlink32 = Runtime.getRuntime().exec(coml);
                 } catch (IOException e1) {
                     e1.printStackTrace();
                 }
+                InputStream is = ptasm32.getInputStream();
                 InputStream is2 = ptlink32.getInputStream();
             }
         });

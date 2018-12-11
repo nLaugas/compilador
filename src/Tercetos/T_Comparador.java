@@ -57,7 +57,7 @@ public class T_Comparador extends Terceto{
 		else {
 			op1 = ((Symbol)(operando1)).getLexema();
 			a = op1.charAt(0);
-			if (!Character.isDigit(a))
+			if (Character.isDigit(a))
 				op1 = "_" + op1;
 		}
 		if (esTerceto(2)){
@@ -65,7 +65,7 @@ public class T_Comparador extends Terceto{
 		else {
 			op2 = ((Symbol)(operando2)).getLexema();
 			a = op2.charAt(0);
-			if (!Character.isDigit(a))
+			if (Character.isDigit(a))
 				op2 = "_" + op2;
 		}
 

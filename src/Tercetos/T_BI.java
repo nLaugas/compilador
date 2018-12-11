@@ -12,8 +12,8 @@ public class T_BI extends Terceto {
 	@Override
 	public Vector<String> getAssembler(){
 		Vector<String> codigoAss = new Vector<String>();
+		codigoAss.add(new String("JMP Label" +(int) operando1));
 		return codigoAss;
-	
 	}
 
 	@Override

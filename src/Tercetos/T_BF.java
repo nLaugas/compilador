@@ -12,6 +12,12 @@ public class T_BF extends Terceto {
 	public Vector<String> getAssembler(){
 		
 		Vector<String> codigoAss = new Vector<String>();
+		T_Comparador comparacion = ((T_Comparador)operando1);
+		if (comparacion.getTipo() == "integer")
+			codigoAss.add(new String(comparacion.getSaltoSinSigno()+ " Label" + (int)operando2+""));
+		else
+			codigoAss.addElement(new String(comparacion.getSaltoConSigno()+" Label"+(int)operando2+""));
+
 		return codigoAss;
 	
 	}
