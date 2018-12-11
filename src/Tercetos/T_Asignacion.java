@@ -45,6 +45,12 @@ public class T_Asignacion extends Terceto{
 			op2 = ((Terceto)operando2).getVarAux(); }
 		else {
 			op2 = ((Symbol)(operando2)).getLexema();
+
+
+			Character a = op2.charAt(0);
+			//a = op2.charAt(0);
+			if (Character.isDigit(a))
+				op2 = "_" + op2;
 		}
 		if (getTipo() == "integer"){
 			v.add(new String("\r\nMOV AX, " + op2));

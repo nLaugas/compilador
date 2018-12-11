@@ -49,7 +49,7 @@ public class T_Comparador extends Terceto{
 		String op2 = getOperando2().toString();
 
 		Character a = op1.charAt(0);
-		if (!Character.isDigit(a))
+		if (Character.isDigit(a))
 			op1 = "_" + op1;
 
 		if (esTerceto(1)){
