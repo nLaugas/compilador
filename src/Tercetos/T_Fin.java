@@ -10,7 +10,7 @@ private String label="";
 	
 	public T_Fin(int nro, String operador, Object operando1, Object operando2, SymbolTable ts){
 		super(nro,operador,operando1,operando2,ts);
-		label = "\r\nLabel"+nro+":";
+		label = "\r\nLabel"+(nro+1)+":";
 	}
 	
 	@Override
