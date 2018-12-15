@@ -64,7 +64,7 @@ public class GeneradorAssembler {
 				if (tabla.getSymbol(lexema).getTipoVar().equals("float"))
 					variables.add(new String( lexema + " DD ?")); // resservo espacio para float
 				else
-					variables.add(new String( lexema+ " DW ?"));    // resservo espacio para INTEGER
+					variables.add(new String( lexema + " DW ?"));    // resservo espacio para INTEGER
 			else if (tabla.getSymbol(lexema).getTipo() == 269){ // 269 es token de single
 				variables.add(new String("_"+lexema +  cant + " DD " + lexema));
 			}
@@ -77,6 +77,8 @@ public class GeneradorAssembler {
 					variables.add(new String("_"+lexema  + " DW ?"));
 				else
 					variables.add(new String("_"+lexema  + " DD ?"));
+			}else if(tabla.getSymbol(lexema).getTipo() == 276){//tipo float
+				variables.add(new String("_"+lexema.replace(".","p").replace("-","n")  + " DD "+lexema));
 			}
 
 /**

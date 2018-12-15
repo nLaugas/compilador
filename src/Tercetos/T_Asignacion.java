@@ -53,7 +53,7 @@ public class T_Asignacion extends Terceto{
 				op2 = "_" + op2;
 		}
 		if (getTipo() == "integer"){
-			v.add(new String("\r\nMOV AX, " + op2));
+			v.add(new String("\r\nMOV AX, " + op2.replace(".","p").replace("-","n")));
 			v.add(new String("MOV " + op1+ " ,AX")); //aca va varAux o op1?
 		}
 		else

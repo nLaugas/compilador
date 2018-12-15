@@ -1,16 +1,18 @@
 let mut integer _a;_b;*_c,
+__let mut single _d,
+__d:=3.3F2,
 __let integer _d:=5_i,
 __let integer _e:=_d,
 _a:=5_i+1_i,
 _b:=8_i,
 __d:=5_i,
 __a:=3_i-2_i+5_i,
-__if(_a=_b) print ('es   igual'),end_if
-_a:=5_i+3_i,
-loop{
+if(_a=_b) print ('es   igual'),else print ('no es igual'),end_if
+__a:=5_i+3_i,
+__loop{
 __a:=_a+1_i,
-print('esta en loop'),
-}
-until(_a!=_b)
+__print('esta en loop'),
+__}
+__until(_a!=_b)
 print ('casco'),
 __let mut integer _a;_b;*_c,

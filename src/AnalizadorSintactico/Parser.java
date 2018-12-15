@@ -1001,8 +1001,8 @@ public class Parser
         case 45:
 //#line 295 "GramaticaGrupo8.y"
         {estructuras.add("Sentencia IF Else" +" fila "+val_peek(5).getFila()+" columna "+val_peek(5).getColumna());
-          contadorTerceto ++;
           Terceto t = new T_Fin(contadorTerceto,"FIN_DE_SALTO","trampita","trampita",st);
+          contadorTerceto ++;
           listaTercetos.add(t);
         }
         break;
