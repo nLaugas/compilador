@@ -2,9 +2,14 @@ let mut integer _a;_b;*_c,
 __let integer _d:=5_i,
 __let integer _e:=_d,
 _a:=5_i+3_i,
+_b:=5_i+3_i,
 __d:=5_i,
 __a:=3_i-2_i+5_i,
-if(_a!=_b)_a:=5_i, else {_b:=3_i,_a:=5_i,}end_if
-_a:=5_i+3_i,
+loop{
+print('es igual'),
+}
+until(_a!=_b)
+__if(_a!=_b)_a:=5_i, else {_b:=3_i,_a:=5_i,}end_if
+__a:=5_i+3_i,
 print ('casco'),
 __let mut integer _a;_b;*_c,
