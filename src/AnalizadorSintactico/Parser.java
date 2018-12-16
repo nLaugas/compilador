@@ -120,6 +120,7 @@ public class Parser
   ParserVal yylval;//the 'lval' (result) I got from yylex()
   ParserVal valstk[];
   int valptr;
+  int intLoop=0;
   //###############################################################
 // methods: value stack push,pop,drop,peek.
 //###############################################################
@@ -751,9 +752,15 @@ public class Parser
           if (listaTercetos.get(i).getOperador() == "BF")
           {	listaTercetos.get(i).setOperando2(contadorTerceto);
           }
+          if (intLoop == 0){
           Terceto t = new T_Fin(contadorTerceto,"FIN_DE_SALTO","trampita","trampita",st);
           contadorTerceto ++;
           listaTercetos.add(t);
+          }
+          else
+          {
+            listaTercetos.get(i).setOperando2(intLoop);
+          }
           /*podriamos hacer un terceto fin aca que sea a donde apunte el salto, este terceto no haria nada solo funcionaria de label del salto*/
         }
         break;
@@ -1044,7 +1051,13 @@ public class Parser
         case 55:
 //#line 311 "GramaticaGrupo8.y"
         {/*#### unica forma de marcar donde comienza el loop y ver donde salto (no diferenciamos bloque de loop)*/
-          p.push(contadorTerceto);}
+          p.push(contadorTerceto);
+          intLoop = contadorTerceto;
+          Terceto t = new T_Fin(contadorTerceto,"FIN_DE_SALTO","trampita","trampita",st);
+
+          listaTercetos.add(t);
+          contadorTerceto ++;
+        }
         break;
         case 56:
 //#line 316 "GramaticaGrupo8.y"
