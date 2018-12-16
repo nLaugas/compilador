@@ -758,8 +758,9 @@ public class Parser
           listaTercetos.add(t);
           }
           else
-          {
+          { ((T_BF)listaTercetos.get(i)).invertFlags();
             listaTercetos.get(i).setOperando2(intLoop);
+            intLoop=0;
           }
           /*podriamos hacer un terceto fin aca que sea a donde apunte el salto, este terceto no haria nada solo funcionaria de label del salto*/
         }

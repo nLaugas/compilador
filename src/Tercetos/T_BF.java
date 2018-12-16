@@ -3,6 +3,7 @@ import java.util.Vector;
 import SymbolTable.*;
 
 public class T_BF extends Terceto {
+	private boolean invertir=false;
 		
 	public T_BF(int nro, String operador, Object operando1, Object operando2, SymbolTable ts){
 		super(nro,operador,operando1,operando2,ts);
@@ -13,6 +14,9 @@ public class T_BF extends Terceto {
 		
 		Vector<String> codigoAss = new Vector<String>();
 		T_Comparador comparacion = ((T_Comparador)operando1);
+		if (invertir){
+			comparacion.setInvertir(); //invertir banderas
+		}
 		if (comparacion.getTipo() == "integer")
 			codigoAss.add(new String(comparacion.getSaltoSinSigno()+ " Label" + (int)operando2+""));
 		else
@@ -20,6 +24,10 @@ public class T_BF extends Terceto {
 
 		return codigoAss;
 	
+	}
+
+	public void invertFlags(){
+		invertir=true;
 	}
 
 	public String toString() {

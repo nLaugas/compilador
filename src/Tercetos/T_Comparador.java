@@ -5,6 +5,7 @@ import SymbolTable.*;
 
 public class T_Comparador extends Terceto{
 	private String tipo;
+	private boolean invertir=false;
 
 	public T_Comparador(int nro, String operador, Object operando1, Object operando2, SymbolTable ts){
 		super(nro,operador,operando1,operando2,ts);	
@@ -81,6 +82,9 @@ public class T_Comparador extends Terceto{
 		return v;
 	}
 
+	public void setInvertir(){
+		this.invertir=true;
+	}
 
 	public SymbolTable getTabla() {
 		return ts;
@@ -91,57 +95,112 @@ public class T_Comparador extends Terceto{
 	}
 
 	public String getSaltoConSigno() {
-		if (operador.equals(">")){
-			//Saltas por Menor Igual
-			return "JLE ";
-		}
-		if (operador.equals("<")){
-			//Saltas por Mayor Igual
-			return "JGE ";
-		}
-		if (operador.equals(">=")){
-			//Saltas por Menor
-			return "JL ";
-		}
-		if (operador.equals("<=")){
-			//Saltas por Mayor
-			return "JG ";
-		}
-		if (operador.equals("=")){
-			//Saltas por distinto
-			return "JNE ";
-		}
-		if (operador.equals("!=")){
-			//Saltas por igual
-			return "JE ";
+		if (!invertir) {
+			if (operador.equals(">")) {
+				//Saltas por Menor Igual
+				return "JLE ";
+			}
+			if (operador.equals("<")) {
+				//Saltas por Mayor Igual
+				return "JGE ";
+			}
+			if (operador.equals(">=")) {
+				//Saltas por Menor
+				return "JL ";
+			}
+			if (operador.equals("<=")) {
+				//Saltas por Mayor
+				return "JG ";
+			}
+			if (operador.equals("=")) {
+				//Saltas por distinto
+				return "JNE ";
+			}
+			if (operador.equals("!=")) {
+				//Saltas por igual
+				return "JE ";
+			}
+		}else
+		{
+			if (operador.equals(">")) {
+				//Saltas por Menor Igual
+				return "JGE ";
+			}
+			if (operador.equals("<")) {
+				//Saltas por Mayor Igual
+				return "JLE ";
+			}
+			if (operador.equals(">=")) {
+				//Saltas por Menor
+				return "JG ";
+			}
+			if (operador.equals("<=")) {
+				//Saltas por Mayor
+				return "JL ";
+			}
+			if (operador.equals("=")) {
+				//Saltas por distinto
+				return "JE ";
+			}
+			if (operador.equals("!=")) {
+				//Saltas por igual
+				return "JNE ";
+			}
 		}
 		return null;
 	}
 
 	public String getSaltoSinSigno() {
-		if (operador.equals(">")){
-			//Saltas por Menor Igual
-			return "JBE ";
-		}
-		if (operador.equals("<")){
-			//Saltas por Mayor Igual
-			return "JAE ";
-		}
-		if (operador.equals(">=")){
-			//Saltas por Menor
-			return "JB ";
-		}
-		if (operador.equals("<=")){
-			//Saltas por Mayor
-			return "JA ";
-		}
-		if (operador.equals("=")){
-			//Saltas por distinto
-			return "JNE ";
-		}
-		if (operador.equals("!=")){
-			//Saltas por igual
-			return "JE ";
+		if (!invertir) {
+			if (operador.equals(">")) {
+				//Saltas por Menor Igual
+				return "JBE ";
+			}
+			if (operador.equals("<")) {
+				//Saltas por Mayor Igual
+				return "JAE ";
+			}
+			if (operador.equals(">=")) {
+				//Saltas por Menor
+				return "JB ";
+			}
+			if (operador.equals("<=")) {
+				//Saltas por Mayor
+				return "JA ";
+			}
+			if (operador.equals("=")) {
+				//Saltas por distinto
+				return "JNE ";
+			}
+			if (operador.equals("!=")) {
+				//Saltas por igual
+				return "JE ";
+			}
+		}else{
+			if (operador.equals(">")) {
+				//Saltas por Menor Igual
+				return "JAE ";
+			}
+			if (operador.equals("<")) {
+				//Saltas por Mayor Igual
+				return "JBE ";
+			}
+			if (operador.equals(">=")) {
+				//Saltas por Menor
+				return "JA ";
+			}
+			if (operador.equals("<=")) {
+				//Saltas por Mayor
+				return "JB ";
+			}
+			if (operador.equals("=")) {
+				//Saltas por distinto
+				return "JE ";
+			}
+			if (operador.equals("!=")) {
+				//Saltas por igual
+				return "JNE ";
+			}
 		}
 		return null;
 	}
