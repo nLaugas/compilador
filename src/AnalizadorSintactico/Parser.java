@@ -751,6 +751,9 @@ public class Parser
           if (listaTercetos.get(i).getOperador() == "BF")
           {	listaTercetos.get(i).setOperando2(contadorTerceto);
           }
+          Terceto t = new T_Fin(contadorTerceto,"FIN_DE_SALTO","trampita","trampita",st);
+          contadorTerceto ++;
+          listaTercetos.add(t);
           /*podriamos hacer un terceto fin aca que sea a donde apunte el salto, este terceto no haria nada solo funcionaria de label del salto*/
         }
         break;
@@ -997,9 +1000,9 @@ public class Parser
 //#line 295 "GramaticaGrupo8.y"
         {estructuras.add("Sentencia IF Else" +" fila "+val_peek(5).getFila()+" columna "+val_peek(5).getColumna());
 
-          Terceto t = new T_Fin(contadorTerceto,"FIN_DE_SALTO","trampita","trampita",st);
+          /*Terceto t = new T_Fin(contadorTerceto,"FIN_DE_SALTO","trampita","trampita",st);
           contadorTerceto ++;
-          listaTercetos.add(t);
+          listaTercetos.add(t);*/
         }
         break;
         case 46:
