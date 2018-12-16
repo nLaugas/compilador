@@ -21,7 +21,7 @@ public class T_Print extends Terceto {
 	@Override
 	public Vector<String> getAssembler() {
     	Vector<String> codigoAss = new Vector<String>();
-		codigoAss.add(new String("\r\ninvoke MessageBox, NULL, addr " + "_"+((Symbol)operando1).getLexema() + ", addr TITULO , MB_OK "));
+		codigoAss.add(new String("\r\ninvoke MessageBox, NULL, addr " + "_"+((Symbol)operando1).getLexema().replace(" ","_") + ", addr TITULO , MB_OK "));
 		return codigoAss;
 	}
 
