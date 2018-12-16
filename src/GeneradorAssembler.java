@@ -79,6 +79,7 @@ public class GeneradorAssembler {
 					variables.add(new String("_"+lexema  + " DD ?"));
 			}else if(tabla.getSymbol(lexema).getTipo() == 276){//tipo float
 				variables.add(new String("_"+lexema.replace(".","p").replace("-","n")  + " DD "+lexema));
+
 			}
 
 /**
@@ -111,6 +112,7 @@ public class GeneradorAssembler {
 				tercetos.get((int)t.getOperando2()).setLabel();}
 			if ((t.getLabel()!="") && ((t.getOperador() != "FIN_DE_SALTO") || (t.getOperador() != "FIN_CASE")))
 				codAss.add(new String(t.getLabel()));
+
 			codAss.addAll(t.getAssembler());
 		}
 		this.codigo = this.inicializacion();

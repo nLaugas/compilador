@@ -1,6 +1,6 @@
 let mut integer _a;_b;*_c,
-__let mut single _d,
-__d:=3.3F2,
+let mut single _d,
+_d:=-3.3F2,
 __let integer _d:=5_i,
 __let integer _e:=_d,
 _a:=5_i+1_i,
