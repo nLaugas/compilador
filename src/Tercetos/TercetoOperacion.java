@@ -22,18 +22,20 @@ public abstract class TercetoOperacion extends Terceto{
 			tipo2 =  ((Symbol)operando2).getTipoVar();
 
 
-		if (tipo1 == "single" || tipo2 == "single")
-			tipo = "single";
-		else
+		if (tipo1 == "integer" || tipo2 == "integer")
 			tipo = "integer";
+		else
+			tipo = "single";
 
 		if (tipo1 == "sin asignar")
 			errores.add("Variable no declarada, "+operando1.toString());
 		if (tipo2 == "sin asignar")
 			errores.add("Variable no declarada, "+operando2.toString());
-		if (tipo2 != tipo1)
-			errores.add("Hay una incompatibilidad de tipo, entre "+operando1.toString()+" de tipo "+
-					tipo1+", y "+operando2.toString()+" de tipo "+tipo2);
+		if (tipo2 != tipo1) {
+			errores.add("Hay una incompatibilidad de tipo, entre " + operando1.toString() + " de tipo " +
+					tipo1 + ", y " + operando2.toString() + " de tipo " + tipo2);
+			System.out.println("El tipo1 es : "+tipo1+" El tipo 2 es : "+tipo2);
+		}
 
 
 	}

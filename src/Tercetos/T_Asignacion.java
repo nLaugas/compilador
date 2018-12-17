@@ -8,12 +8,15 @@ public class T_Asignacion extends Terceto{
 	public T_Asignacion(int nro, String operador, Object operando1, Object operando2, SymbolTable ts){
 		super(nro,operador,operando1,operando2,ts);
 		String tipo1,tipo2;
-		if (esTerceto(1))
-			tipo1 =((Terceto)operando1).getTipo();
+		if (esTerceto(1)) {
+			tipo1 = ((Terceto) operando1).getTipo();
+			System.out.println("es terceto operando 1");
+		}
 		else
 			tipo1 =  ((Symbol)operando1).getTipoVar();//revisar la parte de (String)operando1 (tiene que ser el lexema)
-		if (esTerceto(2))
+		if (esTerceto(2)){
 			tipo2 =((Terceto)operando2).getTipo();
+			System.out.println("es terceto operando 2");}
 		else
 			tipo2 =  ((Symbol)operando2).getTipoVar();
 

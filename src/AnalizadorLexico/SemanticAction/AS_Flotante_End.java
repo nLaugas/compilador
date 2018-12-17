@@ -34,7 +34,7 @@ public class AS_Flotante_End extends SemanticAction{
         lexical.yylval.obj=lexical.symbolTable.getSymbol(String.valueOf(num));
 
         //PARA LOS IDENTIFICADORES DE ESTE TIPO EN LA GRAMATICA VA ESTO MISMO
-        lexical.symbolTable.getSymbol(String.valueOf(num)).setTipoVar("float");
+        lexical.symbolTable.getSymbol(String.valueOf(num)).setTipoVar("single");
         lexical.buffer = "";
     }
 }

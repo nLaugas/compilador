@@ -722,7 +722,7 @@ public class Parser
         break;
         case 17:
 //#line 83 "GramaticaGrupo8.y"
-        {yyval.sval="float";}
+        {yyval.sval="single";}
         break;
         case 18:
 //#line 84 "GramaticaGrupo8.y"

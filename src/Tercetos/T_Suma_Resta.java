@@ -21,7 +21,7 @@ public class T_Suma_Resta extends TercetoOperacion {
 			tipo1 = ((Terceto)operando1).getTipo();
 		}
 		else {
-            op1 = ((Symbol)(operando1)).getLexema();
+            op1 = ((Symbol)(operando1)).getLexema().replace(".","p").replace("-","n");
             tipo1 = ((Symbol)(operando1)).getTipoVar();
 			Character a = op1.charAt(0);
 			if (Character.isDigit(a))
@@ -35,7 +35,7 @@ public class T_Suma_Resta extends TercetoOperacion {
 		}
 		else {
 			//tipo2 = tabla.getTipo(op2);
-            op2 = ((Symbol)(operando2)).getLexema();
+            op2 = ((Symbol)(operando2)).getLexema().replace(".","p").replace("-","n");
             tipo2 = ((Symbol)(operando2)).getTipoVar();
 
             Character a = op2.charAt(0);

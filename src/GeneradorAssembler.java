@@ -61,7 +61,7 @@ public class GeneradorAssembler {
 			//TablaSimbolo entrada = new TablaSimbolo((short)0, null);
 			//entrada = e.elementAt(i);
 			if(tabla.getSymbol(lexema).getTipo()  == 261) // tipo ID
-				if (tabla.getSymbol(lexema).getTipoVar().equals("float"))
+				if (tabla.getSymbol(lexema).getTipoVar().equals("single"))
 					variables.add(new String( lexema + " DD ?")); // resservo espacio para float
 				else
 					variables.add(new String( lexema+ " DW ?"));    // resservo espacio para INTEGER
