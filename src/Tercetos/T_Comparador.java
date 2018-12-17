@@ -21,10 +21,10 @@ public class T_Comparador extends Terceto{
 			tipo2 =  ((Symbol)operando2).getTipoVar();
 
 
-		if (tipo1 == "single" || tipo2 == "single")
-			tipo = "single";
-		else
+		if (tipo1 == "integer" || tipo2 == "integer")
 			tipo = "integer";
+		else
+			tipo = "single";
 
 		if (tipo1 == "sin asignar")
 			errores.add("Variable no declarada, "+operando1.toString());
@@ -34,7 +34,7 @@ public class T_Comparador extends Terceto{
 			errores.add("Hay una incompatibilidad de tipo, entre "+operando1.toString()+" de tipo "+
 					tipo1+", y "+operando2.toString()+" de tipo "+tipo2);
 
-		}
+	}
 
 	@Override
 	public String getTipo()
@@ -48,18 +48,22 @@ public class T_Comparador extends Terceto{
 		Vector<String> v = new Vector<String>();
 		String op1 = ((Symbol)(operando1)).getLexema();
 		String op2 = getOperando2().toString();
+		//String tipoVar;
 
 		Character a = op1.charAt(0);
 		if (Character.isDigit(a))
 			op1 = "_" + op1;
 
 		if (esTerceto(1)){
-			op1 = ((Terceto)operando1).getVarAux(); }
+			op1 = ((Terceto)operando1).getVarAux();
+			//tipoVar=((Terceto)operando1).getTipo();
+			}
 		else {
 			op1 = ((Symbol)(operando1)).getLexema();
 			a = op1.charAt(0);
 			if (Character.isDigit(a))
 				op1 = "_" + op1;
+		//	tipoVar=((Symbol)(operando1)).getTipoVar();
 		}
 		if (esTerceto(2)){
 			op2 = ((Terceto)operando2).getVarAux(); }
@@ -69,6 +73,8 @@ public class T_Comparador extends Terceto{
 			if (Character.isDigit(a))
 				op2 = "_" + op2;
 		}
+
+		//System.out.println("tipo varrr:: "+tipoVar);
 
 		if (getTipo() == "integer"){
 			v.add(new String("\r\nMOV AX, " + op1));
