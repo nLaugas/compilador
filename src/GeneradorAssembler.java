@@ -77,7 +77,10 @@ public class GeneradorAssembler {
 					variables.add(new String("_"+lexema  + " DW ?"));
 				else
 					variables.add(new String("_"+lexema  + " DD ?"));
+			}else if(tabla.getSymbol(lexema).getTipo() == 276){//tipo float
+				variables.add(new String("_"+lexema.replace(".","p").replace("-","n")  + " DD "+lexema));
 			}
+
 
 /**
  else if (tabla.getSymbol(lexema).getTipo() == 300){

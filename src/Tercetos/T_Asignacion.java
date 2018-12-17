@@ -52,13 +52,13 @@ public class T_Asignacion extends Terceto{
 			if (Character.isDigit(a))
 				op2 = "_" + op2;
 		}
-		if (getTipo() == "integer"){
+		if (((Symbol)(operando1)).getTipoVar() == "integer"){
 			v.add(new String("\r\nMOV AX, " + op2));
 			v.add(new String("MOV " + op1+ " ,AX")); //aca va varAux o op1?
 		}
 		else
 		{
-			v.add(new String("\r\nFLD " + op2));
+			v.add(new String("\r\nFLD " + op2.replace(".","p").replace("-","n")));
 			v.add(new String("FSTP " + op1));
 		}
 		return v;

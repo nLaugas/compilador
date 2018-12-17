@@ -2,14 +2,14 @@ let mut integer _a;_b;*_c,
 __let integer _d:=5_i,
 __let integer _e:=_d,
 _a:=5_i+3_i,
-_b:=5_i+3_i,
+_b:=5_i,
 __d:=5_i,
 __a:=3_i-2_i+5_i,
-__loop{
-__print('es igual'),
-__}
-__until(_a=_b)
-if(_a=_b)print('es igual'),end_if
+if(_a=_b)print('es igual'), else {print('es distinto'),_b:=3_i,_a:=5_i,}end_if
+loop{
+print('es igual'),
+}
+until(_a=_b)
 __a:=5_i+3_i,
 __print ('casco'),
 __let mut integer _a;_b;*_c,
