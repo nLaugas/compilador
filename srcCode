@@ -1,4 +1,6 @@
 let mut integer _a;_b;*_c,
+_a:=1_i,
+_c:=2_i,
 let mut single _d;_f,
 _d:=5.5F1*1.1F1-1.1F1/1.1F1,
 _f:=-1.1F1,

@@ -55,16 +55,21 @@ public class GeneradorAssembler {
 		int cant2 = 1;
 
 		ArrayList<String> claves = tabla.getEntradas();
-		for(String lexema: claves){
+		for(String lexema: claves) {
 			//for (Object o: t.get( clave ))
 			//   for (int i = 0; i< e.size(); i++){
 			//TablaSimbolo entrada = new TablaSimbolo((short)0, null);
 			//entrada = e.elementAt(i);
-			if(tabla.getSymbol(lexema).getTipo()  == 261) // tipo ID
+			if (tabla.getSymbol(lexema).getTipo() == 261) // tipo ID
+			{
+				if (tabla.getSymbol(lexema).isEsPuntero()) {
+					System.out.println("es un puntero : " + lexema);
+				}
 				if (tabla.getSymbol(lexema).getTipoVar().equals("single"))
-					variables.add(new String( lexema + " DD ?")); // resservo espacio para float
+					variables.add(new String(lexema + " DD ?")); // resservo espacio para float
 				else
-					variables.add(new String( lexema+ " DW ?"));    // resservo espacio para INTEGER
+					variables.add(new String(lexema + " DW ?"));    // resservo espacio para INTEGER
+			}
 			else if (tabla.getSymbol(lexema).getTipo() == 269){ // 269 es token de single
 				variables.add(new String("_"+lexema +  cant + " DD " + lexema));
 			}

@@ -55,14 +55,24 @@ public class T_Asignacion extends Terceto{
 			if (Character.isDigit(a))
 				op2 = "_" + op2;
 		}
-		if (((Symbol)(operando1)).getTipoVar() == "integer"){
-			v.add(new String("\r\nMOV AX, " + op2));
-			v.add(new String("MOV " + op1+ " ,AX")); //aca va varAux o op1?
-		}
-		else
-		{
-			v.add(new String("\r\nFLD " + op2.replace(".","p").replace("-","n")));
-			v.add(new String("FSTP " + op1));
+		if(operador=="&"){
+			if (((Symbol) (operando1)).getTipoVar() == "integer") {
+			// el puntero de tipo int
+				v.add(new String("mov ax offset "+op2 ));
+				v.add(new String("mov "+op1+" ax "));
+			} else {
+			// el puntero de tipo float
+				v.add(new String("mov eax offset "+op2 ));
+				v.add(new String("mov "+op1+" eax "));
+			}
+		}else {
+			if (((Symbol) (operando1)).getTipoVar() == "integer") {
+				v.add(new String("\r\nMOV AX, " + op2));
+				v.add(new String("MOV " + op1 + " ,AX")); //aca va varAux o op1?
+			} else {
+				v.add(new String("\r\nFLD " + op2.replace(".", "p").replace("-", "n")));
+				v.add(new String("FSTP " + op1));
+			}
 		}
 		return v;
 }
