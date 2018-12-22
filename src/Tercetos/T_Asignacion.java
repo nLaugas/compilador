@@ -60,7 +60,7 @@ public class T_Asignacion extends Terceto{
 		if(operador=="&"){
 			if (((Symbol) (operando1)).getTipoVar() == "integer") {
 			// el puntero de tipo int
-				v.add(new String("MOV AX, OFFSET "+op2 ));
+				v.add(new String("MOV EAX, OFFSET "+op2 ));
 				v.add(new String("MOV "+op1+", AX"));
 			} else {
 			// el puntero de tipo float
@@ -74,12 +74,13 @@ public class T_Asignacion extends Terceto{
 			if (esTerceto(2)){
 				System.out.println("es terceto operando 2");
 				v.add(new String("MOV EAX, OFFSET "+op1 ));
-				v.add(new String("MOV DWORD PTR [EAX], "+((Terceto)operando2).getVarAux()));
+				v.add(new String("MOV BX, "+ ((Terceto)operando2).getVarAux()));
+				v.add(new String("MOV DWORD PTR [EAX], EBX"));
 
 			}
 			else{
 				//CASO EN PUNT := ID
-				v.add(new String("MOV AX, OFFSET "+((Symbol)operando2).getLexema() ));
+				v.add(new String("MOV EAX, OFFSET "+((Symbol)operando2).getLexema() ));
 				v.add(new String("MOV "+op1+", AX"));
 				// falta float
 

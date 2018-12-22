@@ -2,28 +2,6 @@ let mut integer _a;_b;*_c,
 _b:=1_i,
 _a:=1_i,
 _c:=_a,
+if(_b=_a)print('es igual'),else print('es distinto'),end_if
 _c:=1_i+1_i,
 if(_b=_a)print('es igual'),else print('es distinto'),end_if
-__let integer *_g := & _a,
-__if(_a=1_i)print('es igual'),else print('es distinto'),end_if
-__a:=5_i,
-__if(_g=1_i)print('es igual'), else {print('es distinto'),}end_if
-__a:=1_i,
-__c:=_a,
-__let mut single _d;_f,
-__d:=5.5F1*1.1F1-1.1F1/1.1F1,
-__f:=-1.1F1,
-__let integer _d:=5_i,
-__let integer _e:=_d,
-__a:=5_i+3_i,
-__b:=5_i,
-__d:=5_i,
-__a:=3_i-2_i+5_i,
-__if(_d=_f)print('es igual'), else {print('es distinto'),_b:=3_i,_a:=5_i,}end_if
-__loop{
-__print('es igual'),
-__}
-__until(_d=_f)
-__a:=5_i+3_i,
-__print ('casco'),
-__let mut integer _a;_b;*_c,
