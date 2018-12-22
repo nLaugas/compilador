@@ -1,20 +1,27 @@
 let mut integer _a;_b;*_c,
-_a:=1_i,
-_c:=2_i,
-let mut single _d;_f,
-_d:=5.5F1*1.1F1-1.1F1/1.1F1,
-_f:=-1.1F1,
+_a:=4_i,
+_b:=2_i*2_i,
+if(_a=_b)print('es igual'),else print('es distinto'),end_if
+__let integer *_g := & _a,
+__if(_a=1_i)print('es igual'),else print('es distinto'),end_if
+__a:=5_i,
+__if(_g=1_i)print('es igual'), else {print('es distinto'),}end_if
+__a:=1_i,
+__c:=_a,
+__let mut single _d;_f,
+__d:=5.5F1*1.1F1-1.1F1/1.1F1,
+__f:=-1.1F1,
 __let integer _d:=5_i,
 __let integer _e:=_d,
-_a:=5_i+3_i,
-_b:=5_i,
+__a:=5_i+3_i,
+__b:=5_i,
 __d:=5_i,
 __a:=3_i-2_i+5_i,
-if(_d=_f)print('es igual'), else {print('es distinto'),_b:=3_i,_a:=5_i,}end_if
-loop{
-print('es igual'),
-}
-until(_d=_f)
+__if(_d=_f)print('es igual'), else {print('es distinto'),_b:=3_i,_a:=5_i,}end_if
+__loop{
+__print('es igual'),
+__}
+__until(_d=_f)
 __a:=5_i+3_i,
 __print ('casco'),
 __let mut integer _a;_b;*_c,

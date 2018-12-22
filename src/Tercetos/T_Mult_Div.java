@@ -44,7 +44,7 @@ public class T_Mult_Div extends TercetoOperacion {
 
 		if (getTipo() == "integer"){
 			if (operador=="*") {
-				v.add(new String("\r\nMOV EAX, " + op1));
+				v.add(new String("\r\nMOV AX, " + op1));
 				v.add(new String("MUL " + op2));
 				v.add(new String("MOV " + getVarAux() + ", AX"));
 			}else{

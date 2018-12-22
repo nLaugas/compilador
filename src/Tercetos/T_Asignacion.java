@@ -58,12 +58,12 @@ public class T_Asignacion extends Terceto{
 		if(operador=="&"){
 			if (((Symbol) (operando1)).getTipoVar() == "integer") {
 			// el puntero de tipo int
-				v.add(new String("mov ax offset "+op2 ));
-				v.add(new String("mov "+op1+" ax "));
+				v.add(new String("MOV EAX, OFFSET "+op2 ));
+				v.add(new String("MOV "+op1+", EAX"));
 			} else {
 			// el puntero de tipo float
-				v.add(new String("mov eax offset "+op2 ));
-				v.add(new String("mov "+op1+" eax "));
+				v.add(new String("MOV EAX, OFFSET "+op2 ));
+				v.add(new String("MOV "+op1+", EAX"));
 			}
 		}else {
 			if (((Symbol) (operando1)).getTipoVar() == "integer") {
