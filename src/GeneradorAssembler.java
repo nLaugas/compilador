@@ -42,6 +42,7 @@ public class GeneradorAssembler {
 		variables.add(new String("TITULO DB \"Mensaje\" , 0"));
 		variables.add(new String("OVERFLOW_EN_SUMA DB \"Overflow en suma\" , 0"));
 		variables.add(new String("RESULTADO_NEGATIVO_RESTA DB \"Resultado negativo en resta\" , 0"));
+		variables.add(new String("DIVISION_POR_CERO DB \"Division por cero, error de ejecucion\" , 0"));
 		variables.add(new String(""));
 		variables.add(new String("_@cero DW 0,0"));
 		variables.add(new String("_@max_float1 DQ 1.17549435e38"));
@@ -129,6 +130,9 @@ public class GeneradorAssembler {
 		codigo.add(new String("Invoke ExitProcess, 0"));
 		codigo.add(new String("@OVERFLOW_EN_SUMA:"));
 		codigo.add(new String("Invoke MessageBox, NULL, addr OVERFLOW_EN_SUMA, addr OVERFLOW_EN_SUMA, MB_OK"));
+		codigo.add(new String("Invoke ExitProcess, 0"));
+		codigo.add(new String("@DIVISION_POR_CERO:"));
+		codigo.add(new String("Invoke MessageBox, NULL, addr DIVISION_POR_CERO, addr DIVISION_POR_CERO, MB_OK"));
 		codigo.add(new String("Invoke ExitProcess, 0"));
 		codigo.add(new String("EXIT:"));
 		codigo.add(new String("END START"));
