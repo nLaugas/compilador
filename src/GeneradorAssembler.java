@@ -123,6 +123,10 @@ public class GeneradorAssembler {
 		this.codigo.addAll(this.declaracionDeVariables());
 		this.codigo.addAll(codAss);
 		codigo.add(new String("jMP EXIT"));
+
+		codigo.add(new String("@RESULTADO_NEGATIVO_RESTA:"));
+		codigo.add(new String("Invoke MessageBox, NULL, addr RESULTADO_NEGATIVO_RESTA, addr RESULTADO_NEGATIVO_RESTA, MB_OK"));
+		codigo.add(new String("Invoke ExitProcess, 0"));
 		codigo.add(new String("@OVERFLOW_EN_SUMA:"));
 		codigo.add(new String("Invoke MessageBox, NULL, addr OVERFLOW_EN_SUMA, addr OVERFLOW_EN_SUMA, MB_OK"));
 		codigo.add(new String("Invoke ExitProcess, 0"));
