@@ -1,7 +1,11 @@
+__punteros utilizando tipo de dato single
 let mut integer _a;_b;*_c,
-_b:=1_i,
-_a:=1_i,
-_c:=_a,
-if(_b=_a)print('es igual'),else print('es distinto'),end_if
-_c:=1_i+1_i,
-if(_b=_a)print('es igual'),else print('es distinto'),end_if
+_b:=5_i,
+_a:=2_i,
+loop{
+if(_b!=_a)print('es igual'),end_if
+print('dentro del loop'),
+_a:=_a+1_i,
+}
+until(_a=_b)
+print('finalizacion de programa'),

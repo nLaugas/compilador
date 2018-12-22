@@ -72,16 +72,32 @@ public class T_Asignacion extends Terceto{
 
 
 			if (esTerceto(2)){
-				System.out.println("es terceto operando 2");
-				v.add(new String("MOV EAX, OFFSET "+op1 ));
-				v.add(new String("MOV BX, "+ ((Terceto)operando2).getVarAux()));
-				v.add(new String("MOV DWORD PTR [EAX], EBX"));
+				if(((Terceto)operando2).getTipo()=="integer") {
 
+					v.add(new String("MOV EAX, OFFSET " + op1));
+					v.add(new String("MOV BX, " + ((Terceto) operando2).getVarAux()));
+					v.add(new String("MOV DWORD PTR [EAX], EBX"));
+				}else{
+					v.add(new String("MOV EAX, OFFSET " +op1.replace(".","p").replace("-","n")));
+					v.add(new String("MOV EBX, " + ((Terceto) operando2).getVarAux()));
+					v.add(new String("MOV DWORD PTR [EAX], EBX"));
+					// caso float
+				}
 			}
 			else{
 				//CASO EN PUNT := ID
-				v.add(new String("MOV EAX, OFFSET "+((Symbol)operando2).getLexema() ));
-				v.add(new String("MOV "+op1+", AX"));
+				if (((Symbol) (operando1)).getTipoVar() == "integer") {
+					v.add(new String("MOV EAX, OFFSET " + ((Symbol) operando2).getLexema()));
+					v.add(new String("MOV " + op1 + ", AX"));
+				}else{
+					String operan=(((Symbol) operando2).getLexema()).replace(".","p").replace("-","n");
+					if (operan.charAt(0)!='_'){
+						operan="_"+operan;
+					}
+
+					v.add(new String("MOV EAX, OFFSET " +operan));
+					v.add(new String("MOV " + op1 + ", EAX"));
+				}
 				// falta float
 
 			}

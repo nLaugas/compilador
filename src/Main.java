@@ -9,10 +9,15 @@ import java.io.IOException;
 
 public class Main {
 
-    public static void main(String Args[]) throws IOException {
+    public static void main(String Args[]) {
 
-        App a = new App(/*Args[0]*/);
-        a.setVisible(true);
+        App a = null;
+        try {
+            a = new App(/*Args[0]*/); // Eliminar
+            a.setVisible(true);
+        } catch (IOException e) {
+            System.out.println("No se puede crear ejecutable, revise estructura de errores ");
+        }
 
 
     }

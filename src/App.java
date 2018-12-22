@@ -117,6 +117,8 @@ public class App extends JFrame{
 
         while ((cadena = src.readLine()) != null)
           archivo += cadena+"\n";
+          archivo+=  "\n";
+          archivo+=  "\n";
         archivo = archivo.substring(0,archivo.length()-1);
         errors = new Errors();
         final SymbolTable st = new SymbolTable();
@@ -134,17 +136,16 @@ public class App extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 par.run();
-                genAssembler = new GeneradorAssembler(par,st);
-                outFile.tlFile(st,"tablaSimbolos.txt");
+                genAssembler = new GeneradorAssembler(par, st);
+                outFile.tlFile(st, "tablaSimbolos.txt");
                 outFile.tokenFile(par, "token.txt");
-                outFile.structFile(par,"estructurasReconocidas.txt");
-                outFile.errorFiles(errors,"errores.txt");
-                outFile.tercetoFile(par,"terceto.txt");
-                outFile.assemblerFile(genAssembler.getCodigoAssembler(),"assembler.asm");
-
+                outFile.structFile(par, "estructurasReconocidas.txt");
+                outFile.errorFiles(errors, "errores.txt");
+                outFile.tercetoFile(par, "terceto.txt");
+                if (errors.getAll().length() == 0)
+                    outFile.assemblerFile(genAssembler.getCodigoAssembler(), "assembler.asm");
                 String comc = "C:\\masm32\\bin\\ml /c /Zd /coff assembler.asm ";
                 String coml = "C:\\masm32\\bin\\Link /SUBSYSTEM:CONSOLE assembler.obj ";
-
                 Process ptasm32 = null;
                 Process ptlink32 = null;
 
@@ -152,10 +153,8 @@ public class App extends JFrame{
                     ptasm32 = Runtime.getRuntime().exec(comc);
                     ptlink32 = Runtime.getRuntime().exec(coml);
                 } catch (IOException e1) {
-                    e1.printStackTrace();
+                    System.out.println("No se puede crear ejecutable, revise estructura de errores ");
                 }
-                InputStream is = ptasm32.getInputStream();
-                InputStream is2 = ptlink32.getInputStream();
             }
         });
 
