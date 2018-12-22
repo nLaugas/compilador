@@ -1,5 +1,7 @@
 package Tercetos;
 import java.util.Vector;
+
+import AnalizadorSintactico.Parser;
 import SymbolTable.*;
 
 public class T_Asignacion extends Terceto{
@@ -58,22 +60,39 @@ public class T_Asignacion extends Terceto{
 		if(operador=="&"){
 			if (((Symbol) (operando1)).getTipoVar() == "integer") {
 			// el puntero de tipo int
-				v.add(new String("MOV EAX, OFFSET "+op2 ));
-				v.add(new String("MOV "+op1+", EAX"));
+				v.add(new String("MOV AX, OFFSET "+op2 ));
+				v.add(new String("MOV "+op1+", AX"));
 			} else {
 			// el puntero de tipo float
 				v.add(new String("MOV EAX, OFFSET "+op2 ));
 				v.add(new String("MOV "+op1+", EAX"));
 			}
-		}else {
-			if (((Symbol) (operando1)).getTipoVar() == "integer") {
-				v.add(new String("\r\nMOV AX, " + op2));
-				v.add(new String("MOV " + op1 + " ,AX")); //aca va varAux o op1?
-			} else {
-				v.add(new String("\r\nFLD " + op2.replace(".", "p").replace("-", "n")));
-				v.add(new String("FSTP " + op1));
+		}else if(((Symbol) (operando1)).isEsPuntero()){
+			// en op2 tengo el elemento que necesito de la tabla de simbolos
+
+
+			if (esTerceto(2)){
+				System.out.println("es terceto operando 2");
+				v.add(new String("MOV EAX, OFFSET "+op1 ));
+				v.add(new String("MOV DWORD PTR [EAX], "+((Terceto)operando2).getVarAux()));
+
 			}
-		}
+			else{
+				//CASO EN PUNT := ID
+				v.add(new String("MOV AX, OFFSET "+((Symbol)operando2).getLexema() ));
+				v.add(new String("MOV "+op1+", AX"));
+				// falta float
+
+			}
+		}else {
+				if (((Symbol) (operando1)).getTipoVar() == "integer") {
+					v.add(new String("\r\nMOV AX, " + op2));
+					v.add(new String("MOV " + op1 + " ,AX")); //aca va varAux o op1?
+				} else {
+					v.add(new String("\r\nFLD " + op2.replace(".", "p").replace("-", "n")));
+					v.add(new String("FSTP " + op1));
+				}
+			}
 		return v;
 }
 	@Override

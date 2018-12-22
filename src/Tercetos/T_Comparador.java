@@ -81,8 +81,8 @@ public class T_Comparador extends Terceto{
 			v.add(new String("CMP AX, " + op2));
 		}
 		else {
-			v.add(new String("\r\nFLD " +op1));
-			v.add(new String("\r\nFLD " +op2));
+			v.add(new String("\r\nFLD " +op1.replace(".","p").replace("-","n")));
+			v.add(new String("\r\nFLD " +op2.replace(".","p").replace("-","n")));
 			v.add(new String("\r\nFCOMP"));
 		}
 		return v;

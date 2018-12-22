@@ -1,7 +1,9 @@
 let mut integer _a;_b;*_c,
-_a:=4_i,
-_b:=2_i*2_i,
-if(_a=_b)print('es igual'),else print('es distinto'),end_if
+_b:=1_i,
+_a:=1_i,
+_c:=_a,
+_c:=1_i+1_i,
+if(_b=_a)print('es igual'),else print('es distinto'),end_if
 __let integer *_g := & _a,
 __if(_a=1_i)print('es igual'),else print('es distinto'),end_if
 __a:=5_i,
