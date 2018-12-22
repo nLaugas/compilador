@@ -46,12 +46,12 @@ public class T_Mult_Div extends TercetoOperacion {
 			if (operador=="*") {
 				v.add(new String("\r\nMOV EAX, " + op1));
 				v.add(new String("MUL " + op2));
-				v.add(new String("MOV " + getVarAux() + "AX"));
+				v.add(new String("MOV " + getVarAux() + ", AX"));
 			}else{
 				//para la division
 				v.add(new String("\r\nMOV AX, " + op1));
-				v.add(new String("DIV" + op2));
-				v.add(new String("MOV " + getVarAux() + "AX"));
+				v.add(new String("DIV " + op2));
+				v.add(new String("MOV " + getVarAux() + ", AX"));
 				//listoo
 			}
 		}
