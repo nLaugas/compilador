@@ -51,9 +51,11 @@ public class T_Mult_Div extends TercetoOperacion {
 			}else{
 				//para la division
 				v.add(new String("\r\nMOV AX, " + op1));
+				v.add(new String("CMP " + op2 +", 0"));
+				v.add(new String("JE @DIVISION_POR_CERO"));
 				v.add(new String("DIV " + op2));
 				v.add(new String("MOV " + getVarAux() + ", AX"));
-				v.add(new String("JZ @DIVISION_POR_CERO"));
+				//v.add(new String("JZ @DIVISION_POR_CERO"));
 				v.add("\n");
 				//listoo
 			}
@@ -68,6 +70,8 @@ public class T_Mult_Div extends TercetoOperacion {
 			}else{
 				//para la division
 				v.add(new String("\r\nFILD "+op1));
+				v.add(new String("CMP " + op2 +", 0"));
+				v.add(new String("JE @DIVISION_POR_CERO"));
 				v.addElement(new String("FDIV "+op2));
 				v.addElement(new String("FSTP "+ getVarAux()));
 				v.add(new String("JZ @DIVISION_POR_CERO"));
