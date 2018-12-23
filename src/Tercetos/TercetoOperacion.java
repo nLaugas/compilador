@@ -34,7 +34,7 @@ public abstract class TercetoOperacion extends Terceto{
 		if (tipo2 != tipo1) {
 			errores.add("Hay una incompatibilidad de tipo, entre " + operando1.toString() + " de tipo " +
 					tipo1 + ", y " + operando2.toString() + " de tipo " + tipo2);
-			System.out.println("El tipo1 es : "+tipo1+" El tipo 2 es : "+tipo2);
+
 		}
 
 

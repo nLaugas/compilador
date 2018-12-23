@@ -63,9 +63,7 @@ public class GeneradorAssembler {
 			//entrada = e.elementAt(i);
 			if (tabla.getSymbol(lexema).getTipo() == 261) // tipo ID
 			{
-				if (tabla.getSymbol(lexema).isEsPuntero()) {
-					System.out.println("es un puntero : " + lexema);
-				}
+
 				if (tabla.getSymbol(lexema).getTipoVar().equals("single"))
 					variables.add(new String(lexema + " DD ?")); // resservo espacio para float
 				else
