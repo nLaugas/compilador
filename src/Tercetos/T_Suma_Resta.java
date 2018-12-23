@@ -46,15 +46,15 @@ public class T_Suma_Resta extends TercetoOperacion {
 	 	if (operador=="+") {
 			v.add(new String("\r\nMOV AX, " + op1));
 			v.add(new String("ADD AX, " + op2));
-			v.add(new String("MOV " + getVarAux() + " ,AX"));
 			v.add(new String("JO @OVERFLOW_EN_SUMA"));
+			v.add(new String("MOV " + getVarAux() + " ,AX"));
 			v.add("\n");
 		}else{
 	 		//para la resta
 			v.add(new String("\r\nMOV AX, " + op1));
 			v.add(new String("SUB AX, " + op2));
-			v.add(new String("MOV " + getVarAux() + " ,AX"));
 			v.add(new String("JS @RESULTADO_NEGATIVO_RESTA "));
+			v.add(new String("MOV " + getVarAux() + " ,AX"));
 			v.add("\n");
 		 }
 		}
@@ -63,6 +63,7 @@ public class T_Suma_Resta extends TercetoOperacion {
 			 v.add(new String("\r\nFLD " + op1));
 			 v.add(new String("FLD " + op2));
 			 v.add(new String("FADD"));
+			 v.add(new String("JO @OVERFLOW_EN_SUMA")); //verificar si es el mismo flag
 			 v.add(new String("FSTP " + getVarAux()));
 			 v.add("\n");
 		 }else{
@@ -70,6 +71,7 @@ public class T_Suma_Resta extends TercetoOperacion {
 			 v.add(new String("\r\nFLD " + op1));
 			 v.add(new String("FLD " + op2));
 			 v.add(new String("FSUB"));
+			 v.add(new String("JS @RESULTADO_NEGATIVO_RESTA "));
 			 v.add(new String("FSTP " + getVarAux()));
              v.add("\n");
 		 }
