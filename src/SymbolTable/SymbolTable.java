@@ -58,6 +58,11 @@ public class SymbolTable {
         setAtributo("-"+aux.getLexema(),"=>",aux.getAtributo("=>"));
         productor.add("-"+aux.getLexema());
     }
+    public void addcambiarSigno(String aux){
+        tb.put("-"+aux,new Symbol("-"+this.getSymbol(aux).getLexema(),this.getSymbol(aux).getTipo()));
+        setAtributo("-"+this.getSymbol(aux).getLexema(),"=>",this.getSymbol(aux).getAtributo("=>"));
+        productor.add("-"+this.getSymbol(aux).getLexema());
+    }
     public void setAtributo(String lexema, String atributo, Object valor){
         if (tb.containsKey(lexema))
             tb.get(lexema).setAtributos(atributo,valor);

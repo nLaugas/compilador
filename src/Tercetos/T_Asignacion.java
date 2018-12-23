@@ -12,17 +12,16 @@ public class T_Asignacion extends Terceto{
 		String tipo1,tipo2;
 		if (esTerceto(1)) {
 			tipo1 = ((Terceto) operando1).getTipo();
-			System.out.println("es terceto operando 1");
+
 		}
 		else
 			tipo1 =  ((Symbol)operando1).getTipoVar();//revisar la parte de (String)operando1 (tiene que ser el lexema)
 		if (esTerceto(2)){
 			tipo2 =((Terceto)operando2).getTipo();
-			System.out.println("es terceto operando 2");}
+			}
 		else
 			tipo2 =  ((Symbol)operando2).getTipoVar();
 
-		System.out.println("tipo1 : "+tipo1+"tipo2 : "+tipo2);
 
 		if (tipo1 == "single" || tipo2 == "single")
 			tipo = "single";
