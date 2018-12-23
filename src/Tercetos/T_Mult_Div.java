@@ -74,7 +74,7 @@ public class T_Mult_Div extends TercetoOperacion {
 				v.add(new String("JE @DIVISION_POR_CERO"));
 				v.addElement(new String("FDIV "+op2));
 				v.addElement(new String("FSTP "+ getVarAux()));
-				v.add(new String("JZ @DIVISION_POR_CERO"));
+				//v.add(new String("JZ @DIVISION_POR_CERO")); nose porque no anda el flag jz
 				v.add("\n");
 				//listo
 			}
