@@ -1,5 +1,8 @@
-__punteros utilizando tipo de dato single
-let mut single _a;_b;*_c,
-_b:=-1.0,
-_a:=2.0,
+let mut integer _a;_b;*_c,
+_b:=1_i,
+_a:=1_i,
+_c:=_a,
 if(_b=_a)print('es igual'),else print('es distinto'),end_if
+_c:=2_i,
+if(_b=_a)print('es igual'),else print('es distinto'),end_if
+print('fin de programa'),

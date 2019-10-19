@@ -69,7 +69,6 @@ public class T_Asignacion extends Terceto{
 		}else if(((Symbol) (operando1)).isEsPuntero()){
 			// en op2 tengo el elemento que necesito de la tabla de simbolos
 
-
 			if (esTerceto(2)){
 				if(((Terceto)operando2).getTipo()=="integer") {
 
@@ -83,23 +82,33 @@ public class T_Asignacion extends Terceto{
 					// caso float
 				}
 			}
-			else{
-				//CASO EN PUNT := ID
-				if (((Symbol) (operando1)).getTipoVar() == "integer") {
-					v.add(new String("MOV EAX, OFFSET " + ((Symbol) operando2).getLexema()));
-					v.add(new String("MOV " + op1 + ", AX"));
-				}else{
-					String operan=(((Symbol) operando2).getLexema()).replace(".","p").replace("-","n");
-					if (operan.charAt(0)!='_'){
-						operan="_"+operan;
+			else {
+
+				System.out.println("tipo de variable "+((Symbol) (operando2)).getTipo());
+
+				if (((Symbol) (operando2)).getTipo()==275) {
+				// CASO QUE SEA CONSTANTE
+					v.add(new String("MOV EAX, OFFSET " + op1));
+					String addlist = "MOV BX, " + op2;
+					v.add(addlist);
+					v.add(new String("MOV DWORD PTR [EAX], EBX"));
+				} else{
+					//CASO EN PUNT := ID
+					if (((Symbol) (operando1)).getTipoVar() == "integer") {
+
+							v.add(new String("MOV EAX, OFFSET " + ((Symbol) operando2).getLexema()));
+							v.add(new String("MOV " + op1 + ", AX"));
+					} else {
+						String operan = (((Symbol) operando2).getLexema()).replace(".", "p").replace("-", "n");
+						if (operan.charAt(0) != '_') {
+							operan = "_" + operan;
+						}
+
+						v.add(new String("MOV EAX, OFFSET " + operan));
+						v.add(new String("MOV " + op1 + ", EAX"));
 					}
-
-					v.add(new String("MOV EAX, OFFSET " +operan));
-					v.add(new String("MOV " + op1 + ", EAX"));
-				}
-				// falta float
-
-			}
+			    }
+			}	// float ya contemplado
 		}else {
 				if (((Symbol) (operando1)).getTipoVar() == "integer") {
 					v.add(new String("\r\nMOV AX, " + op2));
