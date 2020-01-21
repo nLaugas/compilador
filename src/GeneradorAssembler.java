@@ -51,6 +51,7 @@ public class GeneradorAssembler {
 		variables.add(new String("_@min_float2 DQ -3.40282347e-38"));
 		variables.add(new String("_@max_integer DD 32768"));
 		variables.add(new String("_@min_integer DD -32768"));
+		variables.add(new String("_memaux DW ?"));
 
 		int cant = 1;
 		int cant2 = 1;

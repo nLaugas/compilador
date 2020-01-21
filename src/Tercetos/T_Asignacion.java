@@ -49,8 +49,6 @@ public class T_Asignacion extends Terceto{
 			op2 = ((Terceto)operando2).getVarAux(); }
 		else {
 			op2 = ((Symbol)(operando2)).getLexema();
-
-
 			Character a = op2.charAt(0);
 			//a = op2.charAt(0);
 			if (Character.isDigit(a))
@@ -83,15 +81,21 @@ public class T_Asignacion extends Terceto{
 				}
 			}
 			else {
-
-				System.out.println("tipo de variable "+((Symbol) (operando2)).getTipo());
-
-				if (((Symbol) (operando2)).getTipo()==275) {
+				if (((Symbol) (operando2)).getTipo()==275 /*|| ((Symbol) (operando2)).getTipo()==276*/) {
 				// CASO QUE SEA CONSTANTE
-					v.add(new String("MOV EAX, OFFSET " + op1));
-					String addlist = "MOV BX, " + op2;
-					v.add(addlist);
-					v.add(new String("MOV DWORD PTR [EAX], EBX"));
+					if (((Symbol) (operando2)).getTipo()==275){
+						v.add(new String("MOV EAX, OFFSET " + op1));
+						String addlist = "MOV BX, " + op2;
+						v.add(addlist);
+						v.add(new String("MOV DWORD PTR [EAX], EBX"));
+					}else{
+						// CASO CONSTANTE FLOAT
+						v.add(new String("MOV EAX, OFFSET " +op1.replace(".","p").replace("-","n")));
+						String addlist = "MOV BX, " + op2;
+						v.add(addlist);
+						v.add(new String("MOV DWORD PTR [EAX], EBX"));
+
+					}
 				} else{
 					//CASO EN PUNT := ID
 					if (((Symbol) (operando1)).getTipoVar() == "integer") {
