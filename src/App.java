@@ -136,12 +136,14 @@ public class App extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 par.run();
-                genAssembler = new GeneradorAssembler(par, st);
+
                 outFile.tlFile(st, "tablaSimbolos.txt");
                 outFile.tokenFile(par, "token.txt");
                 outFile.structFile(par, "estructurasReconocidas.txt");
                 outFile.errorFiles(errors, "errores.txt");
                 outFile.tercetoFile(par, "terceto.txt");
+                genAssembler = new GeneradorAssembler(par, st);
+                outFile.tercetoFile(genAssembler.getTercetosOptimizado(),"tercetoOptimizado.txt");
                 if (errors.getAll().length() == 0)
                     outFile.assemblerFile(genAssembler.getCodigoAssembler(), "assembler.asm");
                 String comc = "C:\\masm32\\bin\\ml /c /Zd /coff assembler.asm ";

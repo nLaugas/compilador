@@ -8,6 +8,7 @@ import Tercetos.Terceto;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class OutFile {
@@ -61,6 +62,14 @@ public class OutFile {
     public void tercetoFile(Parser par, String ruta){
         String out = new String();
         for(Terceto t : par.listaTercetos){
+            out+=t.toString()+"\n";
+        }
+        this.crear(out,ruta);
+    }
+
+    public void tercetoFile(ArrayList<Terceto> tercetos, String ruta){
+        String out = new String();
+        for(Terceto t : tercetos){
             out+=t.toString()+"\n";
         }
         this.crear(out,ruta);

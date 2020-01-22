@@ -1,8 +1,22 @@
-let mut integer _a;_b;*_c,
-_b:=1_i,
-_a:=1_i,
-_c:=_a,
-if(_b=_a)print('es igual'),else print('es distinto'),end_if
-_c:=2_i,
-if(_b=_a)print('es igual'),else print('es distinto'),end_if
-print('fin de programa'),
+let mut integer _a;_b;_d;_c;_e;_f;_x,
+_x:=_a*_b*_c+_e*_f+_d*_b*_c,
+__a:=1_i,
+__c:=_a,
+__b:=1_i,
+__d:=2_i,
+__if(_b=_a)print('es igual'),else print('es distinto'),end_if
+__c:=2_i,
+__a:=_b,
+__if(_b=_a)print('es igual'),else print('es distinto'),end_if
+__print('fin de programa'),
+__punteros utilizando tipo de dato single
+__let mut single _a;_b;*_c,
+__let mut integer _p,
+__b:=2.0F3,
+__a:=2.0F3,
+__c:=_a,
+__if(_b=_a)print('es igual'),else print('es distinto'),end_if
+__a:=12.F1,
+__a:=2.0F3,
+__if(_b=_a)print('es igual'),else print('es distinto'),end_if
+print('finalizacion de programa'),

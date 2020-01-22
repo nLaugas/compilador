@@ -11,6 +11,7 @@ public class GeneradorAssembler {
 
 	private Parser parser;
 	private ArrayList<Terceto> tercetos;
+	private ArrayList<Terceto> tercetosOptimizado;
 	private SymbolTable tabla;
 	private Vector<String> codAss;
 	private Vector<String> codigo;
@@ -20,8 +21,62 @@ public class GeneradorAssembler {
 		parser = p;
 		//tercetos = parser.getTercetos();
 		tercetos = p.listaTercetos;
+		// revisar si anda bien el clone
+		tercetosOptimizado = this.redundanciaSimple((ArrayList<Terceto>) p.listaTercetos.clone());
 		tabla = ts;
 	}
+
+	private ArrayList<Terceto> redundanciaSimple(ArrayList<Terceto> ter){
+		ArrayList<Terceto> out = new ArrayList<>();
+
+		// ver si recorro ter o tercetos
+
+		int tam= ter.size();
+
+		for (int i = 0; i<tam; i++){
+			Terceto t1 = ter.get(i);
+
+			for (int j = i; j<tam; j++){
+				Terceto t2 = ter.get(j);
+
+		//for (Terceto t1 : ter){
+		//	for (Terceto t2 : ter){
+
+				if ( t1.getnum() != t2.getnum() ){
+					String t1part = t1.toString().substring(4,t1.toString().length()-1);
+					String t2part = t2.toString().substring(4,t2.toString().length()-1);
+
+
+					if (t1part.equals(t2part)){
+						System.out.println(" Encontro coincidencia en : "+t1part+ "  "+t2part);
+					/** Tereceto redundancia **/
+						for (Terceto tAux : ter){
+								/** solo necesito tercetos**/
+								if (tAux.esTerceto(1)){
+									if (((Terceto)tAux.getOperando1()).getnum() == t2.getnum()){
+										/** Seteo el terceto */
+										System.out.println("encontro en : " + ((Terceto)tAux.getOperando1()).getnum() );
+										tAux.setOperando1(t1);
+
+									}
+								}
+
+								if (tAux.esTerceto(2)){
+									if (((Terceto)tAux.getOperando2()).getnum() == t2.getnum()){
+										/** Seteo el terceto */
+										System.out.println("encontro 2 en : " + ((Terceto)tAux.getOperando2()).getnum() );
+										tAux.setOperando2(t1);
+									}
+								}
+						}
+					}
+				}
+
+			}
+		}
+		return  ter;
+	}
+
 	private Vector<String> inicializacion() {
 		Vector<String> inicializacion = new Vector<String>();
 		inicializacion.add(new String(".386"));
@@ -106,6 +161,11 @@ public class GeneradorAssembler {
 
 		return variables;
 	}
+
+	public ArrayList<Terceto> getTercetosOptimizado(){
+		return this.tercetosOptimizado;
+	}
+
 	public Vector<String> getCodigoAssembler()
 	{
 		codAss = new Vector<String>();
