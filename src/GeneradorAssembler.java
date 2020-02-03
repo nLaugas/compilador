@@ -2,6 +2,8 @@ import AnalizadorSintactico.*;
 import SymbolTable.SymbolTable;
 import Tercetos.Terceto;
 
+import java.util.Enumeration;
+import java.util.Set;
 import java.util.Vector;
 import java.util.ArrayList;
 
@@ -22,6 +24,9 @@ public class GeneradorAssembler {
 		//tercetos = parser.getTercetos();
 		tercetos = p.listaTercetos;
 		// revisar si anda bien el clone
+
+		//System.out.println("optimizando");
+		//this.optimizaTercetos();
 		tercetosOptimizado = this.redundanciaSimple((ArrayList<Terceto>) p.listaTercetos.clone());
 		tabla = ts;
 	}
@@ -138,7 +143,7 @@ public class GeneradorAssembler {
 				else
 					variables.add(new String("_"+lexema  + " DD ?"));
 			}else if(tabla.getSymbol(lexema).getTipo() == 276){//tipo float
-				variables.add(new String("_"+lexema.replace(".","p").replace("-","n")  + " DD "+lexema));
+				variables.add(new String("_"+lexema.replace(".","p").replace("-","n")  + " DD "+lexema.replace("p",".")));
 			}
 
 
@@ -166,6 +171,7 @@ public class GeneradorAssembler {
 		return this.tercetosOptimizado;
 	}
 
+
 	public Vector<String> getCodigoAssembler()
 	{
 		codAss = new Vector<String>();
@@ -173,6 +179,7 @@ public class GeneradorAssembler {
 		codAss.add(new String(".CODE"));
 		codAss.add(new String("START:"));
 		for (Terceto t: tercetos){
+			//System.out.println("LA LONGUITUD DE LA LISTA para reemplazo es  ES : "+ t.reemplazoTercetoOptimizar.size());
 			if (((String) t.getOperador()).equals("BF")){
 				tercetos.get((int)t.getOperando2()).setLabel();}
 			if ((t.getLabel()!="") && ((t.getOperador() != "FIN_DE_SALTO") || (t.getOperador() != "FIN_CASE")))
@@ -197,4 +204,5 @@ public class GeneradorAssembler {
 		codigo.add(new String("END START"));
 		return codigo;
 	}
+
 }

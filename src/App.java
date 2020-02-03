@@ -8,6 +8,7 @@ import AnalizadorSintactico.Parser;
 import Errors.Errors;
 import SymbolTable.SymbolTable;
 import SymbolTable.SymbolTable;
+import Tercetos.Terceto;
 
 import java.io.*;
 import java.awt.*;
@@ -16,9 +17,12 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
 
 
 public class App extends JFrame{
+
 
     private JPanel panel1;
     private JTextArea textArea2;
@@ -108,6 +112,36 @@ public class App extends JFrame{
     }
 
 
+
+    public void optimizaTercetos(ArrayList<Terceto> tercetos) {
+        System.out.println("optimizando");
+
+        int tam= tercetos.size();
+
+        for (int i = 0; i<tam; i++) {
+            Terceto t = tercetos.get(i);
+
+            //marcar para eliminar
+            if (t.reemplazoTercetoOptimizar.containsKey(t.getnum())){
+                // estoy en un terceto a eliminar o marcar como eliminar
+                System.out.println("este terceto se puede eliminar " + t.getnum());
+                t.setnum(999);
+
+            }
+            // ver si eliminar primer operador
+            if (t.esTerceto(1) && t.reemplazoTercetoOptimizar.containsKey(((Terceto)t.operando1).getnum()) ){
+                System.out.println("este terceto se puede eliminar componente 1 " + t.getnum());
+            }
+
+            //ver si eliminar segundo operador
+            if (t.esTerceto(2) && t.reemplazoTercetoOptimizar.containsKey(((Terceto)t.operando2).getnum()) ){
+                System.out.println("este terceto se puede eliminar componente 2 " + t.getnum());
+
+            }
+        }
+
+    }
+
     public App(/*String srcCode*/)  throws IOException {
 
        String srcCode ="srcCode"; /**Eliminar para compilar**/
@@ -137,15 +171,29 @@ public class App extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 par.run();
 
+                try{ Thread.sleep(100); } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+
+
                 outFile.tlFile(st, "tablaSimbolos.txt");
                 outFile.tokenFile(par, "token.txt");
                 outFile.structFile(par, "estructurasReconocidas.txt");
                 outFile.errorFiles(errors, "errores.txt");
+
+                optimizaTercetos(par.listaTercetos);
                 outFile.tercetoFile(par, "terceto.txt");
                 genAssembler = new GeneradorAssembler(par, st);
+               // genAssembler.optimizaTercetos();
+
                 outFile.tercetoFile(genAssembler.getTercetosOptimizado(),"tercetoOptimizado.txt");
-                if (errors.getAll().length() == 0)
+                if (errors.getAll().length() == 0){
+                    //optimizaTercetos(par.listaTercetos);
                     outFile.assemblerFile(genAssembler.getCodigoAssembler(), "assembler.asm");
+                    outFile.tercetoFile(genAssembler.getTercetosOptimizado(),"tercetoOptimizado.txt");
+
+                }
+
                 String comc = "C:\\masm32\\bin\\ml /c /Zd /coff assembler.asm ";
                 String coml = "C:\\masm32\\bin\\Link /SUBSYSTEM:CONSOLE assembler.obj ";
                 Process ptasm32 = null;

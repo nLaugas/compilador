@@ -66,6 +66,7 @@ public class Symbol {
         this.esPuntero=esPuntero;
         this.mutivalidadApuntado=mutivalidadApuntado;
         atributos=new Hashtable<>();
+        System.out.println("en constructor de Symbol, el tipo es : "+this.tipo + " "+ this.tipoVar);
     }
 
     @Override

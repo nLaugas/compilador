@@ -1,11 +1,16 @@
 package Tercetos;
-import java.util.Vector;
+import java.util.*;
+
 import SymbolTable.*;
 
 public abstract class Terceto {
+	public static boolean OperacionConstante = false;
 	public Object operando1;
 	public Object operando2;
 	public String operador;
+	public static Map reemplazoTercetoOptimizar = Collections.synchronizedMap(new HashMap<Integer,Object>());
+
+	//public static synchronizedMap<Integer,Object> reemplazoTercetoOptimizar= new synchronizedMap<Integer,Object>();
 	public int num; //numero de terceto, arrancando en 0 o 1?
 	public String varAux;//   tendria que ser el resultado de la operacion? eso que dijo marcela de los cuartetos ficticios
 	// habria que agregarla a la tabla de simbolos?
@@ -25,6 +30,15 @@ public abstract class Terceto {
 		this.varAux="";
 		this.ts = ts;
 		this.errores = new Vector<String>();
+
+/*		Enumeration e = this.reemplazoTercetoOptimizar.keys();
+		Object clave;
+		Object valor;
+		while( e.hasMoreElements() ){
+			clave = e.nextElement();
+			valor = this.reemplazoTercetoOptimizar.get( clave );
+			System.out.println( "Clave : " + clave + " - Valor : " + valor );
+		}*/
 	}
 
 	//public void getAssembler();
