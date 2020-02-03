@@ -8,7 +8,7 @@ public abstract class Terceto {
 	public Object operando1;
 	public Object operando2;
 	public String operador;
-	public static Map reemplazoTercetoOptimizar = Collections.synchronizedMap(new HashMap<Integer,Object>());
+	public static Hashtable reemplazoTercetoOptimizar = new Hashtable<Integer,Object>();
 
 	//public static synchronizedMap<Integer,Object> reemplazoTercetoOptimizar= new synchronizedMap<Integer,Object>();
 	public int num; //numero de terceto, arrancando en 0 o 1?

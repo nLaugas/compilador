@@ -1,13 +1,10 @@
 import javax.swing.*;
-import javax.swing.event.DocumentListener;
-import javax.swing.event.UndoableEditListener;
-import javax.swing.text.*;
+
 
 import AnalizadorLexico.LexicalAnalyzer;
 import AnalizadorSintactico.Parser;
 import Errors.Errors;
-import SymbolTable.SymbolTable;
-import SymbolTable.SymbolTable;
+import SymbolTable.*;
 import Tercetos.Terceto;
 
 import java.io.*;
@@ -121,24 +118,47 @@ public class App extends JFrame{
         for (int i = 0; i<tam; i++) {
             Terceto t = tercetos.get(i);
 
-            //marcar para eliminar
-            if (t.reemplazoTercetoOptimizar.containsKey(t.getnum())){
-                // estoy en un terceto a eliminar o marcar como eliminar
-                System.out.println("este terceto se puede eliminar " + t.getnum());
-                t.setnum(999);
-
-            }
+            int tipo;
             // ver si eliminar primer operador
             if (t.esTerceto(1) && t.reemplazoTercetoOptimizar.containsKey(((Terceto)t.operando1).getnum()) ){
                 System.out.println("este terceto se puede eliminar componente 1 " + t.getnum());
+               if (((Terceto)t.getOperando1()).getTipo().equals("single")){
+                   tipo = 276;
+                }else{
+                   tipo = 275;
+               }
+                t.setOperando1(new Symbol(t.reemplazoTercetoOptimizar.get(((Terceto)t.operando1).getnum()).toString(),tipo ));
             }
 
             //ver si eliminar segundo operador
             if (t.esTerceto(2) && t.reemplazoTercetoOptimizar.containsKey(((Terceto)t.operando2).getnum()) ){
                 System.out.println("este terceto se puede eliminar componente 2 " + t.getnum());
+                if (((Terceto)t.getOperando2()).getTipo().equals("single")){
+                    tipo = 276;
+                }else{
+                    tipo = 275;
+                }
+                t.setOperando2(new Symbol(t.reemplazoTercetoOptimizar.get(((Terceto)t.operando2).getnum()).toString(),tipo ));
+            }
+
+            //marcar para eliminar
+            if (t.reemplazoTercetoOptimizar.containsKey(t.getnum())){
+                // estoy en un terceto a eliminar o marcar como eliminar
+                System.out.println("este terceto se puede eliminar " + t.getnum());
+                //t.setnum(999);
 
             }
         }
+
+        Enumeration e = tercetos.get(0).reemplazoTercetoOptimizar.keys();
+		Object clave;
+		Object valor;
+		while( e.hasMoreElements() ){
+			clave = e.nextElement();
+			valor = tercetos.get(0).reemplazoTercetoOptimizar.get( clave );
+			System.out.println( "Clave : " + clave + " - Valor : " + valor );
+			tercetos.get((Integer) clave).setnum(999);
+		}
 
     }
 

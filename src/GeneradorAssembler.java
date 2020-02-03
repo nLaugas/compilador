@@ -179,12 +179,16 @@ public class GeneradorAssembler {
 		codAss.add(new String(".CODE"));
 		codAss.add(new String("START:"));
 		for (Terceto t: tercetos){
-			//System.out.println("LA LONGUITUD DE LA LISTA para reemplazo es  ES : "+ t.reemplazoTercetoOptimizar.size());
-			if (((String) t.getOperador()).equals("BF")){
-				tercetos.get((int)t.getOperando2()).setLabel();}
-			if ((t.getLabel()!="") && ((t.getOperador() != "FIN_DE_SALTO") || (t.getOperador() != "FIN_CASE")))
-				codAss.add(new String(t.getLabel()));
-			codAss.addAll(t.getAssembler());
+			if (t.getnum()!=999)
+			{
+				//System.out.println("LA LONGUITUD DE LA LISTA para reemplazo es  ES : "+ t.reemplazoTercetoOptimizar.size());
+				if (((String) t.getOperador()).equals("BF")) {
+					tercetos.get((int) t.getOperando2()).setLabel();
+				}
+				if ((t.getLabel() != "") && ((t.getOperador() != "FIN_DE_SALTO") || (t.getOperador() != "FIN_CASE")))
+					codAss.add(new String(t.getLabel()));
+				codAss.addAll(t.getAssembler());
+			}
 		}
 		this.codigo = this.inicializacion();
 		this.codigo.addAll(this.declaracionDeVariables());
