@@ -10,6 +10,28 @@ public class T_Asignacion extends Terceto{
 	public T_Asignacion(int nro, String operador, Object operando1, Object operando2, SymbolTable ts){
 		super(nro,operador,operando1,operando2,ts);
 		String tipo1,tipo2;
+		String opAusar1;
+		String opAusar2;
+
+		/** Reconoce puntero **/
+
+		if (operador.equals("&")){
+
+			opAusar1 = ((Symbol)(operando1)).getLexema();
+			Character a = opAusar1.charAt(0);
+			//a = op2.charAt(0);
+			if (Character.isDigit(a))
+				opAusar1 = "_" + opAusar1;
+
+			opAusar2 = ((Symbol)(operando2)).getLexema();
+			Character a2 = opAusar2.charAt(0);
+			//a = op2.charAt(0);
+			if (Character.isDigit(a2))
+				opAusar2 = "_" + opAusar2;
+		ts.setAtributo(opAusar1,"IdUsar",opAusar2);
+			System.out.println(" El ID es : "+((Symbol)operando1).getAtributo("IdUsar"));
+		}
+
 		if (esTerceto(1)) {
 			tipo1 = ((Terceto) operando1).getTipo();
 
@@ -54,8 +76,9 @@ public class T_Asignacion extends Terceto{
 			if (Character.isDigit(a))
 				op2 = "_" + op2;
 		}
-		if(operador=="&"){
-			if (((Symbol) (operando1)).getTipoVar() == "integer") {
+		if(operador.equals("&")){
+			v.add(new String(""));
+/*			if (((Symbol) (operando1)).getTipoVar() == "integer") {
 			// el puntero de tipo int
 				v.add(new String("MOV EAX, OFFSET "+op2 ));
 				v.add(new String("MOV "+op1+", AX"));
@@ -63,57 +86,65 @@ public class T_Asignacion extends Terceto{
 			// el puntero de tipo float
 				v.add(new String("MOV EAX, OFFSET "+op2 ));
 				v.add(new String("MOV "+op1+", EAX"));
-			}
-		}else if(((Symbol) (operando1)).isEsPuntero()){
-			// en op2 tengo el elemento que necesito de la tabla de simbolos
+			}*/
+		}
 
-			if (esTerceto(2)){
-				if(((Terceto)operando2).getTipo()=="integer") {
+		else {
+			if (((Symbol) (operando1)).isEsPuntero()) {
+	/*
+				// en op2 tengo el elemento que necesito de la tabla de simbolos
 
-					v.add(new String("MOV EAX, OFFSET " + op1));
-					v.add(new String("MOV BX, " + ((Terceto) operando2).getVarAux()));
-					v.add(new String("MOV DWORD PTR [EAX], EBX"));
-				}else{
-					v.add(new String("MOV EAX, OFFSET " +op1.replace(".","p").replace("-","n")));
-					v.add(new String("MOV EBX, " + ((Terceto) operando2).getVarAux()));
-					v.add(new String("MOV DWORD PTR [EAX], EBX"));
-					// caso float
-				}
-			}
-			else {
-				if (((Symbol) (operando2)).getTipo()==275 /*|| ((Symbol) (operando2)).getTipo()==276*/) {
-				// CASO QUE SEA CONSTANTE
-					if (((Symbol) (operando2)).getTipo()==275){
+				if (esTerceto(2)) {
+					if (((Terceto) operando2).getTipo() == "integer") {
+
 						v.add(new String("MOV EAX, OFFSET " + op1));
-						String addlist = "MOV BX, " + op2;
-						v.add(addlist);
+						v.add(new String("MOV BX, " + ((Terceto) operando2).getVarAux()));
 						v.add(new String("MOV DWORD PTR [EAX], EBX"));
-					}else{
-						// CASO CONSTANTE FLOAT
-						v.add(new String("MOV EAX, OFFSET " +op1.replace(".","p").replace("-","n")));
-						String addlist = "MOV BX, " + op2;
-						v.add(addlist);
+					} else {
+						v.add(new String("MOV EAX, OFFSET " + op1.replace(".", "p").replace("-", "n")));
+						v.add(new String("MOV EBX, " + ((Terceto) operando2).getVarAux()));
 						v.add(new String("MOV DWORD PTR [EAX], EBX"));
-
+						// caso float
 					}
-				} else{
-					//CASO EN PUNT := ID
-					if (((Symbol) (operando1)).getTipoVar() == "integer") {
+				} else {
+					if (((Symbol) (operando2)).getTipo() == 275 *//*|| ((Symbol) (operando2)).getTipo()==276*//*) {
+						// CASO QUE SEA CONSTANTE
+						if (((Symbol) (operando2)).getTipo() == 275) {
+							v.add(new String("MOV EAX, OFFSET " + op1));
+							String addlist = "MOV BX, " + op2;
+							v.add(addlist);
+							v.add(new String("MOV DWORD PTR [EAX], EBX"));
+						} else {
+							// CASO CONSTANTE FLOAT
+							v.add(new String("MOV EAX, OFFSET " + op1.replace(".", "p").replace("-", "n")));
+							String addlist = "MOV BX, " + op2;
+							v.add(addlist);
+							v.add(new String("MOV DWORD PTR [EAX], EBX"));
+
+						}
+					} else {
+						//CASO EN PUNT := ID
+						if (((Symbol) (operando1)).getTipoVar() == "integer") {
 
 							v.add(new String("MOV EAX, OFFSET " + ((Symbol) operando2).getLexema()));
 							v.add(new String("MOV " + op1 + ", AX"));
-					} else {
-						String operan = (((Symbol) operando2).getLexema()).replace(".", "p").replace("-", "n");
-						if (operan.charAt(0) != '_') {
-							operan = "_" + operan;
-						}
+						} else {
+							String operan = (((Symbol) operando2).getLexema()).replace(".", "p").replace("-", "n");
+							if (operan.charAt(0) != '_') {
+								operan = "_" + operan;
+							}
 
-						v.add(new String("MOV EAX, OFFSET " + operan));
-						v.add(new String("MOV " + op1 + ", EAX"));
+							v.add(new String("MOV EAX, OFFSET " + operan));
+							v.add(new String("MOV " + op1 + ", EAX"));
+						}
 					}
-			    }
-			}	// float ya contemplado
-		}else {
+				}    // float ya contemplado*/
+
+				op1 = ((Symbol)operando1).getAtributo("IdUsar").toString();
+			}
+
+
+
 				if (((Symbol) (operando1)).getTipoVar() == "integer") {
 					v.add(new String("\r\nMOV AX, " + op2));
 					v.add(new String("MOV " + op1 + " ,AX")); //aca va varAux o op1?
@@ -121,7 +152,8 @@ public class T_Asignacion extends Terceto{
 					v.add(new String("\r\nFLD " + op2.replace(".", "p").replace("-", "n")));
 					v.add(new String("FSTP " + op1));
 				}
-			}
+
+		}
 		return v;
 }
 	@Override
