@@ -96,6 +96,8 @@ public class Symbol {
         return atributos.get(clave);
     }
 
+    public Boolean contieneAtributo(String clave) { return atributos.containsKey(clave);}
+
     public void setAtributos(String atributo, Object valor) {
         atributos.put(atributo,valor);
     }

@@ -6,12 +6,14 @@ import SymbolTable.*;
 
 public class T_Asignacion extends Terceto{
 	private String tipo;
+	String punt = null;
 
 	public T_Asignacion(int nro, String operador, Object operando1, Object operando2, SymbolTable ts){
 		super(nro,operador,operando1,operando2,ts);
 		String tipo1,tipo2;
 		String opAusar1;
 		String opAusar2;
+
 
 		/** Reconoce puntero **/
 
@@ -28,8 +30,15 @@ public class T_Asignacion extends Terceto{
 			//a = op2.charAt(0);
 			if (Character.isDigit(a2))
 				opAusar2 = "_" + opAusar2;
+
+
 		ts.setAtributo(opAusar1,"IdUsar",opAusar2);
 			System.out.println(" El ID es : "+((Symbol)operando1).getAtributo("IdUsar"));
+		}else {
+			if (((Symbol)operando1).isEsPuntero()){
+				punt = new String(((Symbol)operando1).getAtributo("IdUsar").toString());
+			}
+
 		}
 
 		if (esTerceto(1)) {
@@ -140,7 +149,7 @@ public class T_Asignacion extends Terceto{
 					}
 				}    // float ya contemplado*/
 
-				op1 = ((Symbol)operando1).getAtributo("IdUsar").toString();
+				op1 = punt;
 			}
 
 
