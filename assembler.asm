@@ -20,75 +20,59 @@ _@min_float2 DQ -3.40282347e-38
 _@max_integer DD 32768
 _@min_integer DD -32768
 _memaux DW ?
-_@AUX5 DD ?
+_1_i DW 1
+_@AUX3 DW ?
 _finalizacion_de_programa DB "finalizacion de programa" ,0
-_l DD ?
-_@AUX4 DD ?
-_@AUX3 DD ?
-_@AUX2 DD ?
-_@AUX1 DD ?
-_@AUX0 DD ?
-_f DD ?
-_e DD ?
-_d DD ?
+_@AUX2 DW ?
+_@AUX1 DW ?
+_@AUX0 DW ?
+_2_i DW 2
+_es_distinto DB "es distinto" ,0
 _c DD ?
-_b DD ?
-_a DD ?
-_2000p0 DD 2000.0
-_6000000p0 DD 6000000.0
-_3000p0 DD 3000.0
-_x DD ?
-_@AUX8 DD ?
-_@AUX7 DD ?
-_@AUX6 DD ?
+_b DW ?
+_a DW ?
+_es_igual DB "es igual" ,0
 .CODE
 START:
 
-FLD _2000p0
-FSTP _l
+MOV AX, _1_i
+MOV _b ,AX
 
-FILD _a
-FMUL _6000000p0
-FSTP _@AUX2
+MOV AX, _2_i
+MOV _a ,AX
 
+MOV EAX, OFFSET _a
+MOV _c, EAX
 
+MOV AX, _b
+CMP AX, _a
+JE  Label7
 
-FILD _e
-FMUL _f
-FSTP _@AUX3
+invoke MessageBox, NULL, addr _es_igual, addr TITULO , MB_OK 
+JMP Label8
+Label7:
 
+invoke MessageBox, NULL, addr _es_distinto, addr TITULO , MB_OK 
 
+Label8:
 
-FILD _b
-FMUL _c
-FSTP _@AUX4
-
-
-
-FILD _d
-FMUL _@AUX4
-FSTP _@AUX5
-
-
-
-FLD _@AUX3
-FLD _@AUX5
-FADD
-JO @OVERFLOW_EN_SUMA
-FSTP _@AUX6
+MOV BX, _1_i
+MOV EAX, _c
+mov word ptr [EAX], BX
 
 
+MOV AX, _b
+CMP AX, _a
+JE  Label14
 
-FLD _@AUX2
-FLD _@AUX6
-FADD
-JO @OVERFLOW_EN_SUMA
-FSTP _@AUX7
+invoke MessageBox, NULL, addr _es_igual, addr TITULO , MB_OK 
+JMP Label15
+Label14:
 
+invoke MessageBox, NULL, addr _es_distinto, addr TITULO , MB_OK 
 
+Label15:
 
-FLD _@AUX7
-FSTP _x
 
 invoke MessageBox, NULL, addr _finalizacion_de_programa, addr TITULO , MB_OK 
 jMP EXIT

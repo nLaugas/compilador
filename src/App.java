@@ -145,7 +145,7 @@ public class App extends JFrame{
             if (t.reemplazoTercetoOptimizar.containsKey(t.getnum())){
                 // estoy en un terceto a eliminar o marcar como eliminar
                 System.out.println("este terceto se puede eliminar " + t.getnum());
-                //t.setnum(999);
+                t.setnum(999);
 
             }
         }
