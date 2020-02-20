@@ -51,11 +51,12 @@ public class GeneradorAssembler {
 					String t1part = t1.toString().substring(4,t1.toString().length()-1);
 					String t2part = t2.toString().substring(4,t2.toString().length()-1);
 
-
 					if (t1part.equals(t2part)){
 						System.out.println(" Encontro coincidencia en : "+t1part+ "  "+t2part);
 					/** Tereceto redundancia **/
-						for (Terceto tAux : ter){
+						ter.get(j).setnum(-1);
+						//for (Terceto tAux : ter){
+						 Terceto tAux = ter.get(j+1);
 								/** solo necesito tercetos**/
 								if (tAux.esTerceto(1)){
 									if (((Terceto)tAux.getOperando1()).getnum() == t2.getnum()){
@@ -73,7 +74,7 @@ public class GeneradorAssembler {
 										tAux.setOperando2(t1);
 									}
 								}
-						}
+					//	}
 					}
 				}
 
@@ -125,7 +126,7 @@ public class GeneradorAssembler {
 			if (tabla.getSymbol(lexema).getTipo() == 261) // tipo ID
 			{
 
-				if (tabla.getSymbol(lexema).getTipoVar().equals("single"))
+				if ((tabla.getSymbol(lexema).getTipoVar().equals("single")) || (tabla.getSymbol(lexema).isEsPuntero()))
 					variables.add(new String(lexema + " DD ?")); // resservo espacio para float
 				else
 					variables.add(new String(lexema + " DW ?"));    // resservo espacio para INTEGER
@@ -179,7 +180,7 @@ public class GeneradorAssembler {
 		codAss.add(new String(".CODE"));
 		codAss.add(new String("START:"));
 		for (Terceto t: tercetos){
-			if (t.getnum()!=999)
+			if (t.getnum()!=-1)
 			{
 				//System.out.println("LA LONGUITUD DE LA LISTA para reemplazo es  ES : "+ t.reemplazoTercetoOptimizar.size());
 				if (((String) t.getOperador()).equals("BF")) {

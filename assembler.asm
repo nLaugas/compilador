@@ -20,50 +20,65 @@ _@min_float2 DQ -3.40282347e-38
 _@max_integer DD 32768
 _@min_integer DD -32768
 _memaux DW ?
-_1_i DW 1
-_@AUX3 DW ?
+_@AUX5 DW ?
 _finalizacion_de_programa DB "finalizacion de programa" ,0
+_@AUX4 DW ?
+_@AUX3 DW ?
 _@AUX2 DW ?
 _@AUX1 DW ?
 _@AUX0 DW ?
-_2_i DW 2
-_es_distinto DB "es distinto" ,0
+_f DW ?
+_e DW ?
+_d DW ?
+_1_i DW 1
 _c DD ?
 _b DW ?
 _a DW ?
+_es_distinto DB "es distinto" ,0
+_5_i DW 5
 _es_igual DB "es igual" ,0
+_x DW ?
+_@AUX9 DW ?
+_@AUX8 DW ?
+_@AUX7 DW ?
+_@AUX6 DW ?
 .CODE
 START:
 
 MOV AX, _1_i
+MOV _e ,AX
+
+MOV AX, _1_i
 MOV _b ,AX
 
-MOV AX, _2_i
-MOV _a ,AX
+MOV AX, _1_i
+MOV _d ,AX
 
-MOV EAX, OFFSET _a
-MOV _c, EAX
-
-MOV AX, _b
-CMP AX, _a
-JE  Label7
-
-invoke MessageBox, NULL, addr _es_igual, addr TITULO , MB_OK 
-JMP Label8
-Label7:
-
-invoke MessageBox, NULL, addr _es_distinto, addr TITULO , MB_OK 
-
-Label8:
-
-MOV BX, _1_i
-MOV EAX, _c
-mov word ptr [EAX], BX
+MOV AX, _e
+MUL _b
+MOV _@AUX3, AX
 
 
-MOV AX, _b
-CMP AX, _a
-JE  Label14
+
+MOV AX, _@AUX3
+ADD AX, _d
+JO @OVERFLOW_EN_SUMA
+MOV _@AUX4 ,AX
+
+
+
+MOV AX, _@AUX4
+MOV _x ,AX
+
+MOV AX, _5_i
+MOV _d ,AX
+
+MOV AX, _@AUX4
+MOV _f ,AX
+
+MOV AX, _x
+CMP AX, _f
+JNE  Label14
 
 invoke MessageBox, NULL, addr _es_igual, addr TITULO , MB_OK 
 JMP Label15
