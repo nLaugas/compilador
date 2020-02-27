@@ -4,6 +4,7 @@ import Tercetos.Terceto;
 
 import java.util.Enumeration;
 import java.util.Set;
+import SymbolTable.*;
 import java.util.Vector;
 import java.util.ArrayList;
 
@@ -31,6 +32,27 @@ public class GeneradorAssembler {
 		tabla = ts;
 	}
 
+	private boolean esAsignada(int i, int j,ArrayList<Terceto> ter){
+		Terceto ter_i = ter.get(i);
+		Terceto ter_j = ter.get(j);
+
+		if (ter_i.esTerceto(1) || ter_i.esTerceto(2) )
+			return false;
+
+		for (int pos = i+1; pos<j; pos++){
+			Terceto ter_pos = ter.get(pos);
+			if (ter_pos.operador.equals(":=")){
+				if (((Symbol)ter_pos.operando1).getLexema().equals( ((Symbol)ter_i.operando1).getLexema() ) ){
+					return false;
+				}
+				if (((Symbol)ter_pos.operando1).getLexema().equals( ((Symbol)ter_i.operando2).getLexema() ) ){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	private ArrayList<Terceto> redundanciaSimple(ArrayList<Terceto> ter){
 		ArrayList<Terceto> out = new ArrayList<>();
 
@@ -44,14 +66,12 @@ public class GeneradorAssembler {
 			for (int j = i; j<tam; j++){
 				Terceto t2 = ter.get(j);
 
-		//for (Terceto t1 : ter){
-		//	for (Terceto t2 : ter){
-
 				if ( t1.getnum() != t2.getnum() ){
 					String t1part = t1.toString().substring(4,t1.toString().length()-1);
 					String t2part = t2.toString().substring(4,t2.toString().length()-1);
 
-					if (t1part.equals(t2part)){
+					if (t1part.equals(t2part) && this.esAsignada(i,j,ter)){
+
 						System.out.println(" Encontro coincidencia en : "+t1part+ "  "+t2part);
 					/** Tereceto redundancia **/
 						ter.get(j).setnum(-1);
@@ -63,10 +83,8 @@ public class GeneradorAssembler {
 										/** Seteo el terceto */
 										System.out.println("encontro en : " + ((Terceto)tAux.getOperando1()).getnum() );
 										tAux.setOperando1(t1);
-
 									}
 								}
-
 								if (tAux.esTerceto(2)){
 									if (((Terceto)tAux.getOperando2()).getnum() == t2.getnum()){
 										/** Seteo el terceto */

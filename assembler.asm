@@ -71,9 +71,22 @@ MOV AX, _@AUX4
 MOV _x ,AX
 
 MOV AX, _5_i
-MOV _d ,AX
+MOV _b ,AX
 
-MOV AX, _@AUX4
+MOV AX, _e
+MUL _b
+MOV _@AUX7, AX
+
+
+
+MOV AX, _@AUX7
+ADD AX, _d
+JO @OVERFLOW_EN_SUMA
+MOV _@AUX8 ,AX
+
+
+
+MOV AX, _@AUX8
 MOV _f ,AX
 
 MOV AX, _x
