@@ -32,11 +32,15 @@ public class GeneradorAssembler {
 		tabla = ts;
 	}
 
-	private boolean esAsignada(int i, int j,ArrayList<Terceto> ter){
+	private boolean noEsAsignada(int i, int j,ArrayList<Terceto> ter){
 		Terceto ter_i = ter.get(i);
 		Terceto ter_j = ter.get(j);
 
 		if (ter_i.esTerceto(1) || ter_i.esTerceto(2) )
+			return false;
+		//para que no entren los tercetos que no son operadores arismeticos
+		if (!(ter_i.getOperador().equals("+")|| ter_i.getOperador().equals("-")
+			||ter_i.getOperador().equals("/")|| ter_i.getOperador().equals("*")))
 			return false;
 
 		for (int pos = i+1; pos<j; pos++){
@@ -70,7 +74,7 @@ public class GeneradorAssembler {
 					String t1part = t1.toString().substring(4,t1.toString().length()-1);
 					String t2part = t2.toString().substring(4,t2.toString().length()-1);
 
-					if (t1part.equals(t2part) && this.esAsignada(i,j,ter)){
+					if (t1part.equals(t2part) && this.noEsAsignada(i,j,ter)){
 
 						System.out.println(" Encontro coincidencia en : "+t1part+ "  "+t2part);
 					/** Tereceto redundancia **/
