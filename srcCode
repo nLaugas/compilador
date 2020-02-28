@@ -1,13 +1,19 @@
-let mut integer _a;_b;_d;*_c;_e;_f;_x,
+
+let mut single _a;_b;_d;*_c;_e;_f;_x,
 __let mut single _l,
 __l:=2.0F3,
-_e:=1_i,
-_b:=1_i,
-_d:=1_i,
-_x:=_e*_b+_d,
-_b:=5_i,
-_f:=_e*_b+_d,
+_e:=1.0F3,
+_b:=2.0F3,
+_d:=1.0F3,
+_x:=_e*_d+_b,
+_f:=_e*_d+_b,
 if(_x=_f)print('es igual'),else print('es distinto'),end_if
+_b:=5.0F3,
+_x:=_e*_d+_b,
+if(_x=_f)print('es igual'),else print('es distinto'),end_if
+
+
+
 __x:=1_i*2_i+3_i*4_i,
 __a:=2.0F3,
 __d:=4.0F3,

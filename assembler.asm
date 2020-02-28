@@ -20,86 +20,124 @@ _@min_float2 DQ -3.40282347e-38
 _@max_integer DD 32768
 _@min_integer DD -32768
 _memaux DW ?
-_@AUX5 DW ?
+_@AUX5 DD ?
 _finalizacion_de_programa DB "finalizacion de programa" ,0
-_@AUX4 DW ?
-_@AUX3 DW ?
-_@AUX2 DW ?
-_@AUX1 DW ?
-_@AUX0 DW ?
-_f DW ?
-_e DW ?
-_d DW ?
-_1_i DW 1
+_@AUX4 DD ?
+_@AUX3 DD ?
+_@AUX2 DD ?
+_@AUX1 DD ?
+_@AUX0 DD ?
+_f DD ?
+_e DD ?
+_d DD ?
+_1000p0 DD 1000.0
+_@AUX12 DD ?
 _c DD ?
-_b DW ?
-_a DW ?
+_@AUX11 DD ?
+_b DD ?
+_@AUX10 DD ?
+_a DD ?
+_2000p0 DD 2000.0
 _es_distinto DB "es distinto" ,0
-_5_i DW 5
 _es_igual DB "es igual" ,0
-_x DW ?
-_@AUX9 DW ?
-_@AUX8 DW ?
-_@AUX7 DW ?
-_@AUX6 DW ?
+_5000p0 DD 5000.0
+_x DD ?
+_@AUX9 DD ?
+_@AUX8 DD ?
+_@AUX7 DD ?
+_@AUX6 DD ?
 .CODE
 START:
 
-MOV AX, _1_i
-MOV _e ,AX
+FLD _1000p0
+FSTP _e
 
-MOV AX, _1_i
-MOV _b ,AX
+FLD _2000p0
+FSTP _b
 
-MOV AX, _1_i
-MOV _d ,AX
+FLD _1000p0
+FSTP _d
 
-MOV AX, _e
-MUL _b
-MOV _@AUX3, AX
+FILD _e
+FMUL _d
+FSTP _@AUX3
 
 
 
-MOV AX, _@AUX3
-ADD AX, _d
+FLD _@AUX3
+FLD _b
+FADD
 JO @OVERFLOW_EN_SUMA
-MOV _@AUX4 ,AX
+FSTP _@AUX4
 
 
 
-MOV AX, _@AUX4
-MOV _x ,AX
+FLD _@AUX4
+FSTP _x
 
-MOV AX, _5_i
-MOV _b ,AX
-
-MOV AX, _e
-MUL _b
-MOV _@AUX7, AX
-
-
-
-MOV AX, _@AUX7
-ADD AX, _d
+FLD _@AUX3
+FLD _b
+FADD
 JO @OVERFLOW_EN_SUMA
-MOV _@AUX8 ,AX
+FSTP _@AUX7
 
 
 
-MOV AX, _@AUX8
-MOV _f ,AX
+FLD _@AUX7
+FSTP _f
 
-MOV AX, _x
-CMP AX, _f
-JNE  Label14
+FLD _x
+
+FCOMP _f
+
+FSTSW _memaux
+
+MOV AX, _memaux
+
+SAHF
+JNE  Label13
 
 invoke MessageBox, NULL, addr _es_igual, addr TITULO , MB_OK 
-JMP Label15
-Label14:
+JMP Label14
+Label13:
 
 invoke MessageBox, NULL, addr _es_distinto, addr TITULO , MB_OK 
 
-Label15:
+Label14:
+
+
+FLD _5000p0
+FSTP _b
+
+FLD _@AUX6
+FLD _b
+FADD
+JO @OVERFLOW_EN_SUMA
+FSTP _@AUX11
+
+
+
+FLD _@AUX11
+FSTP _x
+
+FLD _x
+
+FCOMP _f
+
+FSTSW _memaux
+
+MOV AX, _memaux
+
+SAHF
+JNE  Label23
+
+invoke MessageBox, NULL, addr _es_igual, addr TITULO , MB_OK 
+JMP Label24
+Label23:
+
+invoke MessageBox, NULL, addr _es_distinto, addr TITULO , MB_OK 
+
+Label24:
 
 
 invoke MessageBox, NULL, addr _finalizacion_de_programa, addr TITULO , MB_OK 
