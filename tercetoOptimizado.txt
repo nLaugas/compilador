@@ -1,12 +1,10 @@
-[0] (:=, _l, 2000.0).
-[1] (:=, _e, 1000.0).
-[2] (&, _c, _e).
-[3] (:=, _c, 2000.0).
-[4] (=, _e, _l).
-[5] (BF, [4]], [8]).
-[6] (PRINT, es igual, [-]).
-[7] (BI, [9], [-]).
-[8] (PRINT, es distinto, [-]).
-[9] (FIN_DE_SALTO, - , - ).
-[10] (PRINT, finalizacion de programa, [-]).
+[0] (:=, _f, 900000.0).
+[1] (:=, _x, 24000.0).
+[2] (=, _x, _f).
+[3] (BF, [2]], [6]).
+[4] (PRINT, es igual, [-]).
+[5] (BI, [7], [-]).
+[6] (PRINT, es distinto, [-]).
+[7] (FIN_DE_SALTO, - , - ).
+[8] (PRINT, finalizacion de programa, [-]).
 

@@ -1,11 +1,14 @@
-
 let mut single _a;_b;_d;*_c;_e;_f;_x,
+_f:=2.0F1*3.0F1*3.0F1*5.0F1,
+_x:=4.0F1*3.0F1*2.0F1,
+if(_x=_f)print('es igual'),else print('es distinto'),end_if
+__let mut single *_p;_a;_b;_d;*_c;_e;_f;_x,
 __let mut single _l,
-_l:=2.0F3,
-_e:=1.0F3,
-_c:=&_e,
-*_c:=2.0F3,
-if(_e=_l)print('es igual'),else print('es distinto'),end_if
+__l:=2.0F3,
+__e:=1.0F3,
+__*_p:=&_e,
+__*_c:=&_l,
+__if(_e=_l)print('es igual'),else print('es distinto'),end_if
 __b:=2.0F3,
 __d:=1.0F3,
 __x:=_e*_d+_b,
@@ -14,9 +17,6 @@ __if(_x=_f)print('es igual'),else print('es distinto'),end_if
 ___b:=5.0F3,
 ___x:=_e*_d+_b,
 __if(_x=_f)print('es igual'),else print('es distinto'),end_if
-
-
-
 __x:=1_i*2_i+3_i*4_i,
 __a:=2.0F3,
 __d:=4.0F3,

@@ -21,34 +21,54 @@ _@max_integer DD 32768
 _@min_integer DD -32768
 _memaux DW ?
 _finalizacion_de_programa DB "finalizacion de programa" ,0
-_@AUX2 DD ?
+_50p0 DD 50.0
 _@AUX1 DD ?
-_3000p0 DD 3000.0
 _@AUX0 DD ?
 _f DD ?
-_1000p0 DD 1000.0
 _e DD ?
 _d DD ?
 _c DD ?
 _b DD ?
 _a DD ?
+_1500p0 DD 1500.0
+_45000p0 DD 45000.0
+_es_distinto DB "es distinto" ,0
+_20p0 DD 20.0
+_600p0 DD 600.0
+_es_igual DB "es igual" ,0
 _x DD ?
-_2000p0 DD 2000.0
+_30p0 DD 30.0
+_24000p0 DD 24000.0
+_40p0 DD 40.0
+_900000p0 DD 900000.0
 .CODE
 START:
 
-FLD _1000p0
-FLD _2000p0
-FADD
-JO @OVERFLOW_EN_SUMA
-FSTP _@AUX0
+FLD _900000p0
+FSTP _f
 
+FLD _24000p0
+FSTP _x
 
+FLD _x
 
-FLD _3000p0
-FSTP _e
-MOV EAX, OFFSET _e
-MOV _c, EAX
+FCOMP _f
+
+FSTSW _memaux
+
+MOV AX, _memaux
+
+SAHF
+JNE  Label6
+
+invoke MessageBox, NULL, addr _es_igual, addr TITULO , MB_OK 
+JMP Label7
+Label6:
+
+invoke MessageBox, NULL, addr _es_distinto, addr TITULO , MB_OK 
+
+Label7:
+
 
 invoke MessageBox, NULL, addr _finalizacion_de_programa, addr TITULO , MB_OK 
 jMP EXIT

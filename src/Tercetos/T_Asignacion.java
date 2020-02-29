@@ -110,9 +110,9 @@ public class T_Asignacion extends Terceto{
 							operan2 = "_" + operan2;
 						}
 
-						v.add(new String("MOV BX, "+ operan2));
+						v.add(new String("MOV EBX, "+ operan2));
 						v.add(new String("MOV EAX, " + op1));
-						v.add(new String("mov qword ptr [EAX], BX"));
+						v.add(new String("mov dword ptr [EAX], EBX"));
 
 /*						v.add(new String("MOV EAX, OFFSET " + operan2));
 						v.add(new String("MOV " + op1 + ", EAX"));*/

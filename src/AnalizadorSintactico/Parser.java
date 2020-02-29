@@ -439,7 +439,7 @@ final static String yyrule[] = {
 "condicion : MENIG expresion",
 };
 
-//#line 481 "GramaticaGrupo8.y"
+//#line 702 "GramaticaGrupo8.y"
 
   LexicalAnalyzer lex;
   SymbolTable st;
@@ -781,6 +781,58 @@ break;
 case 24:
 //#line 117 "GramaticaGrupo8.y"
 {
+
+                              boolean factorCte = false;
+                boolean terminoCte = false;
+                boolean esFloat = false;
+                Integer intCte = null,intCte2=null ;/*= Integer.parseInt(lexema.substring(0,1);*/
+                Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
+
+                /*pregunto por el factor*/
+                if ((((Symbol)(val_peek(2).obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
+                  factorCte = true;
+                  esFloat = true;
+
+                }
+                if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
+                  intCte = Integer.parseInt((((Symbol)val_peek(2).obj).getLexema()).substring(0,1));
+                  factorCte = true;
+                }
+
+                /*pregunto por el termino*/
+
+                if (   (val_peek(0).obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
+                    terminoCte= true;
+                    esFloat = true;
+
+                  }
+                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
+                    intCte2 = Integer.parseInt((((Symbol)val_peek(0).obj).getLexema()).substring(0,(((Symbol)val_peek(0).obj).getLexema()).length()-2));
+                    terminoCte = true;
+                  }
+                }
+                 Symbol s = null;
+                /* pregunto por termino y factor*/
+                if (factorCte && terminoCte){
+                      if (esFloat){
+                        s = ((Symbol)(val_peek(2).obj)).clone();
+                        s.setLexema(String.valueOf(floatCte+floatCte2));
+                        st.setSymbol(s);
+
+                      }
+                      else{
+                         s = ((Symbol)(val_peek(2).obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)(val_peek(2).obj)).getTipo(),false,false,false);*/
+                         s.setLexema(String.valueOf(intCte+intCte2)+"_i");
+                         /*((Symbol)(val_peek(2).obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
+                        st.setSymbol(s);
+                      }
+                  yyval.obj=s;
+
+                }else   
+                      {
 								Terceto t = new T_Suma_Resta(contadorTerceto,"+",val_peek(2).obj,val_peek(0).obj,st);
                                 /*st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos*/
                                 t.setVariableAux(contadorVarAux);
@@ -791,13 +843,68 @@ case 24:
                                 contadorTerceto ++;
                                 listaTercetos.add(t);
                      System.out.println(t.toString());
-                yyval=val_peek(2);
-                yyval.obj = t;
+                      yyval=val_peek(2);
+                      yyval.obj = t;
+               } 
 }
 break;
 case 25:
-//#line 131 "GramaticaGrupo8.y"
+//#line 184 "GramaticaGrupo8.y"
 {
+
+
+
+                              boolean factorCte = false;
+                boolean terminoCte = false;
+                boolean esFloat = false;
+                Integer intCte = null,intCte2=null ;/*= Integer.parseInt(lexema.substring(0,1);*/
+                Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
+
+                /*pregunto por el factor*/
+                if ((((Symbol)(val_peek(2).obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
+                  factorCte = true;
+                  esFloat = true;
+
+                }
+                if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
+                  intCte = Integer.parseInt((((Symbol)val_peek(2).obj).getLexema()).substring(0,1));
+                  factorCte = true;
+                }
+
+                /*pregunto por el termino*/
+
+                if (   (val_peek(0).obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
+                    terminoCte= true;
+                    esFloat = true;
+
+                  }
+                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
+                    intCte2 = Integer.parseInt((((Symbol)val_peek(0).obj).getLexema()).substring(0,(((Symbol)val_peek(0).obj).getLexema()).length()-2));
+                    terminoCte = true;
+                  }
+                }
+                 Symbol s = null;
+                /* pregunto por termino y factor*/
+                if (factorCte && terminoCte){
+                      if (esFloat){
+                        s = ((Symbol)(val_peek(2).obj)).clone();
+                        s.setLexema(String.valueOf(floatCte-floatCte2));
+                        st.setSymbol(s);
+
+                      }
+                      else{
+                         s = ((Symbol)(val_peek(2).obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)(val_peek(2).obj)).getTipo(),false,false,false);*/
+                         s.setLexema(String.valueOf(intCte-intCte2)+"_i");
+                         /*((Symbol)(val_peek(2).obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
+                        st.setSymbol(s);
+                      }
+                  yyval.obj=s;
+
+                }else   
+                {
 						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",val_peek(2).obj,val_peek(0).obj,st);
                              /*st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos*/
                             t.setVariableAux(contadorVarAux);
@@ -809,19 +916,73 @@ case 25:
                             listaTercetos.add(t);
                      System.out.println(t.toString());
                      yyval=val_peek(2);
-            yyval.obj = t;
+                     yyval.obj = t;
+                   }
 }
 break;
 case 26:
-//#line 145 "GramaticaGrupo8.y"
+//#line 253 "GramaticaGrupo8.y"
 {yyval=val_peek(0);
     yyval.obj=val_peek(0).obj; /*creo que es necesario para que no se pierdan los lexemas, si quieren reveanlo*/
 }
 break;
 case 27:
-//#line 151 "GramaticaGrupo8.y"
+//#line 259 "GramaticaGrupo8.y"
 {
-                Terceto t = new T_Mult_Div(contadorTerceto,"/",val_peek(2).obj,val_peek(0).obj,st);
+
+              
+                boolean factorCte = false;
+                boolean terminoCte = false;
+                boolean esFloat = false;
+                Integer intCte = null,intCte2=null ;/*= Integer.parseInt(lexema.substring(0,1);*/
+                Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
+
+                /*pregunto por el factor*/
+                if ((((Symbol)(val_peek(2).obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
+                  factorCte = true;
+                  esFloat = true;
+
+                }
+                if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
+                  intCte = Integer.parseInt((((Symbol)val_peek(2).obj).getLexema()).substring(0,1));
+                  factorCte = true;
+                }
+
+                /*pregunto por el termino*/
+
+                if (   (val_peek(0).obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
+                    terminoCte= true;
+                    esFloat = true;
+
+                  }
+                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
+                    intCte2 = Integer.parseInt((((Symbol)val_peek(0).obj).getLexema()).substring(0,(((Symbol)val_peek(0).obj).getLexema()).length()-2));
+                    terminoCte = true;
+                  }
+                }
+                 Symbol s = null;
+                /* pregunto por termino y factor*/
+                if (factorCte && terminoCte){
+                      if (esFloat){
+                        s = ((Symbol)(val_peek(2).obj)).clone();
+                        s.setLexema(String.valueOf(floatCte/floatCte2));
+                        st.setSymbol(s);
+
+                      }
+                      else{
+                         s = ((Symbol)(val_peek(2).obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)(val_peek(2).obj)).getTipo(),false,false,false);*/
+                         s.setLexema(String.valueOf(intCte/intCte2)+"_i");
+                         /*((Symbol)(val_peek(2).obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
+                        st.setSymbol(s);
+                      }
+                  yyval.obj=s;
+
+                }else            
+              {
+                 Terceto t = new T_Mult_Div(contadorTerceto,"/",val_peek(2).obj,val_peek(0).obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
                 for(int i=0; i< t.errores.size();i++){
@@ -830,14 +991,71 @@ case 27:
                 contadorTerceto ++;
                 listaTercetos.add(t);
                      System.out.println(t.toString());
-yyval=val_peek(2);
-yyval.obj = t;
+                yyval=val_peek(2);
+                yyval.obj = t;
 
+              }
+               
 }
 break;
 case 28:
-//#line 165 "GramaticaGrupo8.y"
+//#line 328 "GramaticaGrupo8.y"
 {
+
+
+              
+                boolean factorCte = false;
+                boolean terminoCte = false;
+                boolean esFloat = false;
+                Integer intCte = null,intCte2=null ;/*= Integer.parseInt(lexema.substring(0,1);*/
+                Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
+
+                /*pregunto por el factor*/
+                if ((((Symbol)(val_peek(2).obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
+                  factorCte = true;
+                  esFloat = true;
+
+                }
+                if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
+                  intCte = Integer.parseInt((((Symbol)val_peek(2).obj).getLexema()).substring(0,1));
+                  factorCte = true;
+                }
+
+                /*pregunto por el termino*/
+
+                if (   (val_peek(0).obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
+                    terminoCte= true;
+                    esFloat = true;
+
+                  }
+                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
+                    intCte2 = Integer.parseInt((((Symbol)val_peek(0).obj).getLexema()).substring(0,(((Symbol)val_peek(0).obj).getLexema()).length()-2));
+                    terminoCte = true;
+                  }
+                }
+                 Symbol s = null;
+                /* pregunto por termino y factor*/
+                if (factorCte && terminoCte){
+                      if (esFloat){
+                        s = ((Symbol)(val_peek(2).obj)).clone();
+                        s.setLexema(String.valueOf(floatCte*floatCte2));
+                        st.setSymbol(s);
+
+                      }
+                      else{
+                         s = ((Symbol)(val_peek(2).obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)(val_peek(2).obj)).getTipo(),false,false,false);*/
+                         s.setLexema(String.valueOf(intCte*intCte2)+"_i");
+                         /*((Symbol)(val_peek(2).obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
+                        st.setSymbol(s);
+                      }
+                  yyval.obj=s;
+
+                }else
+                      {
+                /* lo que ya estaba*/
                 Terceto t = new T_Mult_Div(contadorTerceto,"*",val_peek(2).obj,val_peek(0).obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
@@ -847,27 +1065,30 @@ case 28:
                 contadorTerceto ++;
                 listaTercetos.add(t);
                      System.out.println(t.toString());
-yyval=val_peek(2);
-yyval.obj = t;
+                yyval=val_peek(2);
+                yyval.obj = t;
+              }
+
+
     }
 break;
 case 29:
-//#line 178 "GramaticaGrupo8.y"
+//#line 399 "GramaticaGrupo8.y"
 {yyval=val_peek(0);
 			  /* terceto*/
 			  yyval.obj=val_peek(0).obj;	
 			 }
 break;
 case 30:
-//#line 185 "GramaticaGrupo8.y"
+//#line 406 "GramaticaGrupo8.y"
 {yyval=val_peek(0);}
 break;
 case 31:
-//#line 186 "GramaticaGrupo8.y"
+//#line 407 "GramaticaGrupo8.y"
 {yyval=val_peek(0);}
 break;
 case 32:
-//#line 187 "GramaticaGrupo8.y"
+//#line 408 "GramaticaGrupo8.y"
 {if(!((Symbol)(val_peek(0).obj)).isUsada()){
 			/*error*/
 			yyerror("variable no declarada",val_peek(0).getFila(),val_peek(0).getColumna());
@@ -876,7 +1097,7 @@ case 32:
 	}
 break;
 case 33:
-//#line 193 "GramaticaGrupo8.y"
+//#line 414 "GramaticaGrupo8.y"
 {    /** Revisar sino pierdo el puntero al elemento qe necesito **/
 					  yyval=val_peek(0);
                       /*Symbol aux = st.getSymbol(lex.lastSymbol);*/
@@ -884,7 +1105,7 @@ case 33:
  		              }
 break;
 case 34:
-//#line 198 "GramaticaGrupo8.y"
+//#line 419 "GramaticaGrupo8.y"
 {			/** Revisar sino pierdo el puntero al elemento qe necesito **/
 		             yyval=val_peek(0);
 					 /* Antes qedaban atributos sin setear*/
@@ -893,7 +1114,7 @@ case 34:
                     }
 break;
 case 35:
-//#line 206 "GramaticaGrupo8.y"
+//#line 427 "GramaticaGrupo8.y"
 {		/*necesito el tipo de la expresion*/
 if (!((Symbol)(val_peek(2).obj)).isUsada()){
     yyerror("La variable no esta definida ",val_peek(2).getFila(),val_peek(2).getColumna());
@@ -914,7 +1135,7 @@ if (!((Symbol)(val_peek(2).obj)).isUsada()){
 	estructuras.add("Asignacion "+" fila "+val_peek(2).getFila()+" columna "+val_peek(2).getColumna());}
 break;
 case 36:
-//#line 225 "GramaticaGrupo8.y"
+//#line 446 "GramaticaGrupo8.y"
 {   /*necesito el tipo de la expresion*/
               if (!((Symbol)(val_peek(3).obj)).isUsada()){
                   yyerror("La variable no esta definida ",val_peek(3).getFila(),val_peek(3).getColumna());
@@ -940,7 +1161,7 @@ case 36:
   estructuras.add("Asignacion "+" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());}
 break;
 case 37:
-//#line 248 "GramaticaGrupo8.y"
+//#line 469 "GramaticaGrupo8.y"
 {    /*necesito el tipo de la expresion*/
       if (!((Symbol)(val_peek(2).obj)).isUsada()){
           yyerror("La variable no esta definida ",val_peek(3).getFila(),val_peek(3).getColumna());
@@ -961,7 +1182,7 @@ case 37:
         estructuras.add("Asignacion "+" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());}
 break;
 case 38:
-//#line 266 "GramaticaGrupo8.y"
+//#line 487 "GramaticaGrupo8.y"
 { /* Estoy definiendo una variable*/
     if (((Symbol)(val_peek(3).obj)).isUsada()){
         yyerror("La variable ya esta definida ",val_peek(6).getFila(),val_peek(6).getColumna());
@@ -995,7 +1216,7 @@ case 38:
     estructuras.add("Asignacion de puntero "+" fila "+val_peek(6).getFila()+" columna "+val_peek(6).getColumna());}
 break;
 case 39:
-//#line 297 "GramaticaGrupo8.y"
+//#line 518 "GramaticaGrupo8.y"
 {/*Estoy definiendo una variable*/
         if (((Symbol)(val_peek(2).obj)).isUsada()){
             yyerror("La variable ya esta definida ",val_peek(4).getFila(),val_peek(4).getColumna());
@@ -1021,19 +1242,19 @@ case 39:
     estructuras.add("Asignacion "+" fila "+val_peek(4).getFila()+" columna "+val_peek(4).getColumna());}
 break;
 case 40:
-//#line 320 "GramaticaGrupo8.y"
+//#line 541 "GramaticaGrupo8.y"
 {yyerror("Falta elemento de asignacion y palabra reservada 'let'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 41:
-//#line 321 "GramaticaGrupo8.y"
+//#line 542 "GramaticaGrupo8.y"
 {yyerror("Falta elemento de asignacion ",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 42:
-//#line 322 "GramaticaGrupo8.y"
+//#line 543 "GramaticaGrupo8.y"
 {yyerror("no se encontro ':=' ",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 43:
-//#line 325 "GramaticaGrupo8.y"
+//#line 546 "GramaticaGrupo8.y"
 {estructuras.add("Expresion print "+" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());
                 Terceto t = new T_Print(contadorTerceto,"PRINT",val_peek(1).obj,"",st);
                /* t.setVariableAux(contadorVarAux);         //un print no tiene resultado por ende no tiene tipo*/
@@ -1049,59 +1270,59 @@ case 43:
 }
 break;
 case 44:
-//#line 338 "GramaticaGrupo8.y"
+//#line 559 "GramaticaGrupo8.y"
 {yyerror("Linea  Error en la construccion del print",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 45:
-//#line 341 "GramaticaGrupo8.y"
+//#line 562 "GramaticaGrupo8.y"
 {}
 break;
 case 46:
-//#line 342 "GramaticaGrupo8.y"
+//#line 563 "GramaticaGrupo8.y"
 {}
 break;
 case 47:
-//#line 346 "GramaticaGrupo8.y"
+//#line 567 "GramaticaGrupo8.y"
 {estructuras.add("Sentencia IF Else" +" fila "+val_peek(5).getFila()+" columna "+val_peek(5).getColumna());}
 break;
 case 48:
-//#line 347 "GramaticaGrupo8.y"
+//#line 568 "GramaticaGrupo8.y"
 {estructuras.add("Sentencia IF " +" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());}
 break;
 case 49:
-//#line 348 "GramaticaGrupo8.y"
+//#line 569 "GramaticaGrupo8.y"
 {yyerror(" falta la palabra reservada IF",val_peek(3).getFila(),val_peek(3).getColumna());}
 break;
 case 50:
-//#line 349 "GramaticaGrupo8.y"
+//#line 570 "GramaticaGrupo8.y"
 {yyerror(" Error en la construccion de la sentencia IF ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 51:
-//#line 350 "GramaticaGrupo8.y"
+//#line 571 "GramaticaGrupo8.y"
 {yyerror(" Falta la palabra reservada ELSE ",val_peek(3).getFila(),val_peek(3).getColumna());}
 break;
 case 52:
-//#line 353 "GramaticaGrupo8.y"
+//#line 574 "GramaticaGrupo8.y"
 {estructuras.add("Sentencia Loop " +" fila "+val_peek(3).getFila()+" columna "+val_peek(3).getColumna());}
 break;
 case 53:
-//#line 354 "GramaticaGrupo8.y"
+//#line 575 "GramaticaGrupo8.y"
 {yyerror("Linea  Falta palabra reservada UNTIL",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 54:
-//#line 357 "GramaticaGrupo8.y"
+//#line 578 "GramaticaGrupo8.y"
 {}
 break;
 case 55:
-//#line 358 "GramaticaGrupo8.y"
+//#line 579 "GramaticaGrupo8.y"
 {}
 break;
 case 56:
-//#line 359 "GramaticaGrupo8.y"
+//#line 580 "GramaticaGrupo8.y"
 {yyerror("LInea  Omision de la palabra reservada '{' ",val_peek(2).getFila(),val_peek(2).getColumna());}
 break;
 case 57:
-//#line 362 "GramaticaGrupo8.y"
+//#line 583 "GramaticaGrupo8.y"
 {/*#### unica forma de marcar donde comienza el loop y ver donde salto (no diferenciamos bloque de loop)*/
         p.push(contadorTerceto);
         intLoop = contadorTerceto;
@@ -1112,7 +1333,7 @@ case 57:
         }
 break;
 case 58:
-//#line 373 "GramaticaGrupo8.y"
+//#line 594 "GramaticaGrupo8.y"
 {/*#### aca hacemos el salto incondicional, debimos inventar este no terminal porque no diferenciamos bloque else de bloque if*/
         /*aca ya hicimos el pop cuando termino el cuerpo del if*/
         Terceto t = new T_BI(contadorTerceto,"BI","trampita","trampita",st);
@@ -1131,7 +1352,7 @@ case 58:
 															}
 break;
 case 59:
-//#line 391 "GramaticaGrupo8.y"
+//#line 612 "GramaticaGrupo8.y"
 {    /*#### aca hacemos lo del salto para no repetirlo en todas las condiciones*/
     p.push(contadorTerceto);
     Terceto t = new T_BF(contadorTerceto,"BF",val_peek(1).obj,"trampita",st);/*##use trampita por las dudas, ya por deporte, no parece que sea necesario*/
@@ -1144,7 +1365,7 @@ case 59:
 }
 break;
 case 60:
-//#line 402 "GramaticaGrupo8.y"
+//#line 623 "GramaticaGrupo8.y"
 {
   Terceto t = new T_Comparador(contadorTerceto,">",val_peek(2).obj,val_peek(0).obj,st);
    /* t.setVariableAux(contadorVarAux);//revisar, creo que aca no va*/
@@ -1160,7 +1381,7 @@ case 60:
     									}
 break;
 case 61:
-//#line 415 "GramaticaGrupo8.y"
+//#line 636 "GramaticaGrupo8.y"
 {
   Terceto t = new T_Comparador(contadorTerceto,"<",val_peek(2).obj,val_peek(0).obj,st);
    /* t.setVariableAux(contadorVarAux);//revisar, creo que aca no va*/
@@ -1175,7 +1396,7 @@ case 61:
     yyval.obj = t;										}
 break;
 case 62:
-//#line 427 "GramaticaGrupo8.y"
+//#line 648 "GramaticaGrupo8.y"
 {  Terceto t = new T_Comparador(contadorTerceto,"=",val_peek(2).obj,val_peek(0).obj,st);
    /* t.setVariableAux(contadorVarAux);//revisar, creo que aca no va*/
    /* contadorVarAux++;//osea una comparacion SI TIENE RESULTADO, pero no necesito el tipo del resultado?, nose*/
@@ -1189,7 +1410,7 @@ case 62:
     yyval.obj = t;										}
 break;
 case 63:
-//#line 438 "GramaticaGrupo8.y"
+//#line 659 "GramaticaGrupo8.y"
 {
   Terceto t = new T_Comparador(contadorTerceto,"!=",val_peek(2).obj,val_peek(0).obj,st);
    /* t.setVariableAux(contadorVarAux);//revisar, creo que aca no va*/
@@ -1204,7 +1425,7 @@ case 63:
     yyval.obj = t;										}
 break;
 case 64:
-//#line 450 "GramaticaGrupo8.y"
+//#line 671 "GramaticaGrupo8.y"
 {
   Terceto t = new T_Comparador(contadorTerceto,">=",val_peek(2).obj,val_peek(0).obj,st);
    /* t.setVariableAux(contadorVarAux);//revisar, creo que aca no va*/
@@ -1219,7 +1440,7 @@ case 64:
     yyval.obj = t;										}
 break;
 case 65:
-//#line 462 "GramaticaGrupo8.y"
+//#line 683 "GramaticaGrupo8.y"
 {
   Terceto t = new T_Comparador(contadorTerceto,"<=",val_peek(2).obj,val_peek(0).obj,st);
    /* t.setVariableAux(contadorVarAux);//revisar, creo que aca no va*/
@@ -1234,22 +1455,22 @@ case 65:
     yyval.obj = t;										}
 break;
 case 66:
-//#line 474 "GramaticaGrupo8.y"
+//#line 695 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '>'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 67:
-//#line 475 "GramaticaGrupo8.y"
+//#line 696 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '<'",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 68:
-//#line 476 "GramaticaGrupo8.y"
+//#line 697 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '>='",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
 case 69:
-//#line 477 "GramaticaGrupo8.y"
+//#line 698 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '<='",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
-//#line 1174 "Parser.java"
+//#line 1395 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
