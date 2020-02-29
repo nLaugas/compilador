@@ -124,7 +124,10 @@ public class T_Asignacion extends Terceto{
 				v.add(new String("\r\nMOV AX, " + op2));
 				v.add(new String("MOV " + op1 + " ,AX")); //aca va varAux o op1?
 			} else {
-				v.add(new String("\r\nFLD " + op2.replace(".", "p").replace("-", "n")));
+				op2 = op2.replace(".", "p").replace("-", "n");
+				if (op2.charAt(0) == 'n')
+					op2="_"+op2;
+				v.add(new String("\r\nFLD " + op2));
 				v.add(new String("FSTP " + op1));
 			}
 		}
