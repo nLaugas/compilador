@@ -944,7 +944,7 @@ case 37:
 {    /*necesito el tipo de la expresion*/
       if (!((Symbol)(val_peek(2).obj)).isUsada()){
           yyerror("La variable no esta definida ",val_peek(3).getFila(),val_peek(3).getColumna());
-      }else{if (!((Symbol)(val_peek(3).obj)).getEsMutable()){
+      }else{if (!((Symbol)(val_peek(2).obj)).getEsMutable()){
           yyerror("La variable no es mutable ",val_peek(3).getFila(),val_peek(3).getColumna());
       }}
                       Terceto t = new T_Asignacion(contadorTerceto,":=",val_peek(2).obj,val_peek(0).obj,st);

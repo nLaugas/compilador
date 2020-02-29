@@ -62,7 +62,8 @@ public class OutFile {
     public void tercetoFile(Parser par, String ruta){
         String out = new String();
         for(Terceto t : par.listaTercetos){
-            out+=t.toString()+"\n";
+            if (t.getnum()!=999)
+             out+=t.toString()+"\n";
         }
         this.crear(out,ruta);
     }

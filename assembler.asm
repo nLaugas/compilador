@@ -21,9 +21,10 @@ _@max_integer DD 32768
 _@min_integer DD -32768
 _memaux DW ?
 _finalizacion_de_programa DB "finalizacion de programa" ,0
+_@AUX2 DD ?
 _@AUX1 DD ?
+_3000p0 DD 3000.0
 _@AUX0 DD ?
-_2000000p0 DD 2000000.0
 _f DD ?
 _1000p0 DD 1000.0
 _e DD ?
@@ -36,14 +37,18 @@ _2000p0 DD 2000.0
 .CODE
 START:
 
-FILD _1000p0
-FMUL _2000p0
+FLD _1000p0
+FLD _2000p0
+FADD
+JO @OVERFLOW_EN_SUMA
 FSTP _@AUX0
 
 
 
-FLD _2000000p0
+FLD _3000p0
 FSTP _e
+MOV EAX, OFFSET _e
+MOV _c, EAX
 
 invoke MessageBox, NULL, addr _finalizacion_de_programa, addr TITULO , MB_OK 
 jMP EXIT

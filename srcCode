@@ -1,8 +1,11 @@
 
 let mut single _a;_b;_d;*_c;_e;_f;_x,
 __let mut single _l,
-__l:=2.0F3,
-_e:=1.0F3*2.0F3,
+_l:=2.0F3,
+_e:=1.0F3,
+_c:=&_e,
+*_c:=2.0F3,
+if(_e=_l)print('es igual'),else print('es distinto'),end_if
 __b:=2.0F3,
 __d:=1.0F3,
 __x:=_e*_d+_b,
