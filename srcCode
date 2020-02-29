@@ -2,15 +2,15 @@
 let mut single _a;_b;_d;*_c;_e;_f;_x,
 __let mut single _l,
 __l:=2.0F3,
-_e:=1.0F3,
-_b:=2.0F3,
-_d:=1.0F3,
-_x:=_e*_d+_b,
-_f:=_e*_d+_b,
-if(_x=_f)print('es igual'),else print('es distinto'),end_if
-_b:=5.0F3,
-_x:=_e*_d+_b,
-if(_x=_f)print('es igual'),else print('es distinto'),end_if
+_e:=1.0F3*2.0F3,
+__b:=2.0F3,
+__d:=1.0F3,
+__x:=_e*_d+_b,
+__f:=_e*_d+_b,
+__if(_x=_f)print('es igual'),else print('es distinto'),end_if
+___b:=5.0F3,
+___x:=_e*_d+_b,
+__if(_x=_f)print('es igual'),else print('es distinto'),end_if
 
 
 
