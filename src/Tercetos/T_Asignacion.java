@@ -81,22 +81,7 @@ public class T_Asignacion extends Terceto{
 				}
 			}
 			else {
-/*				if (((Symbol) (operando2)).getTipo()==275 *//*|| ((Symbol) (operando2)).getTipo()==276*//*) {
-					// CASO QUE SEA CONSTANTE
-					if (((Symbol) (operando2)).getTipo()==275){
-						v.add(new String("MOV EAX, OFFSET " + op1));
-						String addlist = "MOV BX, " + op2;
-						v.add(addlist);
-						v.add(new String("MOV DWORD PTR [EAX], EBX"));
-					}else{
-						// CASO CONSTANTE FLOAT
-						v.add(new String("MOV EAX, OFFSET " +op1.replace(".","p").replace("-","n")));
-						String addlist = "MOV BX, " + op2;
-						v.add(addlist);
-						v.add(new String("MOV DWORD PTR [EAX], EBX"));
 
-					}
-				} else{*/
 					//CASO EN PUNT := ID
 					if (((Symbol) (operando1)).getTipoVar() == "integer") {
 
@@ -114,8 +99,6 @@ public class T_Asignacion extends Terceto{
 						v.add(new String("MOV EAX, " + op1));
 						v.add(new String("mov dword ptr [EAX], EBX"));
 
-/*						v.add(new String("MOV EAX, OFFSET " + operan2));
-						v.add(new String("MOV " + op1 + ", EAX"));*/
 					}
 				}
 				// float ya contemplado
@@ -146,10 +129,5 @@ public class T_Asignacion extends Terceto{
 	public void setTabla(SymbolTable tabla) {
 		this.ts = tabla;
 	}
-/*  a la variable con el resultado de esta operacion hay que ponerle el tipo que tenemos aca, y tambien a la TSymbolos
-        public void setVariableAux(int a){
-            varAux = "@AUX"+Integer.toString(a);
-            Simbolo s = new Simbolo(300, false, varAux, tipo);
-            ts.agregarSimbolo(varAux,s);
-        }*/
+
 }

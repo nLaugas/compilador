@@ -1,43 +1,12 @@
-let mut single _a;_b;_d;*_c;_e;_f;_x,
-_f:=2.0F1*3.0F1*3.0F1*5.0F1,
-_x:=4.0F1*3.0F1*2.0F1,
-if(_x=_f)print('es igual'),else print('es distinto'),end_if
-__let mut single *_p;_a;_b;_d;*_c;_e;_f;_x,
-__let mut single _l,
-__l:=2.0F3,
-__e:=1.0F3,
-__*_p:=&_e,
-__*_c:=&_l,
-__if(_e=_l)print('es igual'),else print('es distinto'),end_if
-__b:=2.0F3,
-__d:=1.0F3,
-__x:=_e*_d+_b,
-__f:=_e*_d+_b,
-__if(_x=_f)print('es igual'),else print('es distinto'),end_if
-___b:=5.0F3,
-___x:=_e*_d+_b,
-__if(_x=_f)print('es igual'),else print('es distinto'),end_if
-__x:=1_i*2_i+3_i*4_i,
-__a:=2.0F3,
-__d:=4.0F3,
-__let single *_j := &_a,
-__c:=&_a,
-__b:=1.0F3,
-__if(_b=_a)print('es igual'),else print('es distinto'),end_if
-__c:=1.0F3,
-__a:=_b,
-__if(_b=_a)print('es igual'),else print('es distinto'),end_if
-__*_c:=&_d,
-__c:=5.0F3,
-__if(_b=_a)print('es igual'),else print('es distinto'),end_if
-__print('fin de programa'),
-__punteros utilizando tipo de dato single
-__let mut single _a;_b;*_c,
-__let mut integer _p,
-__b:=1.0F3,
-__a:=2.0F3,
-__c:=&_a,
-__if(_b=_a)print('es igual'),else print('es distinto'),end_if
-__c:=1.0F3,
-__if(_b=_a)print('es igual'),else print('es distinto'),end_if
-print('finalizacion de programa'),
+__ReduccionDeTercetos
+let mut integer _a;_b;_d;_f;_g;_u,
+let mut single _l,
+_b:=3_i,
+_a:=20_i,
+_d:=_b+_a,
+_g:=_d*_a,
+_l:=2.0F3+55.0F3+7.0F4+245.0F8,
+_f:=_b+_a,
+_u:=_d*_a,
+if(_d=_f)print('es igual'),else print('es distinto'),end_if
+print('fin de programa'),

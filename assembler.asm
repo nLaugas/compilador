@@ -20,57 +20,87 @@ _@min_float2 DQ -3.40282347e-38
 _@max_integer DD 32768
 _@min_integer DD -32768
 _memaux DW ?
-_finalizacion_de_programa DB "finalizacion de programa" ,0
-_50p0 DD 50.0
-_@AUX1 DD ?
-_@AUX0 DD ?
-_f DD ?
-_e DD ?
-_d DD ?
-_c DD ?
-_b DD ?
-_a DD ?
-_1500p0 DD 1500.0
-_45000p0 DD 45000.0
+_70000p0 DD 70000.0
+_@AUX5 DW ?
+_l DD ?
+_@AUX4 DW ?
+_@AUX3 DW ?
+_@AUX2 DW ?
+_20_i DW 20
+_@AUX1 DW ?
+_@AUX0 DW ?
+_g DW ?
+_f DW ?
+_2p45001257E10 DD 2.45001257E10
+_d DW ?
+_b DW ?
+_@AUX10 DW ?
+_a DW ?
+_55000p0 DD 55000.0
+_3_i DW 3
+_2000p0 DD 2000.0
 _es_distinto DB "es distinto" ,0
-_20p0 DD 20.0
-_600p0 DD 600.0
+_2p45001277E10 DD 2.45001277E10
+_2p45000008E10 DD 2.45000008E10
 _es_igual DB "es igual" ,0
-_x DD ?
-_30p0 DD 30.0
-_24000p0 DD 24000.0
-_40p0 DD 40.0
-_900000p0 DD 900000.0
+_u DW ?
+_2p45000704E10 DD 2.45000704E10
+_fin_de_programa DB "fin de programa" ,0
+_@AUX9 DW ?
+_@AUX8 DW ?
+_@AUX7 DW ?
+_@AUX6 DD ?
 .CODE
 START:
 
-FLD _900000p0
-FSTP _f
+MOV AX, _3_i
+MOV _b ,AX
 
-FLD _24000p0
-FSTP _x
+MOV AX, _20_i
+MOV _a ,AX
 
-FLD _x
+MOV AX, _b
+ADD AX, _a
+JO @OVERFLOW_EN_SUMA
+MOV _@AUX2 ,AX
 
-FCOMP _f
 
-FSTSW _memaux
 
-MOV AX, _memaux
+MOV AX, _@AUX2
+MOV _d ,AX
 
-SAHF
-JNE  Label6
+MOV AX, _d
+MUL _a
+MOV _@AUX4, AX
+
+
+
+MOV AX, _@AUX4
+MOV _g ,AX
+
+FLD _2p45001277E10
+FSTP _l
+
+MOV AX, _@AUX2
+MOV _f ,AX
+
+MOV AX, _@AUX4
+MOV _u ,AX
+
+MOV AX, _d
+CMP AX, _f
+JNE  Label15
 
 invoke MessageBox, NULL, addr _es_igual, addr TITULO , MB_OK 
-JMP Label7
-Label6:
+JMP Label16
+Label15:
 
 invoke MessageBox, NULL, addr _es_distinto, addr TITULO , MB_OK 
 
-Label7:
+Label16:
 
 
-invoke MessageBox, NULL, addr _finalizacion_de_programa, addr TITULO , MB_OK 
+invoke MessageBox, NULL, addr _fin_de_programa, addr TITULO , MB_OK 
 jMP EXIT
 @RESULTADO_NEGATIVO_RESTA:
 Invoke MessageBox, NULL, addr RESULTADO_NEGATIVO_RESTA, addr RESULTADO_NEGATIVO_RESTA, MB_OK
