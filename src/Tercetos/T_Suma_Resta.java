@@ -166,8 +166,17 @@ public class T_Suma_Resta extends TercetoOperacion {
 			 v.add(new String("\r\nFLD " + op1));
 			 v.add(new String("FLD " + op2));
 			 v.add(new String("FSUB"));
-			 v.add(new String("JS @RESULTADO_NEGATIVO_RESTA "));
 			 v.add(new String("FSTP " + getVarAux()));
+			 v.add(new String("FLDZ"));
+			 v.add(new String("FLD " + getVarAux()));
+			 v.add(new String("FCOMPP"));
+			 v.add(new String("FSTSW AX"));
+			 v.add(new String("FFREE ST(0)"));
+			 v.add(new String("FFREE ST(1)"));
+			 v.add(new String("FWAIT"));
+			 v.add(new String("SAHF"));
+			 v.add(new String("JB @RESULTADO_NEGATIVO_RESTA"));
+			 v.add("\n");
              v.add("\n");
 		 }
 		}
