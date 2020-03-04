@@ -153,6 +153,26 @@ public class T_Mult_Div extends TercetoOperacion {
 				v.add(new String("\r\nFILD "+op1));
 				v.addElement(new String("FMUL "+op2));
 				v.addElement(new String("FSTP "+ getVarAux()));
+				v.addElement(new String("FLD _@max_float1"));
+				v.addElement(new String("FLD " + getVarAux()));
+				v.addElement(new String("FABS"));
+				v.addElement(new String("FCOMPP"));
+				v.addElement(new String("FSTSW AX"));
+				v.addElement(new String("FFREE ST(0)"));
+				v.addElement(new String("FFREE ST(1)"));
+				v.addElement(new String("FWAIT"));
+				v.addElement(new String("SAHF"));
+				v.addElement(new String("JNB @OVERFLOW_EN_PRODUCTO"));
+				v.addElement(new String("FLD _@max_float2"));
+				v.addElement(new String("FLD " + getVarAux()));
+				v.addElement(new String("FABS"));
+				v.addElement(new String("FCOMPP"));
+				v.addElement(new String("FSTSW AX"));
+				v.addElement(new String("FFREE ST(0)"));
+				v.addElement(new String("FFREE ST(1)"));
+				v.addElement(new String("FWAIT"));
+				v.addElement(new String("SAHF"));
+				v.addElement(new String("JBE @OVERFLOW_EN_PRODUCTO"));
 				v.add("\n");
 				//listo
 			}else{

@@ -137,10 +137,29 @@ public class T_Suma_Resta extends TercetoOperacion {
 		else {
 		 if (operador=="+") {
 			 v.add(new String("\r\nFLD " + op1));
-			 v.add(new String("FLD " + op2));
-			 v.add(new String("FADD"));
-			 v.add(new String("JO @OVERFLOW_EN_SUMA")); //verificar si es el mismo flag
+			 v.add(new String("FADD " + op2));
 			 v.add(new String("FSTP " + getVarAux()));
+			 v.addElement(new String("FLD _@max_float1"));
+			 v.addElement(new String("FLD " + getVarAux()));
+			 v.addElement(new String("FABS"));
+			 v.addElement(new String("FCOMPP"));
+			 v.addElement(new String("FSTSW AX"));
+			 v.addElement(new String("FFREE ST(0)"));
+			 v.addElement(new String("FFREE ST(1)"));
+			 v.addElement(new String("FWAIT"));
+			 v.addElement(new String("SAHF"));
+			 v.addElement(new String("JNB @OVERFLOW_EN_SUMA"));
+			 v.addElement(new String("FLD _@max_float2"));
+			 v.addElement(new String("FLD " + getVarAux()));
+			 v.addElement(new String("FABS"));
+			 v.addElement(new String("FCOMPP"));
+			 v.addElement(new String("FSTSW AX"));
+			 v.addElement(new String("FFREE ST(0)"));
+			 v.addElement(new String("FFREE ST(1)"));
+			 v.addElement(new String("FWAIT"));
+			 v.addElement(new String("SAHF"));
+			 v.addElement(new String("JBE @OVERFLOW_EN_SUMA"));
+			 v.add("\n");
 			 v.add("\n");
 		 }else{
 		 	//para la resta
