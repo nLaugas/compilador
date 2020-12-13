@@ -796,7 +796,8 @@ case 24:
 
                 }
                 if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
-                  intCte = Integer.parseInt((((Symbol)val_peek(2).obj).getLexema()).substring(0,1));
+                  String lex =  (((Symbol)val_peek(2).obj).getLexema());
+                  intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
                   factorCte = true;
                 }
 
@@ -810,7 +811,8 @@ case 24:
 
                   }
                   if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
-                    intCte2 = Integer.parseInt((((Symbol)val_peek(0).obj).getLexema()).substring(0,(((Symbol)val_peek(0).obj).getLexema()).length()-2));
+                    String lex =  (((Symbol)val_peek(0).obj).getLexema());
+                    intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
                     terminoCte = true;
                   }
                 }
