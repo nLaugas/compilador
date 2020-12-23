@@ -1,7 +1,7 @@
 /* Declaraciones */
 
 %{
-
+package AnalizadorSintactico;
 import AnalizadorLexico.LexicalAnalyzer;
 import Errors.Errors;
 import SymbolTable.*;
@@ -80,7 +80,7 @@ lista_id: ID {//  id.add( ((Symbol)($1.obj)).getLexema() );
         ;
 
 tipo: INTEGER {$$.sval="integer";}
-	| SINGLE {$$.sval="float";}
+	| SINGLE {$$.sval="single";}
 	| error ','{yyerror("Tipo indefinido",$1.getFila(),$1.getColumna());}
 	;
 
@@ -99,29 +99,147 @@ ejecutable: asignacion ','{}
         if (listaTercetos.get(i).getOperador() == "BF")
             {	listaTercetos.get(i).setOperando2(contadorTerceto);
             }
+                  if (intLoop == 0){
+          Terceto t = new T_Fin(contadorTerceto,"FIN_DE_SALTO","trampita","trampita",st);
+          contadorTerceto ++;
+          listaTercetos.add(t);
+          }
+          else
+          { ((T_BF)listaTercetos.get(i)).invertFlags();
+            listaTercetos.get(i).setOperando2(intLoop);
+            intLoop=0;
+          }
 //podriamos hacer un terceto fin aca que sea a donde apunte el salto, este terceto no haria nada solo funcionaria de label del salto
 }
           | exp_print ','{}
 	  ;
 
 expresion: termino '+' expresion {
+                boolean factorCte = false;
+                boolean terminoCte = false;
+                boolean esFloat = false;
+                Integer intCte = null,intCte2=null ;/*= Integer.parseInt(lexema.substring(0,1);*/
+                Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
+
+                /*pregunto por el factor*/
+                if ((((Symbol)($1.obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)$1.obj).getLexema());
+                  factorCte = true;
+                  esFloat = true;
+
+                }
+                if ((((Symbol)($1.obj)).getTipo() ==275)){
+                  String lex =  (((Symbol)$1.obj).getLexema());
+                  intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
+                  factorCte = true;
+                }
+
+                /*pregunto por el termino*/
+
+                if (   ($3.obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)($3.obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)$3.obj).getLexema());
+                    terminoCte= true;
+                    esFloat = true;
+
+                  }
+                  if ((((Symbol)($3.obj)).getTipo() ==275)){
+                    String lex =  (((Symbol)$3.obj).getLexema());
+                    intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
+                    terminoCte = true;
+                  }
+                }
+                 Symbol s = null;
+                /* pregunto por termino y factor*/
+                if (factorCte && terminoCte){
+                      if (esFloat){
+                        s = ((Symbol)($1.obj)).clone();
+                        s.setLexema(String.valueOf(floatCte+floatCte2));
+                        st.setSymbol(s);
+
+                      }
+                      else{
+                         s = ((Symbol)($1.obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
+                         s.setLexema(String.valueOf(intCte+intCte2)+"_i");
+                         /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
+                        st.setSymbol(s);
+                      }
+                  yyval.obj=s;
+
+                }else   
+                      {
 								Terceto t = new T_Suma_Resta(contadorTerceto,"+",$1.obj,$3.obj,st);
                                 //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
-                                t.setVariableAux(contaAux);
-                                contaAux++;
+                                t.setVariableAux(contadorVarAux);
+                                contadorVarAux++;
                                 for(int i=0; i< t.errores.size();i++){
                                           yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
                                       ;}
                                 contadorTerceto ++;
                                 listaTercetos.add(t);
                      System.out.println(t.toString());
+                      }
                 $$=$1;
                 $$.obj = t;
+
 }
 	| termino '-' expresion {
+                       boolean factorCte = false;
+                boolean terminoCte = false;
+                boolean esFloat = false;
+                Integer intCte = null,intCte2=null ;/*= Integer.parseInt(lexema.substring(0,1);*/
+                Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
+
+                /*pregunto por el factor*/
+                if ((((Symbol)($1.obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)$1.obj).getLexema());
+                  factorCte = true;
+                  esFloat = true;
+
+                }
+                if ((((Symbol)($1.obj)).getTipo() ==275)){
+                  String lex =  (((Symbol)$1.obj).getLexema());
+                  intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
+                  factorCte = true;
+                }
+
+                /*pregunto por el termino*/
+
+                if (   ($3.obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)($3.obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)$3.obj).getLexema());
+                    terminoCte= true;
+                    esFloat = true;
+
+                  }
+                  if ((((Symbol)($3.obj)).getTipo() ==275)){
+                    String lex =  (((Symbol)$3.obj).getLexema());
+                    intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
+                    terminoCte = true;
+                  }
+                }
+                 Symbol s = null;
+                /* pregunto por termino y factor*/
+                if (factorCte && terminoCte){
+                      if (esFloat){
+                        s = ((Symbol)($1.obj)).clone();
+                        s.setLexema(String.valueOf(floatCte-floatCte2));
+                        st.setSymbol(s);
+
+                      }
+                      else{
+                         s = ((Symbol)($1.obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
+                         s.setLexema(String.valueOf(intCte-intCte2)+"_i");
+                         /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
+                        st.setSymbol(s);
+                      }
+                  yyval.obj=s;
+
+                }else   
+                {
 						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",$1.obj,$3.obj,st);
                              //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
-                            t.setVariableAux(contaAux);
+                            t.setVariableAux(contadorVarAux);
                             contadorVarAux++;
                             for(int i=0; i< t.errores.size();i++){
                                        yyerror(t.errores.elementAt(i),$1.getFila(),$1.getColumna());
@@ -129,6 +247,7 @@ expresion: termino '+' expresion {
                             contadorTerceto ++;
                             listaTercetos.add(t);
                      System.out.println(t.toString());
+                }
                      $$=$1;
             $$.obj = t;
 }
@@ -139,6 +258,61 @@ expresion: termino '+' expresion {
 
 
 termino: factor '/' termino {
+
+              
+                boolean factorCte = false;
+                boolean terminoCte = false;
+                boolean esFloat = false;
+                Integer intCte = null,intCte2=null ;/*= Integer.parseInt(lexema.substring(0,1);*/
+                Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
+
+                /*pregunto por el factor*/
+                if ((((Symbol)($1.obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)$1.obj).getLexema());
+                  factorCte = true;
+                  esFloat = true;
+
+                }
+                if ((((Symbol)($1.obj)).getTipo() ==275)){
+                  String lex =  (((Symbol)$1.obj).getLexema());
+                  intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
+                  factorCte = true;
+                }
+
+                /*pregunto por el termino*/
+
+                if (   ($3.obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)($3.obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)$3.obj).getLexema());
+                    terminoCte= true;
+                    esFloat = true;
+
+                  }
+                  if ((((Symbol)($3.obj)).getTipo() ==275)){
+                    String lex =  (((Symbol)$3.obj).getLexema());
+                    intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
+                    terminoCte = true;
+                  }
+                }
+                 Symbol s = null;
+                /* pregunto por termino y factor*/
+                if (factorCte && terminoCte){
+                      if (esFloat){
+                        s = ((Symbol)($1.obj)).clone();
+                        s.setLexema(String.valueOf(floatCte/floatCte2));
+                        st.setSymbol(s);
+
+                      }
+                      else{
+                         s = ((Symbol)($1.obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
+                         s.setLexema(String.valueOf(intCte/intCte2)+"_i");
+                         /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
+                        st.setSymbol(s);
+                      }
+                  yyval.obj=s;
+
+                }else            
+              {
                 Terceto t = new T_Mult_Div(contadorTerceto,"/",$1.obj,$3.obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
@@ -148,11 +322,69 @@ termino: factor '/' termino {
                 contadorTerceto ++;
                 listaTercetos.add(t);
                      System.out.println(t.toString());
+              }
 $$=$1;
 $$.obj = t;
 
 }
 	| factor '*' termino{
+
+
+              
+                boolean factorCte = false;
+                boolean terminoCte = false;
+                boolean esFloat = false;
+                Integer intCte = null,intCte2=null ;/*= Integer.parseInt(lexema.substring(0,1);*/
+                Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
+
+                /*pregunto por el factor*/
+                if ((((Symbol)($1.obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)$1.obj).getLexema());
+                  factorCte = true;
+                  esFloat = true;
+
+                }
+                if ((((Symbol)($1.obj)).getTipo() ==275)){
+                  String lex =  (((Symbol)$1.obj).getLexema());
+                  intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
+                  factorCte = true;
+                }
+
+                /*pregunto por el termino*/
+
+                if (   ($3.obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)($3.obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)$3.obj).getLexema());
+                    terminoCte= true;
+                    esFloat = true;
+
+                  }
+                  if ((((Symbol)($3.obj)).getTipo() ==275)){
+                    String lex =  (((Symbol)$3.obj).getLexema());
+                    intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
+                    terminoCte = true;
+                  }
+                }
+                 Symbol s = null;
+                /* pregunto por termino y factor*/
+                if (factorCte && terminoCte){
+                      if (esFloat){
+                        s = ((Symbol)($1.obj)).clone();
+                        s.setLexema(String.valueOf(floatCte*floatCte2));
+                        st.setSymbol(s);
+
+                      }
+                      else{
+                         s = ((Symbol)($1.obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
+                         s.setLexema(String.valueOf(intCte*intCte2)+"_i");
+                         /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
+                        st.setSymbol(s);
+                      }
+                  yyval.obj=s;
+
+                }else
+                      {
+                /* lo que ya estaba*/
                 Terceto t = new T_Mult_Div(contadorTerceto,"*",$1.obj,$3.obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
@@ -162,6 +394,7 @@ $$.obj = t;
                 contadorTerceto ++;
                 listaTercetos.add(t);
                      System.out.println(t.toString());
+                      }
 $$=$1;
 $$.obj = t;
     }
@@ -212,7 +445,9 @@ if (!((Symbol)($1.obj)).isUsada()){
                 $$.obj = t;
 	estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
 
-    | LET tipo '*'ID ASIG '&' ID  { // Estoy definiendo una variable
+    | LET tipo '*' ID ASIG '&' ID  
+    { 
+    // Estoy definiendo una variable
     if (((Symbol)($4.obj)).isUsada()){
         yyerror("La variable ya esta definida ",$1.getFila(),$1.getColumna());
     }else{
@@ -309,7 +544,13 @@ cuerpo: ejecutable {}
 	;
 
 loop_: LOOP {//#### unica forma de marcar donde comienza el loop y ver donde salto (no diferenciamos bloque de loop)
-        p.push(contadorTerceto);}
+        p.push(contadorTerceto);
+                intLoop = contadorTerceto;
+        Terceto t = new T_Fin(contadorTerceto,"FIN_DE_SALTO","trampita","trampita",st);
+
+        listaTercetos.add(t);
+        contadorTerceto ++;
+        }
 ;
 
 
