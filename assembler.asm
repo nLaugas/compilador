@@ -9,6 +9,7 @@ includelib \masm32\lib\user32.lib
 .DATA
 TITULO DB "Mensaje" , 0
 OVERFLOW_EN_SUMA DB "Overflow en suma" , 0
+OVERFLOW_EN_PRODUCTO DB "Overflow en producto" , 0
 RESULTADO_NEGATIVO_RESTA DB "Resultado negativo en resta" , 0
 DIVISION_POR_CERO DB "Division por cero, error de ejecucion" , 0
 
@@ -31,7 +32,7 @@ _@AUX1 DW ?
 _@AUX0 DW ?
 _g DW ?
 _f DW ?
-_2p45001257E10 DD 2.45001257E10
+_127000p0 DD 127000.0
 _d DW ?
 _b DW ?
 _@AUX10 DW ?
@@ -41,10 +42,10 @@ _3_i DW 3
 _2000p0 DD 2000.0
 _es_distinto DB "es distinto" ,0
 _2p45001277E10 DD 2.45001277E10
+_57000p0 DD 57000.0
 _2p45000008E10 DD 2.45000008E10
 _es_igual DB "es igual" ,0
 _u DW ?
-_2p45000704E10 DD 2.45000704E10
 _fin_de_programa DB "fin de programa" ,0
 _@AUX9 DW ?
 _@AUX8 DW ?
@@ -59,8 +60,8 @@ MOV _b ,AX
 MOV AX, _20_i
 MOV _a ,AX
 
-MOV AX, _b
-ADD AX, _a
+MOV AX, _a
+ADD AX, _b
 JO @OVERFLOW_EN_SUMA
 MOV _@AUX2 ,AX
 
@@ -69,8 +70,8 @@ MOV _@AUX2 ,AX
 MOV AX, _@AUX2
 MOV _d ,AX
 
-MOV AX, _d
-MUL _a
+MOV AX, _a
+MUL _d
 MOV _@AUX4, AX
 
 
@@ -107,6 +108,9 @@ Invoke MessageBox, NULL, addr RESULTADO_NEGATIVO_RESTA, addr RESULTADO_NEGATIVO_
 Invoke ExitProcess, 0
 @OVERFLOW_EN_SUMA:
 Invoke MessageBox, NULL, addr OVERFLOW_EN_SUMA, addr OVERFLOW_EN_SUMA, MB_OK
+Invoke ExitProcess, 0
+@OVERFLOW_EN_PRODUCTO:
+Invoke MessageBox, NULL, addr OVERFLOW_EN_PRODUCTO, addr OVERFLOW_EN_PRODUCTO, MB_OK
 Invoke ExitProcess, 0
 @DIVISION_POR_CERO:
 Invoke MessageBox, NULL, addr DIVISION_POR_CERO, addr DIVISION_POR_CERO, MB_OK

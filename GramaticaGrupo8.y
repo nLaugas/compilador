@@ -114,7 +114,7 @@ ejecutable: asignacion ','{}
           | exp_print ','{}
 	  ;
 
-expresion: termino '+' expresion {
+expresion: expresion '+' termino {
                 boolean factorCte = false;
                 boolean terminoCte = false;
                 boolean esFloat = false;
@@ -122,29 +122,29 @@ expresion: termino '+' expresion {
                 Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
 
                 /*pregunto por el factor*/
-                if ((((Symbol)($1.obj)).getTipo() ==276)) {
-                  floatCte = Float.parseFloat(((Symbol)$1.obj).getLexema());
+                if ((((Symbol)($3.obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)$3.obj).getLexema());
                   factorCte = true;
                   esFloat = true;
 
                 }
-                if ((((Symbol)($1.obj)).getTipo() ==275)){
-                  String lex =  (((Symbol)$1.obj).getLexema());
+                if ((((Symbol)($3.obj)).getTipo() ==275)){
+                  String lex =  (((Symbol)$3.obj).getLexema());
                   intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
                   factorCte = true;
                 }
 
                 /*pregunto por el termino*/
 
-                if (   ($3.obj).toString().charAt(0) == 'C'   ){
-                  if ((((Symbol)($3.obj)).getTipo() ==276)) {
-                    floatCte2 = Float.parseFloat(((Symbol)$3.obj).getLexema());
+                if (   ($1.obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)($1.obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)$1.obj).getLexema());
                     terminoCte= true;
                     esFloat = true;
 
                   }
-                  if ((((Symbol)($3.obj)).getTipo() ==275)){
-                    String lex =  (((Symbol)$3.obj).getLexema());
+                  if ((((Symbol)($1.obj)).getTipo() ==275)){
+                    String lex =  (((Symbol)$1.obj).getLexema());
                     intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
                     terminoCte = true;
                   }
@@ -153,13 +153,13 @@ expresion: termino '+' expresion {
                 /* pregunto por termino y factor*/
                 if (factorCte && terminoCte){
                       if (esFloat){
-                        s = ((Symbol)($1.obj)).clone();
+                        s = ((Symbol)($3.obj)).clone();
                         s.setLexema(String.valueOf(floatCte+floatCte2));
                         st.setSymbol(s);
 
                       }
                       else{
-                         s = ((Symbol)($1.obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
+                         s = ((Symbol)($3.obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
                          s.setLexema(String.valueOf(intCte+intCte2)+"_i");
                          /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
                         st.setSymbol(s);
@@ -168,7 +168,7 @@ expresion: termino '+' expresion {
 
                 }else   
                       {
-								Terceto t = new T_Suma_Resta(contadorTerceto,"+",$1.obj,$3.obj,st);
+								Terceto t = new T_Suma_Resta(contadorTerceto,"+",$3.obj,$1.obj,st);
                                 //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
                                 t.setVariableAux(contadorVarAux);
                                 contadorVarAux++;
@@ -178,42 +178,42 @@ expresion: termino '+' expresion {
                                 contadorTerceto ++;
                                 listaTercetos.add(t);
                      System.out.println(t.toString());
-                $$=$1;
+                $$=$3;
                 $$.obj = t;
                 }
 
 }
-	| termino '-' expresion {
-                       boolean factorCte = false;
+	| expresion '-' termino {
+                boolean factorCte = false;
                 boolean terminoCte = false;
                 boolean esFloat = false;
                 Integer intCte = null,intCte2=null ;/*= Integer.parseInt(lexema.substring(0,1);*/
                 Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
 
                 /*pregunto por el factor*/
-                if ((((Symbol)($1.obj)).getTipo() ==276)) {
-                  floatCte = Float.parseFloat(((Symbol)$1.obj).getLexema());
+                if ((((Symbol)($3.obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)$3.obj).getLexema());
                   factorCte = true;
                   esFloat = true;
 
                 }
-                if ((((Symbol)($1.obj)).getTipo() ==275)){
-                  String lex =  (((Symbol)$1.obj).getLexema());
+                if ((((Symbol)($3.obj)).getTipo() ==275)){
+                  String lex =  (((Symbol)$3.obj).getLexema());
                   intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
                   factorCte = true;
                 }
 
                 /*pregunto por el termino*/
 
-                if (   ($3.obj).toString().charAt(0) == 'C'   ){
-                  if ((((Symbol)($3.obj)).getTipo() ==276)) {
-                    floatCte2 = Float.parseFloat(((Symbol)$3.obj).getLexema());
+                if (   ($1.obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)($1.obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)$1.obj).getLexema());
                     terminoCte= true;
                     esFloat = true;
 
                   }
-                  if ((((Symbol)($3.obj)).getTipo() ==275)){
-                    String lex =  (((Symbol)$3.obj).getLexema());
+                  if ((((Symbol)($1.obj)).getTipo() ==275)){
+                    String lex =  (((Symbol)$1.obj).getLexema());
                     intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
                     terminoCte = true;
                   }
@@ -222,13 +222,13 @@ expresion: termino '+' expresion {
                 /* pregunto por termino y factor*/
                 if (factorCte && terminoCte){
                       if (esFloat){
-                        s = ((Symbol)($1.obj)).clone();
+                        s = ((Symbol)($3.obj)).clone();
                         s.setLexema(String.valueOf(floatCte-floatCte2));
                         st.setSymbol(s);
 
                       }
                       else{
-                         s = ((Symbol)($1.obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
+                         s = ((Symbol)($3.obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
                          s.setLexema(String.valueOf(intCte-intCte2)+"_i");
                          /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
                         st.setSymbol(s);
@@ -237,7 +237,7 @@ expresion: termino '+' expresion {
 
                 }else   
                 {
-						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",$1.obj,$3.obj,st);
+						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",$3.obj,$1.obj,st);
                              //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
                             t.setVariableAux(contadorVarAux);
                             contadorVarAux++;
@@ -247,7 +247,7 @@ expresion: termino '+' expresion {
                             contadorTerceto ++;
                             listaTercetos.add(t);
                      System.out.println(t.toString());
-              $$=$1;
+              $$=$3;
               $$.obj = t;
               }
 }
@@ -257,7 +257,7 @@ expresion: termino '+' expresion {
         ;
 
 
-termino: factor '/' termino {
+termino: termino '/' factor {
 
               
                 boolean factorCte = false;
@@ -267,29 +267,29 @@ termino: factor '/' termino {
                 Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
 
                 /*pregunto por el factor*/
-                if ((((Symbol)($1.obj)).getTipo() ==276)) {
-                  floatCte = Float.parseFloat(((Symbol)$1.obj).getLexema());
+                if ((((Symbol)($3.obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)$3.obj).getLexema());
                   factorCte = true;
                   esFloat = true;
 
                 }
-                if ((((Symbol)($1.obj)).getTipo() ==275)){
-                  String lex =  (((Symbol)$1.obj).getLexema());
+                if ((((Symbol)($3.obj)).getTipo() ==275)){
+                  String lex =  (((Symbol)$3.obj).getLexema());
                   intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
                   factorCte = true;
                 }
 
                 /*pregunto por el termino*/
 
-                if (   ($3.obj).toString().charAt(0) == 'C'   ){
-                  if ((((Symbol)($3.obj)).getTipo() ==276)) {
-                    floatCte2 = Float.parseFloat(((Symbol)$3.obj).getLexema());
+                if (   ($1.obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)($1.obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)$1.obj).getLexema());
                     terminoCte= true;
                     esFloat = true;
 
                   }
-                  if ((((Symbol)($3.obj)).getTipo() ==275)){
-                    String lex =  (((Symbol)$3.obj).getLexema());
+                  if ((((Symbol)($1.obj)).getTipo() ==275)){
+                    String lex =  (((Symbol)$1.obj).getLexema());
                     intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
                     terminoCte = true;
                   }
@@ -298,13 +298,13 @@ termino: factor '/' termino {
                 /* pregunto por termino y factor*/
                 if (factorCte && terminoCte){
                       if (esFloat){
-                        s = ((Symbol)($1.obj)).clone();
+                        s = ((Symbol)($3.obj)).clone();
                         s.setLexema(String.valueOf(floatCte/floatCte2));
                         st.setSymbol(s);
 
                       }
                       else{
-                         s = ((Symbol)($1.obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
+                         s = ((Symbol)($3.obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
                          s.setLexema(String.valueOf(intCte/intCte2)+"_i");
                          /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
                         st.setSymbol(s);
@@ -313,7 +313,7 @@ termino: factor '/' termino {
 
                 }else            
               {
-                Terceto t = new T_Mult_Div(contadorTerceto,"/",$1.obj,$3.obj,st);
+                Terceto t = new T_Mult_Div(contadorTerceto,"/",$3.obj,$1.obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
                 for(int i=0; i< t.errores.size();i++){
@@ -322,11 +322,11 @@ termino: factor '/' termino {
                 contadorTerceto ++;
                 listaTercetos.add(t);
                 System.out.println(t.toString());
-                $$=$1;
+                $$=$3;
                 $$.obj = t;
             }
 }
-	| factor '*' termino{
+	| termino '*' factor{
                 boolean factorCte = false;
                 boolean terminoCte = false;
                 boolean esFloat = false;
@@ -334,29 +334,29 @@ termino: factor '/' termino {
                 Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
 
                 /*pregunto por el factor*/
-                if ((((Symbol)($1.obj)).getTipo() ==276)) {
-                  floatCte = Float.parseFloat(((Symbol)$1.obj).getLexema());
+                if ((((Symbol)($3.obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)$3.obj).getLexema());
                   factorCte = true;
                   esFloat = true;
 
                 }
-                if ((((Symbol)($1.obj)).getTipo() ==275)){
-                  String lex =  (((Symbol)$1.obj).getLexema());
+                if ((((Symbol)($3.obj)).getTipo() ==275)){
+                  String lex =  (((Symbol)$3.obj).getLexema());
                   intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
                   factorCte = true;
                 }
 
                 /*pregunto por el termino*/
 
-                if (   ($3.obj).toString().charAt(0) == 'C'   ){
-                  if ((((Symbol)($3.obj)).getTipo() ==276)) {
-                    floatCte2 = Float.parseFloat(((Symbol)$3.obj).getLexema());
+                if (   ($1.obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)($1.obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)$1.obj).getLexema());
                     terminoCte= true;
                     esFloat = true;
 
                   }
-                  if ((((Symbol)($3.obj)).getTipo() ==275)){
-                    String lex =  (((Symbol)$3.obj).getLexema());
+                  if ((((Symbol)($1.obj)).getTipo() ==275)){
+                    String lex =  (((Symbol)$1.obj).getLexema());
                     intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
                     terminoCte = true;
                   }
@@ -365,13 +365,13 @@ termino: factor '/' termino {
                 /* pregunto por termino y factor*/
                 if (factorCte && terminoCte){
                       if (esFloat){
-                        s = ((Symbol)($1.obj)).clone();
+                        s = ((Symbol)($3.obj)).clone();
                         s.setLexema(String.valueOf(floatCte*floatCte2));
                         st.setSymbol(s);
 
                       }
                       else{
-                         s = ((Symbol)($1.obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
+                         s = ((Symbol)($3.obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
                          s.setLexema(String.valueOf(intCte*intCte2)+"_i");
                          /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
                         st.setSymbol(s);
@@ -381,7 +381,7 @@ termino: factor '/' termino {
                 }else
                       {
                 /* lo que ya estaba*/
-                Terceto t = new T_Mult_Div(contadorTerceto,"*",$1.obj,$3.obj,st);
+                Terceto t = new T_Mult_Div(contadorTerceto,"*",$3.obj,$1.obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
                 for(int i=0; i< t.errores.size();i++){
@@ -390,7 +390,7 @@ termino: factor '/' termino {
                 contadorTerceto ++;
                 listaTercetos.add(t);
                 System.out.println(t.toString());
-                $$=$1;
+                $$=$3;
                 $$.obj = t;
           }
     }

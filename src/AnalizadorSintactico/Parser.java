@@ -210,15 +210,15 @@ final static short yydefred[] = {                         0,
     0,    0,    0,    0,    0,    2,   55,    0,    0,    0,
     1,    0,    7,    8,    0,   22,    0,   43,   44,    0,
     0,    0,    0,    0,   42,    0,   40,    0,   32,   30,
-   31,    0,   38,    0,    0,    0,   16,   17,    0,    0,
+   31,    0,    0,    0,   29,    0,   16,   17,    0,    0,
     0,    0,    0,    0,    0,    0,   10,    6,   21,   23,
     0,    0,    0,   52,    0,    0,    4,   56,   48,    0,
-    0,   35,   33,   34,    0,    0,    0,    0,   18,    0,
-    0,    0,   66,   67,   64,   65,    0,    0,    0,    0,
+    0,    0,   33,   34,    0,    0,    0,    0,   18,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,   57,    0,    0,    0,    0,    0,   51,   46,
-   49,    0,   41,   24,   25,   28,   27,    0,    0,    0,
-    0,    0,   62,   63,   61,   58,   59,   60,   20,   54,
-   53,   47,   50,    0,    0,   15,    0,    9,   37,    0,
+   49,    0,   41,    0,    0,   28,   27,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,   20,   54,
+   53,   47,   50,    0,    0,   15,    0,    9,    0,    0,
    45,   13,    0,    0,   14,   36,
 };
 final static short yydgoto[] = {                         10,
@@ -227,97 +227,98 @@ final static short yydgoto[] = {                         10,
    46,
 };
 final static short yysindex[] = {                       -22,
-    0,  -33,   -9, -240,   14,    0,    0, -230,   22,    0,
-    0,   20,    0,    0,   -6,    0,   -1,    0,    0,    7,
-    7, -256, -212,    7,    0, -229,    0,   14,    0,    0,
-    0, -224,    0,   21,  -14,   19,    0,    0, -195,  -29,
-   14,   14,   14,   14,   29,   31,    0,    0,    0,    0,
-  -21, -195,  -21,    0, -212,  -31,    0,    0,    0,  -40,
-   32,    0,    0,    0,   14,   14,   14,   14,    0,  -17,
- -189, -185,    0,    0,    0,    0,   14,   14,   14,   14,
-   14,   14,    0,  -21,  -48,  -47,    7,   39,    0,    0,
-    0,    7,    0,    0,    0,    0,    0,  -32, -180,   42,
-   14, -176,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0, -175,  -17,    0,   37,    0,    0,   59,
-    0,    0,  -17, -163,    0,    0,
+    0,  -33,    3, -248,   14,    0,    0, -230,   22,    0,
+    0,   20,    0,    0,  -24,    0,  -20,    0,    0,    7,
+    7, -233, -222,    7,    0, -217,    0,   14,    0,    0,
+    0, -261,   18,  -30,    0,   25,    0,    0, -218,  -29,
+   14,   14,   14,   14,   34,   17,    0,    0,    0,    0,
+  -21, -218,  -21,    0, -222,  -31,    0,    0,    0,  -40,
+   21,   18,    0,    0,   14,   14,   14,   14,    0,  -17,
+ -200, -190,   18,   18,   18,   18,   14,   14,   14,   14,
+   14,   14,    0,  -21,  -47,  -38,    7,   35,    0,    0,
+    0,    7,    0,  -30,  -30,    0,    0,  -32, -175,   44,
+   14, -172,   18,   18,   18,   18,   18,   18,    0,    0,
+    0,    0,    0, -177,  -17,    0,   43,    0,   18,   66,
+    0,    0,  -17, -156,    0,    0,
 };
 final static short yyrindex[] = {                         0,
     1,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,   99,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,   56,    0,    0,
-    0,    0,    0,  -12,  -39,    0,    0,    0,    0,    0,
+    0,  106,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,   67,    0,    0,
+    0,    0,   68,  -39,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,  -24,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,   58,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,   66,    0,    0,    0,
+    0,   69,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,   73,   74,   75,   76,    0,    0,    0,    0,
+    0,    0,    0,  -15,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,  -12,   29,    0,    0,   77,    0,    0,
+    0,    0,   78,   79,   81,   82,   83,   84,    0,    0,
+    0,    0,    0,    0,    0,    0,   85,    0,   87,    0,
     0,    0,    0,    0,    0,    0,
 };
 final static short yygindex[] = {                         0,
-   91,    0,    0,    3,    0,   72,  -78,  -42,    0,    0,
-    0,   27,  -10,    0,    0,    0,    6,   -7,  -20,    0,
+  114,    0,    0,   56,    0,   88,  -70,  -50,    0,    0,
+    0,   57,  -11,   13,    0,    0,    9,   16,   -3,    0,
     0,
 };
-final static int YYTABLESIZE=298;
+final static int YYTABLESIZE=301;
 static short yytable[];
 static { yytable();}
 static void yytable(){
 yytable = new short[]{                          9,
-   10,   29,   13,   29,   29,   29,    9,   24,    9,   99,
-   86,   57,   72,   56,   13,   27,   60,    9,    9,  116,
-   29,   29,   29,   28,   99,   36,  115,   67,   26,   37,
-   26,   26,   68,   61,   87,   45,  122,   49,   38,   92,
-   10,  109,   50,   39,  125,   58,    9,   26,   26,   26,
-   63,   64,   91,   84,   62,   84,   96,   97,   32,    9,
-   36,   89,   69,   65,   37,   66,   32,   73,   74,   75,
-   76,   83,   93,   38,  101,  102,  110,  111,    9,  112,
-  117,   44,   53,   43,  114,  118,   84,  120,   81,   82,
-   80,   94,   95,  113,  121,  123,  124,  126,    5,   39,
-   19,   11,   48,  103,  104,  105,  106,  107,  108,   12,
-   70,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,  119,    0,   53,
+   10,   26,   86,   26,   26,   26,    9,   27,    9,   99,
+   24,   67,   72,   63,   64,   28,   68,    9,    9,   49,
+   26,   26,   26,   50,   99,   36,  115,  116,   24,   37,
+   24,   24,   24,  109,   57,   58,   56,   36,   38,   60,
+   10,   37,   26,   39,  122,   61,    9,   24,   24,   24,
+   38,   87,  125,   94,   95,   13,   92,   83,   32,    9,
+   65,   93,   66,  101,   89,   45,   32,   13,   69,   25,
+  102,   25,   25,   25,    9,   91,   65,  110,   66,   96,
+   97,   44,   53,   43,   62,  117,  111,  118,   25,   25,
+   25,  120,  121,   81,   82,   80,  113,   73,   74,   75,
+   76,  123,  112,  124,  126,    5,   84,  114,   84,   19,
+   39,   38,   35,   66,   67,   64,   65,    0,   62,   63,
+   11,   61,   58,   59,   60,   48,   70,    0,   12,   53,
+   37,    0,    0,  103,  104,  105,  106,  107,  108,   84,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,  119,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,   51,    2,   58,    3,    0,
-    4,    0,   23,    5,    0,   29,   29,   29,   98,   90,
+    4,    0,   23,    5,    0,   26,   26,   26,   98,   90,
     7,   71,   52,    1,    2,    2,    3,    3,    4,    4,
-   88,    5,    5,   98,    0,    6,   25,    0,    7,    7,
-    8,   52,   26,   26,   26,    0,   10,   10,    0,   10,
+   88,    5,    5,   98,    0,    6,    0,    0,    7,    7,
+    8,   52,   24,   24,   24,    0,   10,   10,   25,   10,
     0,   10,   51,    2,   10,    3,    0,    4,    3,    0,
     5,   10,    0,   10,   29,   47,    2,    7,    3,   52,
     4,    0,   29,    5,    0,    0,   41,   42,   30,   31,
-    7,    0,    8,   77,   78,   79,   30,   31,
+    7,    0,    8,   25,   25,   25,   30,   31,   77,   78,
+   79,
 };
 }
 static short yycheck[];
 static { yycheck(); }
 static void yycheck() {
 yycheck = new short[] {                         40,
-    0,   41,    0,   43,   44,   45,   40,    2,   40,   42,
-   53,  268,   42,   21,   12,  256,   24,   40,   40,   98,
-   60,   61,   62,  264,   42,  256,   59,   42,   41,  260,
-   40,   44,   47,  263,   55,    9,  115,   44,  269,   60,
-   40,   84,   44,  274,  123,  258,   40,   60,   61,   62,
-  275,  276,   60,   51,   28,   53,   67,   68,   45,   40,
-  256,   56,   44,   43,  260,   45,   45,   41,   42,   43,
-   44,   41,   41,  269,  264,  261,  125,  125,   40,   87,
-  261,   60,  123,   62,   92,   44,   84,  264,   60,   61,
-   62,   65,   66,   88,  270,   59,   38,  261,    0,   44,
-  125,   44,   12,   77,   78,   79,   80,   81,   82,   44,
-   39,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-   -1,   -1,   -1,   -1,   -1,   -1,   -1,  101,   -1,  123,
+    0,   41,   53,   43,   44,   45,   40,  256,   40,   42,
+    2,   42,   42,  275,  276,  264,   47,   40,   40,   44,
+   60,   61,   62,   44,   42,  256,   59,   98,   41,  260,
+   43,   44,   45,   84,  268,  258,   21,  256,  269,   24,
+   40,  260,   40,  274,  115,  263,   40,   60,   61,   62,
+  269,   55,  123,   65,   66,    0,   60,   41,   45,   40,
+   43,   41,   45,  264,   56,    9,   45,   12,   44,   41,
+  261,   43,   44,   45,   40,   60,   43,  125,   45,   67,
+   68,   60,  123,   62,   28,  261,  125,   44,   60,   61,
+   62,  264,  270,   60,   61,   62,   88,   41,   42,   43,
+   44,   59,   87,   38,  261,    0,   51,   92,   53,  125,
+   44,   44,   44,   41,   41,   41,   41,   -1,   41,   41,
+   44,   41,   41,   41,   41,   12,   39,   -1,   44,  123,
+   44,   -1,   -1,   77,   78,   79,   80,   81,   82,   84,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,  101,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
@@ -326,12 +327,13 @@ yycheck = new short[] {                         40,
    -1,   -1,   -1,   -1,   -1,  256,  257,  258,  259,   -1,
   261,   -1,  256,  264,   -1,  265,  266,  267,  261,  270,
   271,  261,  273,  256,  257,  257,  259,  259,  261,  261,
-  272,  264,  264,  261,   -1,  268,  256,   -1,  271,  271,
-  273,  273,  265,  266,  267,   -1,  256,  257,   -1,  259,
+  272,  264,  264,  261,   -1,  268,   -1,   -1,  271,  271,
+  273,  273,  265,  266,  267,   -1,  256,  257,  256,  259,
    -1,  261,  256,  257,  264,  259,   -1,  261,  268,   -1,
   264,  271,   -1,  273,  261,  256,  257,  271,  259,  273,
   261,   -1,  261,  264,   -1,   -1,  265,  266,  275,  276,
-  271,   -1,  273,  265,  266,  267,  275,  276,
+  271,   -1,  273,  265,  266,  267,  275,  276,  265,  266,
+  267,
 };
 }
 final static short YYFINAL=10;
@@ -382,11 +384,11 @@ final static String yyrule[] = {
 "ejecutable : asignacion ','",
 "ejecutable : bloque",
 "ejecutable : exp_print ','",
-"expresion : termino '+' expresion",
-"expresion : termino '-' expresion",
+"expresion : expresion '+' termino",
+"expresion : expresion '-' termino",
 "expresion : termino",
-"termino : factor '/' termino",
-"termino : factor '*' termino",
+"termino : termino '/' factor",
+"termino : termino '*' factor",
 "termino : factor",
 "factor : ENTERO",
 "factor : FLOTANTE",
@@ -469,7 +471,7 @@ void yyerror(String s){
 void yyerror(String s,int row,int column){
       errors.setError(row,column,s);
   }
-//#line 401 "Parser.java"
+//#line 403 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -778,29 +780,29 @@ case 24:
                 Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
 
                 /*pregunto por el factor*/
-                if ((((Symbol)(val_peek(2).obj)).getTipo() ==276)) {
-                  floatCte = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
+                if ((((Symbol)(val_peek(0).obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
                   factorCte = true;
                   esFloat = true;
 
                 }
-                if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
-                  String lex =  (((Symbol)val_peek(2).obj).getLexema());
+                if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
+                  String lex =  (((Symbol)val_peek(0).obj).getLexema());
                   intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
                   factorCte = true;
                 }
 
                 /*pregunto por el termino*/
 
-                if (   (val_peek(0).obj).toString().charAt(0) == 'C'   ){
-                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==276)) {
-                    floatCte2 = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
+                if (   (val_peek(2).obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)(val_peek(2).obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
                     terminoCte= true;
                     esFloat = true;
 
                   }
-                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
-                    String lex =  (((Symbol)val_peek(0).obj).getLexema());
+                  if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
+                    String lex =  (((Symbol)val_peek(2).obj).getLexema());
                     intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
                     terminoCte = true;
                   }
@@ -809,13 +811,13 @@ case 24:
                 /* pregunto por termino y factor*/
                 if (factorCte && terminoCte){
                       if (esFloat){
-                        s = ((Symbol)(val_peek(2).obj)).clone();
+                        s = ((Symbol)(val_peek(0).obj)).clone();
                         s.setLexema(String.valueOf(floatCte+floatCte2));
                         st.setSymbol(s);
 
                       }
                       else{
-                         s = ((Symbol)(val_peek(2).obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
+                         s = ((Symbol)(val_peek(0).obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
                          s.setLexema(String.valueOf(intCte+intCte2)+"_i");
                          /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
                         st.setSymbol(s);
@@ -824,7 +826,7 @@ case 24:
 
                 }else   
                       {
-								Terceto t = new T_Suma_Resta(contadorTerceto,"+",val_peek(2).obj,val_peek(0).obj,st);
+								Terceto t = new T_Suma_Resta(contadorTerceto,"+",val_peek(0).obj,val_peek(2).obj,st);
                                 /*st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos*/
                                 t.setVariableAux(contadorVarAux);
                                 contadorVarAux++;
@@ -834,7 +836,7 @@ case 24:
                                 contadorTerceto ++;
                                 listaTercetos.add(t);
                      System.out.println(t.toString());
-                yyval=val_peek(2);
+                yyval=val_peek(0);
                 yyval.obj = t;
                 }
 
@@ -843,36 +845,36 @@ break;
 case 25:
 //#line 186 "GramaticaGrupo8.y"
 {
-                       boolean factorCte = false;
+                boolean factorCte = false;
                 boolean terminoCte = false;
                 boolean esFloat = false;
                 Integer intCte = null,intCte2=null ;/*= Integer.parseInt(lexema.substring(0,1);*/
                 Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
 
                 /*pregunto por el factor*/
-                if ((((Symbol)(val_peek(2).obj)).getTipo() ==276)) {
-                  floatCte = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
+                if ((((Symbol)(val_peek(0).obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
                   factorCte = true;
                   esFloat = true;
 
                 }
-                if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
-                  String lex =  (((Symbol)val_peek(2).obj).getLexema());
+                if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
+                  String lex =  (((Symbol)val_peek(0).obj).getLexema());
                   intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
                   factorCte = true;
                 }
 
                 /*pregunto por el termino*/
 
-                if (   (val_peek(0).obj).toString().charAt(0) == 'C'   ){
-                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==276)) {
-                    floatCte2 = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
+                if (   (val_peek(2).obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)(val_peek(2).obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
                     terminoCte= true;
                     esFloat = true;
 
                   }
-                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
-                    String lex =  (((Symbol)val_peek(0).obj).getLexema());
+                  if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
+                    String lex =  (((Symbol)val_peek(2).obj).getLexema());
                     intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
                     terminoCte = true;
                   }
@@ -881,13 +883,13 @@ case 25:
                 /* pregunto por termino y factor*/
                 if (factorCte && terminoCte){
                       if (esFloat){
-                        s = ((Symbol)(val_peek(2).obj)).clone();
+                        s = ((Symbol)(val_peek(0).obj)).clone();
                         s.setLexema(String.valueOf(floatCte-floatCte2));
                         st.setSymbol(s);
 
                       }
                       else{
-                         s = ((Symbol)(val_peek(2).obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
+                         s = ((Symbol)(val_peek(0).obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
                          s.setLexema(String.valueOf(intCte-intCte2)+"_i");
                          /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
                         st.setSymbol(s);
@@ -896,7 +898,7 @@ case 25:
 
                 }else   
                 {
-						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",val_peek(2).obj,val_peek(0).obj,st);
+						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",val_peek(0).obj,val_peek(2).obj,st);
                              /*st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos*/
                             t.setVariableAux(contadorVarAux);
                             contadorVarAux++;
@@ -906,7 +908,7 @@ case 25:
                             contadorTerceto ++;
                             listaTercetos.add(t);
                      System.out.println(t.toString());
-              yyval=val_peek(2);
+              yyval=val_peek(0);
               yyval.obj = t;
               }
 }
@@ -929,29 +931,29 @@ case 27:
                 Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
 
                 /*pregunto por el factor*/
-                if ((((Symbol)(val_peek(2).obj)).getTipo() ==276)) {
-                  floatCte = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
+                if ((((Symbol)(val_peek(0).obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
                   factorCte = true;
                   esFloat = true;
 
                 }
-                if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
-                  String lex =  (((Symbol)val_peek(2).obj).getLexema());
+                if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
+                  String lex =  (((Symbol)val_peek(0).obj).getLexema());
                   intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
                   factorCte = true;
                 }
 
                 /*pregunto por el termino*/
 
-                if (   (val_peek(0).obj).toString().charAt(0) == 'C'   ){
-                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==276)) {
-                    floatCte2 = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
+                if (   (val_peek(2).obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)(val_peek(2).obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
                     terminoCte= true;
                     esFloat = true;
 
                   }
-                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
-                    String lex =  (((Symbol)val_peek(0).obj).getLexema());
+                  if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
+                    String lex =  (((Symbol)val_peek(2).obj).getLexema());
                     intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
                     terminoCte = true;
                   }
@@ -960,13 +962,13 @@ case 27:
                 /* pregunto por termino y factor*/
                 if (factorCte && terminoCte){
                       if (esFloat){
-                        s = ((Symbol)(val_peek(2).obj)).clone();
+                        s = ((Symbol)(val_peek(0).obj)).clone();
                         s.setLexema(String.valueOf(floatCte/floatCte2));
                         st.setSymbol(s);
 
                       }
                       else{
-                         s = ((Symbol)(val_peek(2).obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
+                         s = ((Symbol)(val_peek(0).obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
                          s.setLexema(String.valueOf(intCte/intCte2)+"_i");
                          /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
                         st.setSymbol(s);
@@ -975,7 +977,7 @@ case 27:
 
                 }else            
               {
-                Terceto t = new T_Mult_Div(contadorTerceto,"/",val_peek(2).obj,val_peek(0).obj,st);
+                Terceto t = new T_Mult_Div(contadorTerceto,"/",val_peek(0).obj,val_peek(2).obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
                 for(int i=0; i< t.errores.size();i++){
@@ -984,7 +986,7 @@ case 27:
                 contadorTerceto ++;
                 listaTercetos.add(t);
                 System.out.println(t.toString());
-                yyval=val_peek(2);
+                yyval=val_peek(0);
                 yyval.obj = t;
             }
 }
@@ -999,29 +1001,29 @@ case 28:
                 Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
 
                 /*pregunto por el factor*/
-                if ((((Symbol)(val_peek(2).obj)).getTipo() ==276)) {
-                  floatCte = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
+                if ((((Symbol)(val_peek(0).obj)).getTipo() ==276)) {
+                  floatCte = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
                   factorCte = true;
                   esFloat = true;
 
                 }
-                if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
-                  String lex =  (((Symbol)val_peek(2).obj).getLexema());
+                if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
+                  String lex =  (((Symbol)val_peek(0).obj).getLexema());
                   intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
                   factorCte = true;
                 }
 
                 /*pregunto por el termino*/
 
-                if (   (val_peek(0).obj).toString().charAt(0) == 'C'   ){
-                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==276)) {
-                    floatCte2 = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
+                if (   (val_peek(2).obj).toString().charAt(0) == 'C'   ){
+                  if ((((Symbol)(val_peek(2).obj)).getTipo() ==276)) {
+                    floatCte2 = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
                     terminoCte= true;
                     esFloat = true;
 
                   }
-                  if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
-                    String lex =  (((Symbol)val_peek(0).obj).getLexema());
+                  if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
+                    String lex =  (((Symbol)val_peek(2).obj).getLexema());
                     intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
                     terminoCte = true;
                   }
@@ -1030,13 +1032,13 @@ case 28:
                 /* pregunto por termino y factor*/
                 if (factorCte && terminoCte){
                       if (esFloat){
-                        s = ((Symbol)(val_peek(2).obj)).clone();
+                        s = ((Symbol)(val_peek(0).obj)).clone();
                         s.setLexema(String.valueOf(floatCte*floatCte2));
                         st.setSymbol(s);
 
                       }
                       else{
-                         s = ((Symbol)(val_peek(2).obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
+                         s = ((Symbol)(val_peek(0).obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
                          s.setLexema(String.valueOf(intCte*intCte2)+"_i");
                          /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
                         st.setSymbol(s);
@@ -1046,7 +1048,7 @@ case 28:
                 }else
                       {
                 /* lo que ya estaba*/
-                Terceto t = new T_Mult_Div(contadorTerceto,"*",val_peek(2).obj,val_peek(0).obj,st);
+                Terceto t = new T_Mult_Div(contadorTerceto,"*",val_peek(0).obj,val_peek(2).obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
                 for(int i=0; i< t.errores.size();i++){
@@ -1055,7 +1057,7 @@ case 28:
                 contadorTerceto ++;
                 listaTercetos.add(t);
                 System.out.println(t.toString());
-                yyval=val_peek(2);
+                yyval=val_peek(0);
                 yyval.obj = t;
           }
     }
@@ -1412,7 +1414,7 @@ case 67:
 //#line 657 "GramaticaGrupo8.y"
 {yyerror("Linea  se esperaba una expresion y se encontro '<='",val_peek(1).getFila(),val_peek(1).getColumna());}
 break;
-//#line 1339 "Parser.java"
+//#line 1341 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
