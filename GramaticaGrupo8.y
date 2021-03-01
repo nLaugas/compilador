@@ -178,9 +178,9 @@ expresion: termino '+' expresion {
                                 contadorTerceto ++;
                                 listaTercetos.add(t);
                      System.out.println(t.toString());
-                      }
                 $$=$1;
                 $$.obj = t;
+                }
 
 }
 	| termino '-' expresion {
@@ -247,9 +247,9 @@ expresion: termino '+' expresion {
                             contadorTerceto ++;
                             listaTercetos.add(t);
                      System.out.println(t.toString());
-                }
-                     $$=$1;
-            $$.obj = t;
+              $$=$1;
+              $$.obj = t;
+              }
 }
 	| termino {$$=$1;
     $$.obj=$1.obj; //creo que es necesario para que no se pierdan los lexemas, si quieren reveanlo
@@ -321,16 +321,12 @@ termino: factor '/' termino {
                        ;}
                 contadorTerceto ++;
                 listaTercetos.add(t);
-                     System.out.println(t.toString());
-              }
-$$=$1;
-$$.obj = t;
-
+                System.out.println(t.toString());
+                $$=$1;
+                $$.obj = t;
+            }
 }
 	| factor '*' termino{
-
-
-              
                 boolean factorCte = false;
                 boolean terminoCte = false;
                 boolean esFloat = false;
@@ -393,10 +389,10 @@ $$.obj = t;
                        ;}
                 contadorTerceto ++;
                 listaTercetos.add(t);
-                     System.out.println(t.toString());
-                      }
-$$=$1;
-$$.obj = t;
+                System.out.println(t.toString());
+                $$=$1;
+                $$.obj = t;
+          }
     }
     | factor {$$=$1;
 			  // terceto
@@ -673,6 +669,7 @@ condicion: expresion '>' expresion {
   public Stack<Integer> p = new Stack<Integer>();
   int contadorVarAux=0;
   int contadorTerceto=0;
+  int intLoop = 0;
 
     int yylex(){
 
