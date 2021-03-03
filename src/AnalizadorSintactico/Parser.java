@@ -851,34 +851,34 @@ case 25:
                 Integer intCte = null,intCte2=null ;/*= Integer.parseInt(lexema.substring(0,1);*/
                 Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
 
-                /*pregunto por el factor*/
+                /*pregunto por el termino*/
                 if ((((Symbol)(val_peek(0).obj)).getTipo() ==276)) {
-                  floatCte = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
+                  floatCte2 = Float.parseFloat(((Symbol)val_peek(0).obj).getLexema());
                   factorCte = true;
                   esFloat = true;
 
                 }
                 if ((((Symbol)(val_peek(0).obj)).getTipo() ==275)){
                   String lex =  (((Symbol)val_peek(0).obj).getLexema());
-                  intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
+                  intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
                   factorCte = true;
                 }
-
-                /*pregunto por el termino*/
-
+                /*pregunto por el expresion*/
                 if (   (val_peek(2).obj).toString().charAt(0) == 'C'   ){
                   if ((((Symbol)(val_peek(2).obj)).getTipo() ==276)) {
-                    floatCte2 = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
+                    floatCte = Float.parseFloat(((Symbol)val_peek(2).obj).getLexema());
                     terminoCte= true;
                     esFloat = true;
 
                   }
                   if ((((Symbol)(val_peek(2).obj)).getTipo() ==275)){
                     String lex =  (((Symbol)val_peek(2).obj).getLexema());
-                    intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
+                    intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
                     terminoCte = true;
                   }
                 }
+
+
                  Symbol s = null;
                 /* pregunto por termino y factor*/
                 if (factorCte && terminoCte){
