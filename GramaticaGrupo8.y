@@ -410,15 +410,17 @@ factor: ENTERO {$$=$1;}
 			 $$=$1;
 	}
 	| '-' ENTERO {    /** Revisar sino pierdo el puntero al elemento qe necesito **/
-					  $$=$2;
+					            //$$=$2;
                       //Symbol aux = st.getSymbol(lex.lastSymbol);
                       st.addcambiarSigno(((Symbol)($2.obj)));  //((Symbol))($2.obj))
+                      $$.obj=st.getSymbol("-"+((Symbol)($2.obj)).getLexema());
  		              }
 	|'-' FLOTANTE{			/** Revisar sino pierdo el puntero al elemento qe necesito **/
-		             $$=$2;
-					 // Antes qedaban atributos sin setear
+		                //$$=$2;
+					          // Antes qedaban atributos sin setear
                     // Symbol aux = st.getSymbol(lex.lastSymbol);
                      st.addcambiarSigno(((Symbol)($2.obj)));  //((Symbol))($2.obj))
+                     $$.obj=st.getSymbol("-"+((Symbol)($2.obj)).getLexema());
                     }
 	;
 
