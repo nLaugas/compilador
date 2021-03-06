@@ -121,22 +121,26 @@ expresion: expresion '+' termino {
                 Integer intCte = null,intCte2=null ;/*= Integer.parseInt(lexema.substring(0,1);*/
                 Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
 
-                /*pregunto por el factor*/
-                if ((((Symbol)($3.obj)).getTipo() ==276)) {
-                  floatCte = Float.parseFloat(((Symbol)$3.obj).getLexema());
-                  factorCte = true;
-                  esFloat = true;
-
-                }
-                if ((((Symbol)($3.obj)).getTipo() ==275)){
-                  String lex =  (((Symbol)$3.obj).getLexema());
-                  intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
-                  factorCte = true;
-                }
-
                 /*pregunto por el termino*/
+                //pregunto si es terceto
+                if ( ($3.obj).toString().charAt(0) != '[' ){
+                    if ((((Symbol)($3.obj)).getTipo() ==276)) {
+                    floatCte = Float.parseFloat(((Symbol)$3.obj).getLexema());
+                    factorCte = true;
+                    esFloat = true;
+
+                  }
+                  if ((((Symbol)($3.obj)).getTipo() ==275)){
+                    String lex =  (((Symbol)$3.obj).getLexema());
+                    intCte = Integer.parseInt(lex.substring(0,lex.length()-2));
+                    factorCte = true;
+                  }
+                }
+
+                /*pregunto por el expresion*/
 
                 if (   ($1.obj).toString().charAt(0) == 'C'   ){
+
                   if ((((Symbol)($1.obj)).getTipo() ==276)) {
                     floatCte2 = Float.parseFloat(((Symbol)$1.obj).getLexema());
                     terminoCte= true;
@@ -148,6 +152,7 @@ expresion: expresion '+' termino {
                     intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
                     terminoCte = true;
                   }
+
                 }
                  Symbol s = null;
                 /* pregunto por termino y factor*/
@@ -191,7 +196,9 @@ expresion: expresion '+' termino {
                 Float floatCte = null,floatCte2=null; /*= Float.parseFloat(lexema);*/
 
                 /*pregunto por el termino*/
-                if ((((Symbol)($3.obj)).getTipo() ==276)) {
+                //pregunto que no sea terceto
+                if ( ($3.obj).toString().charAt(0) != '[' ){
+                  if ((((Symbol)($3.obj)).getTipo() ==276)) {
                   floatCte2 = Float.parseFloat(((Symbol)$3.obj).getLexema());
                   factorCte = true;
                   esFloat = true;
@@ -202,7 +209,10 @@ expresion: expresion '+' termino {
                   intCte2 = Integer.parseInt(lex.substring(0,lex.length()-2));
                   factorCte = true;
                 }
+                }
+
                 /*pregunto por el expresion*/
+                //CTE ENTERO y CTE FLOTANTE
                 if (   ($1.obj).toString().charAt(0) == 'C'   ){
                   if ((((Symbol)($1.obj)).getTipo() ==276)) {
                     floatCte = Float.parseFloat(((Symbol)$1.obj).getLexema());
