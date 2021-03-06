@@ -133,15 +133,16 @@ public class T_Mult_Div extends TercetoOperacion {
 		if (getTipo() == "integer"){
 			if (operador.equals("*")) {
 				v.add(new String("\r\nMOV AX, " + op1));
-				v.add(new String("MUL " + op2));
+				v.add(new String("IMUL " + op2));
 				v.add(new String("MOV " + getVarAux() + ", AX"));
 				v.add("\n");
 			}else{
 				//para la division
 				v.add(new String("\r\nMOV AX, " + op1));
+				v.add(new String("CWD"));
 				v.add(new String("CMP " + op2 +", 0"));
 				v.add(new String("JE @DIVISION_POR_CERO"));
-				v.add(new String("DIV " + op2));
+				v.add(new String("IDIV " + op2));
 				v.add(new String("MOV " + getVarAux() + ", AX"));
 				//v.add(new String("JZ @DIVISION_POR_CERO"));
 				v.add("\n");

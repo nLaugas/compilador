@@ -129,7 +129,6 @@ public class T_Suma_Resta extends TercetoOperacion {
 	 		//para la resta
 			v.add(new String("\r\nMOV AX, " + op1));
 			v.add(new String("SUB AX, " + op2));
-			v.add(new String("JS @RESULTADO_NEGATIVO_RESTA "));
 			v.add(new String("MOV " + getVarAux() + " ,AX"));
 			v.add("\n");
 		 }
@@ -175,8 +174,6 @@ public class T_Suma_Resta extends TercetoOperacion {
 			 v.add(new String("FFREE ST(1)"));
 			 v.add(new String("FWAIT"));
 			 v.add(new String("SAHF"));
-			 v.add(new String("JB @RESULTADO_NEGATIVO_RESTA"));
-			 v.add("\n");
              v.add("\n");
 		 }
 		}

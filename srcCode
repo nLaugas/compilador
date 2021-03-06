@@ -1,12 +1,25 @@
-__ReduccionDeTercetos
-let mut integer _a;_b;_d;_f;_g;_u,
-let mut single _l,
-_b:=3_i,
-_a:=20_i,
-_d:=_b+_a,
-_g:=_d*_a,
-_l:=2.0F3+55.0F3+7.0F4+245.0F8,
-_f:=_b+_a,
-_u:=_d*_a,
-if(_d=_f)print('es igual'),else print('es distinto'),end_if
-print('fin de programa'),
+__verificando anidamientos
+let mut integer _a;_b;*_c,
+_b:=1_i,
+_a:=1_i,
+if(_b=_a){
+  print('es igual'),
+  loop{
+     print('se incrementa _a'),
+     _a:=_a+1_i,
+	 } until (_a = 3_i)
+  }
+  else{
+  print('es distinto'),
+  loop{
+     print('se incrementa _b'),
+     _b:=_b+1_i,
+	 } until (_b = 3_i)
+  }
+end_if
+loop{
+print('_a es distinto de _b'),
+_b:=_b+1_i,
+}
+until(_a!=_b)
+print('finalizacion de programa'),

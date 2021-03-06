@@ -43,6 +43,9 @@ public class GeneradorAssembler {
 			||ter_i.getOperador().equals("/")|| ter_i.getOperador().equals("*")))
 			return false;
 
+		if (ter_i.getnum() == -1 || ter_j.getnum() == -1)
+			return false;
+
 		for (int pos = i+1; pos<j; pos++){
 			Terceto ter_pos = ter.get(pos);
 			if (ter_pos.operador.equals(":=")){
@@ -126,7 +129,6 @@ public class GeneradorAssembler {
 		variables.add(new String("OVERFLOW_EN_SUMA DB \"Overflow en suma\" , 0"));
 		variables.add(new String("OVERFLOW_EN_PRODUCTO DB \"Overflow en producto\" , 0"));
 
-		variables.add(new String("RESULTADO_NEGATIVO_RESTA DB \"Resultado negativo en resta\" , 0"));
 		variables.add(new String("DIVISION_POR_CERO DB \"Division por cero, error de ejecucion\" , 0"));
 		variables.add(new String(""));
 		variables.add(new String("_@cero DW 0,0"));
@@ -220,8 +222,6 @@ public class GeneradorAssembler {
 		this.codigo.addAll(codAss);
 		codigo.add(new String("jMP EXIT"));
 
-		codigo.add(new String("@RESULTADO_NEGATIVO_RESTA:"));
-		codigo.add(new String("Invoke MessageBox, NULL, addr RESULTADO_NEGATIVO_RESTA, addr RESULTADO_NEGATIVO_RESTA, MB_OK"));
 		codigo.add(new String("Invoke ExitProcess, 0"));
 		codigo.add(new String("@OVERFLOW_EN_SUMA:"));
 		codigo.add(new String("Invoke MessageBox, NULL, addr OVERFLOW_EN_SUMA, addr OVERFLOW_EN_SUMA, MB_OK"));
