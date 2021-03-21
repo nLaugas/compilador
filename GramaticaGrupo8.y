@@ -81,7 +81,7 @@ lista_id: ID {//  id.add( ((Symbol)($1.obj)).getLexema() );
 
 tipo: INTEGER {$$.sval="integer";}
 	| SINGLE {$$.sval="single";}
-	| error ','{yyerror("Tipo indefinido",$1.getFila(),$1.getColumna());}
+	//| error ','{yyerror("Tipo indefinido",$1.getFila(),$1.getColumna());}
 	;
 
 lista_ejecutable: ejecutable {}
@@ -457,14 +457,22 @@ if (!((Symbol)($1.obj)).isUsada()){
 
       if (!((Symbol)($4.obj)).isUsada()){
           yyerror("La variable no esta definida ",$4.getFila(),$4.getColumna());
-      }else{if (!((Symbol)($4.obj)).getEsMutable()){
-          yyerror("La variable no es mutable ",$4.getFila(),$4.getColumna());
-      }
-      else{if (!((Symbol)($4.obj)).isEsPuntero()){
-          yyerror("La variable no es puntero ",$4.getFila(),$4.getColumna());
       }
 
-      }}
+      else{
+      if (!((Symbol)($1.obj)).getEsMutable()){
+          yyerror("La variable no es mutable ",$4.getFila(),$4.getColumna());
+      }
+      else{if (!((Symbol)($1.obj)).isEsPuntero()){
+          yyerror("La variable no es puntero ",$4.getFila(),$4.getColumna());
+      }
+      }
+        //pregunta si la variable que se esta asignando es mutable
+        if (!((Symbol)($4.obj)).getEsMutable()){
+            ((Symbol)($1.obj)).setEsMutable(false);
+        }
+      }
+      
         Terceto t = new T_Asignacion(contadorTerceto,"&",$4.obj,$1.obj,st);
         t.setVariableAux(contadorVarAux);/*casi seguro que si hay que crearla aca*/
         contadorVarAux++;/**/
@@ -476,7 +484,7 @@ if (!((Symbol)($1.obj)).isUsada()){
         System.out.println(t.toString());
         yyval=$4;
         yyval.obj = t;
-        estructuras.add("Asignacion "+" fila "+$4.obj.getFila()+" columna "+$4.getColumna());
+        estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());
     }
     
     | '*' ID ASIG expresion {
@@ -558,7 +566,7 @@ if (!((Symbol)($1.obj)).isUsada()){
     estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
 	| ASIG expresion  {yyerror("Falta elemento de asignacion y palabra reservada 'let'",$1.getFila(),$1.getColumna());}
 	| ID ASIG  {yyerror("Falta elemento de asignacion ",$1.getFila(),$1.getColumna());}
-	| ID error  {yyerror("no se encontro ':=' ",$1.getFila(),$1.getColumna());}
+	| ID error  {yyerror("error en la asignacion ",$1.getFila(),$1.getColumna());}
 	;
 
 exp_print: PRINT '(' CADENA ')' {estructuras.add("Expresion print "+" fila "+$1.getFila()+" columna "+$1.getColumna());
