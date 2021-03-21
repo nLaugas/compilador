@@ -453,6 +453,53 @@ if (!((Symbol)($1.obj)).isUsada()){
                 $$.obj = t;
 	estructuras.add("Asignacion "+" fila "+$1.getFila()+" columna "+$1.getColumna());}
 
+    | ID ASIG '&' ID {
+
+      if (!((Symbol)($4.obj)).isUsada()){
+          yyerror("La variable no esta definida ",$4.getFila(),$4.getColumna());
+      }else{if (!((Symbol)($4.obj)).getEsMutable()){
+          yyerror("La variable no es mutable ",$4.getFila(),$4.getColumna());
+      }
+      else{if (!((Symbol)($4.obj)).isEsPuntero()){
+          yyerror("La variable no es puntero ",$4.getFila(),$4.getColumna());
+      }
+
+      }}
+        Terceto t = new T_Asignacion(contadorTerceto,"&",$4.obj,$1.obj,st);
+        t.setVariableAux(contadorVarAux);/*casi seguro que si hay que crearla aca*/
+        contadorVarAux++;/**/
+        for(int i=0; i< t.errores.size();i++){
+                    yyerror(t.errores.elementAt(i),$4.getFila(),$4.getColumna());
+                ;}
+        contadorTerceto ++;
+        listaTercetos.add(t);
+        System.out.println(t.toString());
+        yyval=$4;
+        yyval.obj = t;
+        estructuras.add("Asignacion "+" fila "+$4.obj.getFila()+" columna "+$4.getColumna());
+    }
+    
+    | '*' ID ASIG expresion {
+
+      if (!((Symbol)($2.obj)).isUsada()){
+          yyerror("La variable no esta definida ",$2.getFila(),$2.getColumna());
+      }else{if (!((Symbol)($2.obj)).getEsMutable()){
+          yyerror("La variable no es mutable ",$2.getFila(),$2.getColumna());
+      }}
+                      Terceto t = new T_Asignacion(contadorTerceto,":=",$2.obj,$4.obj,st);
+                      t.setVariableAux(contadorVarAux);/*casi seguro que si hay que crearla aca*/
+                      contadorVarAux++;/**/
+                      for(int i=0; i< t.errores.size();i++){
+                                 yyerror(t.errores.elementAt(i),$3.getFila(),$3.getColumna());
+                             ;}
+                      contadorTerceto ++;
+                      listaTercetos.add(t);
+                      System.out.println(t.toString());
+                      yyval=$1;
+                      yyval.obj = t;
+        estructuras.add("Asignacion "+" fila "+$2.getFila()+" columna "+$2.getColumna());
+    }
+
     | LET tipo '*' ID ASIG '&' ID  
     { 
     // Estoy definiendo una variable
