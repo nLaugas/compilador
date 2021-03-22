@@ -91,14 +91,17 @@ lista_ejecutable: ejecutable {}
 ejecutable: asignacion ','{}
           | bloque {//#######Solo llego aca si termino un if o un loop
         Integer i = p.pop();
+        //COMPLETAR TERCETO INCOMPLETO IF
         if (listaTercetos.get(i).getOperador() == "BI")
         {
         listaTercetos.get(i).setOperando1(contadorTerceto);
 
             }
-        if (listaTercetos.get(i).getOperador() == "BF")
-            {	listaTercetos.get(i).setOperando2(contadorTerceto);
-            }
+        //COMPLETAR TERCETO INCOMPLETO LOOP
+         if (listaTercetos.get(i).getOperador() == "BF")
+         {
+            listaTercetos.get(i).setOperando2(contadorTerceto);
+         }
                   if (intLoop == 0){
           Terceto t = new T_Fin(contadorTerceto,"FIN_DE_SALTO","trampita","trampita",st);
           contadorTerceto ++;
@@ -108,6 +111,7 @@ ejecutable: asignacion ','{}
           { ((T_BF)listaTercetos.get(i)).invertFlags();
             listaTercetos.get(i).setOperando2(intLoop);
             intLoop=0;
+            p.pop();
           }
 //podriamos hacer un terceto fin aca que sea a donde apunte el salto, este terceto no haria nada solo funcionaria de label del salto
 }
@@ -619,10 +623,12 @@ loop_: LOOP {//#### unica forma de marcar donde comienza el loop y ver donde sal
 
 else_: ELSE {//#### aca hacemos el salto incondicional, debimos inventar este no terminal porque no diferenciamos bloque else de bloque if
         //aca ya hicimos el pop cuando termino el cuerpo del if
+        //GENERAR BI CON DESTINO VACIO
         Terceto t = new T_BI(contadorTerceto,"BI","trampita","trampita",st);
         contadorTerceto ++;
         listaTercetos.add(t);
         Integer i = p.pop();
+        //COMPLETA EL TERCETO BF INCOMPLETO
         if (listaTercetos.get(i).getOperador() == "BF")
             listaTercetos.get(i).setOperando2(contadorTerceto);
         else
