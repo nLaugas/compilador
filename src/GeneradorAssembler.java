@@ -88,14 +88,12 @@ public class GeneradorAssembler {
 								if (tAux.esTerceto(1)){
 									if (((Terceto)tAux.getOperando1()).getnum() == t2.getnum()){
 										/** Seteo el terceto */
-										System.out.println("encontro en : " + ((Terceto)tAux.getOperando1()).getnum() );
 										tAux.setOperando1(t1);
 									}
 								}
 								if (tAux.esTerceto(2)){
 									if (((Terceto)tAux.getOperando2()).getnum() == t2.getnum()){
 										/** Seteo el terceto */
-										System.out.println("encontro 2 en : " + ((Terceto)tAux.getOperando2()).getnum() );
 										tAux.setOperando2(t1);
 									}
 								}

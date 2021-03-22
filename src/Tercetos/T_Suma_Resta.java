@@ -45,7 +45,6 @@ public class T_Suma_Resta extends TercetoOperacion {
 				// cargo en la estructura num de terceto y valor
 				System.out.println("el num del terceto es : "+ this.num);
 				reemplazoTercetoOptimizar.put(this.num,resul.toString()+"_i");
-				System.out.println("el dato es : "+this.num+" "+reemplazoTercetoOptimizar.get(this.num));
 				// agrego elemento en la tabla de symbolos
 				ts.setSymbol(resul.toString()+"_i",resul);
 				ts.getSymbol(resul.toString()+"_i").setTipoVar("integer");
