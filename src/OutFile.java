@@ -64,8 +64,8 @@ public class OutFile {
         System.out.println("LISTA TERCETOS");
         int i = 0;
         for(Terceto t : par.listaTercetos){
-            if (i == 3) {t.setOperando2(12);System.out.println("esta en 3"); };
-            if (i == 11) {t.setOperando1(13);System.out.println("esta en 11"); };
+            //if (i == 3) {t.setOperando2(12);System.out.println("esta en 3"); };
+            //if (i == 11) {t.setOperando1(13);System.out.println("esta en 11"); };
             System.out.println(t.toString());
 
             if (t.getnum()!=999)
