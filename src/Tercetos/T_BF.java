@@ -32,12 +32,16 @@ public class T_BF extends Terceto {
 
 	public String toString() {
 		String op1,op2;
-		if (operando1!="trampita")
-			op1 =operando1.toString().substring(0,3);
+		if (operando1!="trampita"){
+			op1 =operando1.toString().substring(0,operando1.toString().indexOf("]"));
+			//System.out.println("!=trmapita operando 1 "+operando1.toString().substring(0,operando1.toString().indexOf("]")+1));
+		}
 		else
 			op1="-";
-		if (operando2!="trampita")
+		if (operando2!="trampita"){
 			op2=(String.valueOf(operando2));
+			//System.out.println("!=trmapita operando 2 "+operando1.toString());
+		}
 		else
 			op2="-";
 		return "["+num+"] ("+operador+", "+op1+"], ["+op2+"]).";
