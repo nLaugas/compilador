@@ -162,9 +162,9 @@ public class App extends JFrame{
 
     }
 
-    public App(String srcCode)  throws IOException {
+    public App(/*String srcCode*/)  throws IOException {
 
-     //  String srcCode ="srcCode"; /**Eliminar para compilar**/
+       String srcCode ="srcCode"; /**Eliminar para compilar**/
        FileReader file = new FileReader(srcCode);
        BufferedReader src= new BufferedReader(file);
        String cadena;

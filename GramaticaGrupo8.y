@@ -177,7 +177,7 @@ expresion: expresion '+' termino {
 
                 }else   
                       {
-								Terceto t = new T_Suma_Resta(contadorTerceto,"+",$3.obj,$1.obj,st);
+								Terceto t = new T_Suma_Resta(contadorTerceto,"+",$1.obj,$3.obj,st);
                                 //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
                                 t.setVariableAux(contadorVarAux);
                                 contadorVarAux++;
@@ -251,7 +251,7 @@ expresion: expresion '+' termino {
 
                 }else   
                 {
-						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",$3.obj,$1.obj,st);
+						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",$1.obj,$3.obj,st);
                              //st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos
                             t.setVariableAux(contadorVarAux);
                             contadorVarAux++;
@@ -313,13 +313,13 @@ termino: termino '/' factor {
                 if (factorCte && terminoCte){
                       if (esFloat){
                         s = ((Symbol)($3.obj)).clone();
-                        s.setLexema(String.valueOf(floatCte/floatCte2));
+                        s.setLexema(String.valueOf(floatCte2/floatCte));
                         st.setSymbol(s);
 
                       }
                       else{
                          s = ((Symbol)($3.obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
-                         s.setLexema(String.valueOf(intCte/intCte2)+"_i");
+                         s.setLexema(String.valueOf(intCte2/intCte)+"_i");
                          /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
                         st.setSymbol(s);
                       }
@@ -327,7 +327,7 @@ termino: termino '/' factor {
 
                 }else            
               {
-                Terceto t = new T_Mult_Div(contadorTerceto,"/",$3.obj,$1.obj,st);
+                Terceto t = new T_Mult_Div(contadorTerceto,"/",$1.obj,$3.obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
                 for(int i=0; i< t.errores.size();i++){
@@ -395,7 +395,7 @@ termino: termino '/' factor {
                 }else
                       {
                 /* lo que ya estaba*/
-                Terceto t = new T_Mult_Div(contadorTerceto,"*",$3.obj,$1.obj,st);
+                Terceto t = new T_Mult_Div(contadorTerceto,"*",$1.obj,$3.obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
                 for(int i=0; i< t.errores.size();i++){

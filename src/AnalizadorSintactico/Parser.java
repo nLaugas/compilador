@@ -565,7 +565,7 @@ boolean doaction;
       {
       if (yyerrflag==0)
         {
-      //  yyerror("syntax error");
+        yyerror("syntax error");
         yynerrs++;
         }
       if (yyerrflag < 3) //low error count?
@@ -836,7 +836,7 @@ case 23:
 
                 }else   
                       {
-								Terceto t = new T_Suma_Resta(contadorTerceto,"+",val_peek(0).obj,val_peek(2).obj,st);
+								Terceto t = new T_Suma_Resta(contadorTerceto,"+",val_peek(2).obj,val_peek(0).obj,st);
                                 /*st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos*/
                                 t.setVariableAux(contadorVarAux);
                                 contadorVarAux++;
@@ -913,7 +913,7 @@ case 24:
 
                 }else   
                 {
-						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",val_peek(0).obj,val_peek(2).obj,st);
+						     Terceto t = new T_Suma_Resta(contadorTerceto,"-",val_peek(2).obj,val_peek(0).obj,st);
                              /*st es la tabla de simbolos, paso lexema porque lo uso para buscar en la tabla de simbolos*/
                             t.setVariableAux(contadorVarAux);
                             contadorVarAux++;
@@ -978,13 +978,13 @@ case 26:
                 if (factorCte && terminoCte){
                       if (esFloat){
                         s = ((Symbol)(val_peek(0).obj)).clone();
-                        s.setLexema(String.valueOf(floatCte/floatCte2));
+                        s.setLexema(String.valueOf(floatCte2/floatCte));
                         st.setSymbol(s);
 
                       }
                       else{
                          s = ((Symbol)(val_peek(0).obj)).clone();/*new Symbol(String.valueOf(intCte*intCte2)+"_i",((Symbol)($1.obj)).getTipo(),false,false,false);*/
-                         s.setLexema(String.valueOf(intCte/intCte2)+"_i");
+                         s.setLexema(String.valueOf(intCte2/intCte)+"_i");
                          /*((Symbol)($1.obj)).setLexema(String.valueOf(intCte*intCte2)+"_i");*/
                         st.setSymbol(s);
                       }
@@ -992,7 +992,7 @@ case 26:
 
                 }else            
               {
-                Terceto t = new T_Mult_Div(contadorTerceto,"/",val_peek(0).obj,val_peek(2).obj,st);
+                Terceto t = new T_Mult_Div(contadorTerceto,"/",val_peek(2).obj,val_peek(0).obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
                 for(int i=0; i< t.errores.size();i++){
@@ -1063,7 +1063,7 @@ case 27:
                 }else
                       {
                 /* lo que ya estaba*/
-                Terceto t = new T_Mult_Div(contadorTerceto,"*",val_peek(0).obj,val_peek(2).obj,st);
+                Terceto t = new T_Mult_Div(contadorTerceto,"*",val_peek(2).obj,val_peek(0).obj,st);
                 t.setVariableAux(contadorVarAux);
                 contadorVarAux++;
                 for(int i=0; i< t.errores.size();i++){
