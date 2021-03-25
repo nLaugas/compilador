@@ -74,8 +74,8 @@ public class GeneradorAssembler {
 				Terceto t2 = ter.get(j);
 
 				if ( t1.getnum() != t2.getnum() ){
-					String t1part = t1.toString().substring(4,t1.toString().length()-1);
-					String t2part = t2.toString().substring(4,t2.toString().length()-1);
+					String t1part = t1.toString().substring(t1.toString().length()-11,t1.toString().length()-1);
+					String t2part = t2.toString().substring(t2.toString().length()-11,t2.toString().length()-1);
 
 					if (t1part.equals(t2part) && this.noEsAsignada(i,j,ter)){
 
