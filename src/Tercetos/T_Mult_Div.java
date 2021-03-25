@@ -151,7 +151,7 @@ public class T_Mult_Div extends TercetoOperacion {
 		}
 		else {
 			if (operador=="*") {
-				v.add(new String("\r\nFILD "+op1));
+				v.add(new String("\r\nFLD "+op1));
 				v.addElement(new String("FMUL "+op2));
 				v.addElement(new String("FSTP "+ getVarAux()));
 				v.addElement(new String("FLD _@max_float1"));
@@ -178,7 +178,7 @@ public class T_Mult_Div extends TercetoOperacion {
 				//listo
 			}else{
 				//para la division
-				v.add(new String("\r\nFILD "+op1));
+				v.add(new String("\r\nFLD "+op1));
 				v.add(new String("CMP " + op2 +", 0"));
 				v.add(new String("JE @DIVISION_POR_CERO"));
 				v.addElement(new String("FDIV "+op2));
