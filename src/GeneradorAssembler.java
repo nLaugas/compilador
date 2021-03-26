@@ -4,6 +4,7 @@ import Tercetos.Terceto;
 
 import java.util.Enumeration;
 import java.util.Set;
+import SymbolTable.*;
 import java.util.Vector;
 import java.util.ArrayList;
 
@@ -31,6 +32,34 @@ public class GeneradorAssembler {
 		tabla = ts;
 	}
 
+	private boolean noEsAsignada(int i, int j,ArrayList<Terceto> ter){
+		Terceto ter_i = ter.get(i);
+		Terceto ter_j = ter.get(j);
+
+		if (ter_i.esTerceto(1) || ter_i.esTerceto(2) )
+			return false;
+		//para que no entren los tercetos que no son operadores arismeticos
+		if (!(ter_i.getOperador().equals("+")|| ter_i.getOperador().equals("-")
+			||ter_i.getOperador().equals("/")|| ter_i.getOperador().equals("*")))
+			return false;
+
+		if (ter_i.getnum() == -1 || ter_j.getnum() == -1)
+			return false;
+
+		for (int pos = i+1; pos<j; pos++){
+			Terceto ter_pos = ter.get(pos);
+			if (ter_pos.operador.equals(":=")){
+				if (((Symbol)ter_pos.operando1).getLexema().equals( ((Symbol)ter_i.operando1).getLexema() ) ){
+					return false;
+				}
+				if (((Symbol)ter_pos.operando1).getLexema().equals( ((Symbol)ter_i.operando2).getLexema() ) ){
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+
 	private ArrayList<Terceto> redundanciaSimple(ArrayList<Terceto> ter){
 		ArrayList<Terceto> out = new ArrayList<>();
 
@@ -44,36 +73,31 @@ public class GeneradorAssembler {
 			for (int j = i; j<tam; j++){
 				Terceto t2 = ter.get(j);
 
-		//for (Terceto t1 : ter){
-		//	for (Terceto t2 : ter){
-
 				if ( t1.getnum() != t2.getnum() ){
-					String t1part = t1.toString().substring(4,t1.toString().length()-1);
-					String t2part = t2.toString().substring(4,t2.toString().length()-1);
+					String t1part = t1.toString().substring(t1.toString().length()-11,t1.toString().length()-1);
+					String t2part = t2.toString().substring(t2.toString().length()-11,t2.toString().length()-1);
 
+					if (t1part.equals(t2part) && this.noEsAsignada(i,j,ter)){
 
-					if (t1part.equals(t2part)){
 						System.out.println(" Encontro coincidencia en : "+t1part+ "  "+t2part);
 					/** Tereceto redundancia **/
-						for (Terceto tAux : ter){
+						ter.get(j).setnum(-1);
+						//for (Terceto tAux : ter){
+						 Terceto tAux = ter.get(j+1);
 								/** solo necesito tercetos**/
 								if (tAux.esTerceto(1)){
 									if (((Terceto)tAux.getOperando1()).getnum() == t2.getnum()){
 										/** Seteo el terceto */
-										System.out.println("encontro en : " + ((Terceto)tAux.getOperando1()).getnum() );
 										tAux.setOperando1(t1);
-
 									}
 								}
-
 								if (tAux.esTerceto(2)){
 									if (((Terceto)tAux.getOperando2()).getnum() == t2.getnum()){
 										/** Seteo el terceto */
-										System.out.println("encontro 2 en : " + ((Terceto)tAux.getOperando2()).getnum() );
 										tAux.setOperando2(t1);
 									}
 								}
-						}
+					//	}
 					}
 				}
 
@@ -101,7 +125,8 @@ public class GeneradorAssembler {
 		variables.add(new String(".DATA"));
 		variables.add(new String("TITULO DB \"Mensaje\" , 0"));
 		variables.add(new String("OVERFLOW_EN_SUMA DB \"Overflow en suma\" , 0"));
-		variables.add(new String("RESULTADO_NEGATIVO_RESTA DB \"Resultado negativo en resta\" , 0"));
+		variables.add(new String("OVERFLOW_EN_PRODUCTO DB \"Overflow en producto\" , 0"));
+
 		variables.add(new String("DIVISION_POR_CERO DB \"Division por cero, error de ejecucion\" , 0"));
 		variables.add(new String(""));
 		variables.add(new String("_@cero DW 0,0"));
@@ -125,7 +150,7 @@ public class GeneradorAssembler {
 			if (tabla.getSymbol(lexema).getTipo() == 261) // tipo ID
 			{
 
-				if (tabla.getSymbol(lexema).getTipoVar().equals("single"))
+				if ((tabla.getSymbol(lexema).getTipoVar().equals("single")) || (tabla.getSymbol(lexema).isEsPuntero()))
 					variables.add(new String(lexema + " DD ?")); // resservo espacio para float
 				else
 					variables.add(new String(lexema + " DW ?"));    // resservo espacio para INTEGER
@@ -179,7 +204,7 @@ public class GeneradorAssembler {
 		codAss.add(new String(".CODE"));
 		codAss.add(new String("START:"));
 		for (Terceto t: tercetos){
-			if (t.getnum()!=999)
+			if (t.getnum()!=-1)
 			{
 				//System.out.println("LA LONGUITUD DE LA LISTA para reemplazo es  ES : "+ t.reemplazoTercetoOptimizar.size());
 				if (((String) t.getOperador()).equals("BF")) {
@@ -195,11 +220,12 @@ public class GeneradorAssembler {
 		this.codigo.addAll(codAss);
 		codigo.add(new String("jMP EXIT"));
 
-		codigo.add(new String("@RESULTADO_NEGATIVO_RESTA:"));
-		codigo.add(new String("Invoke MessageBox, NULL, addr RESULTADO_NEGATIVO_RESTA, addr RESULTADO_NEGATIVO_RESTA, MB_OK"));
 		codigo.add(new String("Invoke ExitProcess, 0"));
 		codigo.add(new String("@OVERFLOW_EN_SUMA:"));
 		codigo.add(new String("Invoke MessageBox, NULL, addr OVERFLOW_EN_SUMA, addr OVERFLOW_EN_SUMA, MB_OK"));
+		codigo.add(new String("Invoke ExitProcess, 0"));
+		codigo.add(new String("@OVERFLOW_EN_PRODUCTO:"));
+		codigo.add(new String("Invoke MessageBox, NULL, addr OVERFLOW_EN_PRODUCTO, addr OVERFLOW_EN_PRODUCTO, MB_OK"));
 		codigo.add(new String("Invoke ExitProcess, 0"));
 		codigo.add(new String("@DIVISION_POR_CERO:"));
 		codigo.add(new String("Invoke MessageBox, NULL, addr DIVISION_POR_CERO, addr DIVISION_POR_CERO, MB_OK"));

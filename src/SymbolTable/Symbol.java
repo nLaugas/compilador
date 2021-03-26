@@ -80,6 +80,13 @@ public class Symbol {
         return this.lexema;
     }
 
+    public Symbol clone(){
+        Symbol s = new Symbol(this.lexema,this.tipo,this.esMutable, this.esPuntero, this.mutivalidadApuntado);
+        s.setTipoVar(this.tipoVar);
+        s.atributos = (Hashtable<String, Object>) this.atributos.clone();
+        return s;
+    }
+
     public void setLexema (String lexema){
         this.lexema = lexema;
     }

@@ -133,15 +133,16 @@ public class T_Mult_Div extends TercetoOperacion {
 		if (getTipo() == "integer"){
 			if (operador.equals("*")) {
 				v.add(new String("\r\nMOV AX, " + op1));
-				v.add(new String("MUL " + op2));
+				v.add(new String("IMUL " + op2));
 				v.add(new String("MOV " + getVarAux() + ", AX"));
 				v.add("\n");
 			}else{
 				//para la division
 				v.add(new String("\r\nMOV AX, " + op1));
+				v.add(new String("CWD"));
 				v.add(new String("CMP " + op2 +", 0"));
 				v.add(new String("JE @DIVISION_POR_CERO"));
-				v.add(new String("DIV " + op2));
+				v.add(new String("IDIV " + op2));
 				v.add(new String("MOV " + getVarAux() + ", AX"));
 				//v.add(new String("JZ @DIVISION_POR_CERO"));
 				v.add("\n");
@@ -150,14 +151,34 @@ public class T_Mult_Div extends TercetoOperacion {
 		}
 		else {
 			if (operador=="*") {
-				v.add(new String("\r\nFILD "+op1));
+				v.add(new String("\r\nFLD "+op1));
 				v.addElement(new String("FMUL "+op2));
 				v.addElement(new String("FSTP "+ getVarAux()));
+				v.addElement(new String("FLD _@max_float1"));
+				v.addElement(new String("FLD " + getVarAux()));
+				v.addElement(new String("FABS"));
+				v.addElement(new String("FCOMPP"));
+				v.addElement(new String("FSTSW AX"));
+				v.addElement(new String("FFREE ST(0)"));
+				v.addElement(new String("FFREE ST(1)"));
+				v.addElement(new String("FWAIT"));
+				v.addElement(new String("SAHF"));
+				v.addElement(new String("JNB @OVERFLOW_EN_PRODUCTO"));
+				v.addElement(new String("FLD _@max_float2"));
+				v.addElement(new String("FLD " + getVarAux()));
+				v.addElement(new String("FABS"));
+				v.addElement(new String("FCOMPP"));
+				v.addElement(new String("FSTSW AX"));
+				v.addElement(new String("FFREE ST(0)"));
+				v.addElement(new String("FFREE ST(1)"));
+				v.addElement(new String("FWAIT"));
+				v.addElement(new String("SAHF"));
+				v.addElement(new String("JBE @OVERFLOW_EN_PRODUCTO"));
 				v.add("\n");
 				//listo
 			}else{
 				//para la division
-				v.add(new String("\r\nFILD "+op1));
+				v.add(new String("\r\nFLD "+op1));
 				v.add(new String("CMP " + op2 +", 0"));
 				v.add(new String("JE @DIVISION_POR_CERO"));
 				v.addElement(new String("FDIV "+op2));

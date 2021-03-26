@@ -55,8 +55,13 @@ public final class StateMachine {
     }
 
     public static Integer getNextState(Integer state, Character symbol){
-
-        return  (transitionMatrix.get(state)).get(convert(symbol)).getState();
+        try {
+            return  (transitionMatrix.get(state)).get(convert(symbol)).getState();
+        }catch (Exception e2){
+            System.out.println("Error fatal Caracter invalido: "+symbol+ " Por favor, revise el srcCode");
+            System.exit(0);
+        }
+        return 0;
     }
 
 }

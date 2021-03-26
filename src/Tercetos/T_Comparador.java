@@ -86,12 +86,6 @@ public class T_Comparador extends Terceto{
 			v.add(new String("\r\nFSTSW _memaux"));
 			v.add(new String("\r\nMOV AX, _memaux"));
 			v.add(new String("\r\nSAHF"));
-//			v.add(new String("\r\nFLD " +op1.replace(".","p").replace("-","n")));
-//			v.add(new String("\r\nFLD " +op2.replace(".","p").replace("-","n")));
-//			v.add(new String("\r\nFCOMP"));
-//  lo anterior
-//			v.add(new String("\r\nMOV EAX, "+op1.replace(".","p").replace("-","n")));
-//			v.add(new String("CMP " + op2.replace(".","p").replace("-","n")) +", EAX");
 		}
 		return v;
 	}
