@@ -763,7 +763,7 @@ case 21:
           listaTercetos.add(t);
           }
           else
-          { ((T_BF)listaTercetos.get(i)).invertFlags();
+          {
             listaTercetos.get(i).setOperando2(intLoop);
             intLoop=0;
             p.pop();
